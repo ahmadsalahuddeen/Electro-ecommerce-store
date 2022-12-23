@@ -1,0 +1,33 @@
+{
+  "name": "electro",
+  "version": "1.0.0",
+  "description": "e-commerce project ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmadsalahuddeen/elcectronic-onlineShopping.git"
+  },
+  "keywords": [
+    "electro",
+    "swalahcodes",
+    "swalahkenb"
+  ],
+  "author": "ahmad salahuddeen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahmadsalahuddeen/elcectronic-onlineShopping/issues"
+  },
+  "homepage": "https://github.com/ahmadsalahuddeen/elcectronic-onlineShopping#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "mongodb": "^4.13.0",
+    "mongoose": "^6.8.1"
+  }
+}

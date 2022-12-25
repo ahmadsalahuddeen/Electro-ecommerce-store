@@ -24,9 +24,11 @@ app.set(express.static(`${__dirname}/public`))
 app.set('view engine','ejs')
 app.set('views',__dirname+'/views')
 app.use(express.static('public'))
-
+// app.use('/twilio-sms', twilioRouter)
 const user_route = require('./routes/userRoute');
+
 app.use('/', user_route)
+
 
 
 

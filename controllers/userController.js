@@ -101,6 +101,11 @@ const addUser = async(req, res)=>{
           }
 }
 
+const logOut = async(req, res)=> {
+    req.session.destroy();
+    res.redirect("/");
+}
+
 const loginValidate = async (req, res)=> {
     
     try {
@@ -139,11 +144,6 @@ const loadHome = async(req, res)=>{
 res.render('home');
 }
 
-
-const logOut = async (req, res)=>{
-    req.session.destroy();
-    res.redirect('/');
-}
 
 
 

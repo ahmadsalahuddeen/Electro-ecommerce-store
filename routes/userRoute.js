@@ -3,9 +3,17 @@ const express = require('express');
 const multer = require('multer');
 const user_route = express();
 const path = require('path');
-const auth = require('../middlewares/auth');
-const session = require('express-session')
 
+const session = require('express-session')
+user_route.use(session({
+    secret: "heyboi",
+    cookie:{
+        maxAge:6000000
+    }, 
+    resave:true,
+    saveUninitialized:true
+
+}))
 
 const storage = multer.diskStorage({
     destination: function(req, res, cb){
@@ -20,15 +28,16 @@ const storage = multer.diskStorage({
 const upload = multer({storage:storage})
 
 const userController = require('../controllers/userController');
+const auth = require('../middleware/auth');
 
 
 
 user_route.get('/register',auth.isLogout, userController.loadRegister);
 user_route.post('/register',upload.single('image'), userController.addUser)
 user_route.get('/', auth.isLogout, userController.loadLogin)
-user_route.get('/login', auth.isLogout, userController.loadLogin)
+user_route.get('/login',auth.isLogout, userController.loadLogin)
 user_route.post('/login', userController.loginValidate)
-user_route.get('/home', auth.isLogout, userController.loadHome)
+user_route.get('/home', auth.isLogin, userController.loadHome)
 user_route.get('/logout', auth.isLogin, userController.logOut)
 
 

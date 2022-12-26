@@ -107,12 +107,14 @@ const loginValidate = async (req, res)=> {
         console.log(email =  req.body.email); 
         const password = req.body.password;
         const userData = await User.findOne({email: email});
-        
+        console.log(userData);
         if (userData) {
             console.log('got user');
             const passwordMatch = await bcrypt.compare(password, userData.password)
             if (passwordMatch) {
+                
                 req.session.user = userData;
+                console.log(` sesssion testing ${req.session.user}`);
                 res.render('home')
             } else {
                 res.render('login', {message: "incorrect password"})

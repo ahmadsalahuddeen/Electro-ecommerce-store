@@ -6,21 +6,15 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
+const cookieParser = require('cookie-parser')
 
+app.use(cookieParser())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set(express.static('public'))
 
 
-app.use(session({
-    secret: "heyboi",
-    cookie:{
-        maxAge:6000000
-    }, 
-    resave:true,
-    saveUninitialized:true
 
-}))
 //---------------------------------------------
 const PORT  = process.env.PORT || 4000;
 
@@ -38,6 +32,7 @@ app.set('views',__dirname+'/views')
 app.use(express.static('public'))
 // app.use('/twilio-sms', twilioRouter)
 const user_route = require('./routes/userRoute');
+
 
 app.use('/', user_route)
 

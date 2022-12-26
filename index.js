@@ -5,10 +5,15 @@ const dotenv = require('dotenv').config({path: './config/.env'})
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const bcrypt = require('bcrypt');
+const session = require('express-session');
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.set(express.static('public'))
+
+app.use(session({
+    secret: process.env.SESSION_SECRET
+}))
 //---------------------------------------------
 const PORT  = process.env.PORT || 4000;
 
@@ -44,7 +49,7 @@ app.use('/', user_route)
 
 
 app.listen(PORT, ()=> {
-    console.log(`server started on http://localhost:${PORT}/register`)
+    console.log(`server started on http://localhost:${PORT}/`)
 })
 
 
@@ -63,4 +68,3 @@ app.listen(PORT, ()=> {
 
 
 
-app.listen()

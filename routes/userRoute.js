@@ -23,8 +23,10 @@ const upload = multer({storage:storage})
 const userController = require('../controllers/userController');
 user_route.get('/register', userController.loadRegister);
 user_route.post('/register', upload.single('image'), userController.addUser)
-user_route.route('/verify-otp').post(userController.verifyOTP)
-user_route.route('/send-otp').post( userController.sendOTP)
+user_route.get('/', userController.loadLogin)
+user_route.get('/login', userController.loadLogin)
+user_route.post('/login', userController.loginValidate)
+user_route.get('/home', userController.loadHome)
 
 
 

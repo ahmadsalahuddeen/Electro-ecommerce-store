@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Electro⚡ | Account Sign up</title>
+    <title>Electro⚡ | Account Login</title>
     <!-- SEO Meta Tags-->
     <meta name="description" content="Cartzilla - Bootstrap E-commerce Template">
     <meta name="keywords" content="bootstrap, shop, e-commerce, market, modern, responsive,  business, mobile, bootstrap, html5, css3, js, gallery, slider, touch, creative, clean">
@@ -54,31 +54,20 @@
           <div class="col-md-6">
             <div class="card border-0 shadow">
               <div class="card-body">
-                <h2 class="h4 mb-3">No account? create one!</h2>
-            <p class="fs-sm text-muted mb-4">Already have an account? Then <a href="/login">click here</a> to login.</p>
-                <form method="post" action="/register" enctype="multipart/form-data">
+                <h2 class="h4 mb-3">Login</h2>
+                
+            <p class="fs-sm text-muted mb-4">Dont have an Account? <a  href="/register">click here register!</a></p>
+                <form method="post" action="/login">
                   <div class="row gx-4 gy-3">
                     
-                    <div class="col-sm-6">
-                      <label class="form-label" for="reg-ln">Name</label>
-                      <input class="form-control" type="text" required name="name">
-                      <div class="invalid-feedback">Please enter your  name!</div>
-                    </div>
+                    
                     <div class="col-sm-6">
                       <label class="form-label" for="reg-email">E-mail Address</label>
-                      <input class="form-control" type="email" required name="email">
+                      <input class="form-control"  type="email" required name="email">
                       <div class="invalid-feedback">Please enter valid email address!</div>
                     </div>
-                    <div class="col-sm-6">
-                      <label class="form-label" for="reg-phone">Phone Number</label>
-                      <input class="form-control" type="text" name="mobile" >
-                      <div class="invalid-feedback">Please enter your phone number!</div>
-                    </div>
-                    <div class="col-sm-6">
-                      <label class="form-label" for="reg-phone">Profile Photo</label>
-                      <input class="form-control" type="file" required name="image">
-                      <div class="invalid-feedback">add here </div>
-                    </div>
+                    
+                    
                     <div class="col-sm-6">
                       <label class="form-label" for="reg-password">Password</label>
                       <input class="form-control" type="password" required name="password">
@@ -86,7 +75,7 @@
                     </div>
                    
                     <div class="col-12 text-end">
-                      <button class="btn btn-primary"  type="submit"><i class="ci-user me-2 ms-n1"></i>Sign Up</button>
+                      <button class="btn btn-primary"  type="submit"><i class="ci-user me-2 ms-n1"></i>Login</button>
                     </div>
                   </div>
                 </form>
@@ -100,6 +89,7 @@
               <%
             } 
             %> 
+                
               </div>
             </div>
           </div>

@@ -4,7 +4,7 @@ const {TWILIO_ACCOUNT_SID,TWILIO_AUTH_TOKEN,TWILIO_SERVICE_SID} = process.env;
 const client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN , {
     lazyLoading: true
 })
-
+const session = require('express-session')
 
 const sendOTP = async (req,res, next)=>{
     const phoneNumber = req.body.mobile;
@@ -55,6 +55,8 @@ const loadRegister = async(req, res)=>{
         console.log(error.message);
     }
 }
+
+
 const secretPassword = async(password)=>{
   try {
      const secretpassword = await bcrypt.hash(password, 10)
@@ -64,8 +66,16 @@ const secretPassword = async(password)=>{
 }
 }
 
+
+const loadLogin = async (req,res) =>{
+    res.render('login.ejs')
+}
+
+
 const addUser = async(req, res)=>{
     try {
+
+
         const sPassword = await secretPassword(req.body.password)
           const user = User({
           name: req.body.name,
@@ -78,7 +88,7 @@ const addUser = async(req, res)=>{
               const userData = await user.save();
           
               if (userData) {
-                res.render('userRegister', {message: "Your account added succefully, Please verify your OTP"}) 
+                res.render('home', {message: "Your account added succefully, Please verify your OTP"}) 
                   
               } else {
           res.render('userRegister', {message: "user insert failed"})        
@@ -89,13 +99,50 @@ const addUser = async(req, res)=>{
           }
 }
 
+const loginValidate = async (req, res)=> {
+    
+    try {
+        console.log(email =  req.body.email); 
+        const password = req.body.password;
+        const userData = await User.findOne({email: email});
+        
+        if (userData) {
+            console.log('got user');
+            const passwordMatch = await bcrypt.compare(password, userData.password)
+            if (passwordMatch) {
+                req.session.user_id = userData.id;
+                res.redirect('/home')
+            } else {
+                res.render('login', {message: "incorrect password"})
+            }
+
+           
+        } else {
+            console.log('email til')
+            res.render('userRegister')
+        }
+
+    } catch (error) {
+        console.log(error.message);
+        
+    }
+   
+
+}
+
+
+const loadHome = async(req, res)=>{
+res.render('home');
+}
+
 
 
 
 module.exports = {
     loadRegister,
     addUser,
-    verifyOTP,
-    sendOTP
+    loadLogin,
+    loginValidate,
+    loadHome,
     
 }

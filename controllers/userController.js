@@ -4,7 +4,9 @@ const {TWILIO_ACCOUNT_SID,TWILIO_AUTH_TOKEN,TWILIO_SERVICE_SID} = process.env;
 const client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN , {
     lazyLoading: true
 })
-const session = require('express-session')
+
+
+
 
 const sendOTP = async (req,res, next)=>{
     const phoneNumber = req.body.mobile;
@@ -68,7 +70,7 @@ const secretPassword = async(password)=>{
 
 
 const loadLogin = async (req,res) =>{
-    res.render('login.ejs')
+    res.render('login')
 }
 
 
@@ -110,16 +112,16 @@ const loginValidate = async (req, res)=> {
             console.log('got user');
             const passwordMatch = await bcrypt.compare(password, userData.password)
             if (passwordMatch) {
-                req.session.user_id = userData.id;
-                res.redirect('/home')
+                req.session.user = userData;
+                res.render('home')
             } else {
                 res.render('login', {message: "incorrect password"})
             }
 
            
         } else {
-            console.log('email til')
-            res.render('userRegister')
+            
+            res.render('login', {message: "invalid email or password"})
         }
 
     } catch (error) {
@@ -136,6 +138,11 @@ res.render('home');
 }
 
 
+const logOut = async (req, res)=>{
+    req.session.destroy();
+    res.redirect('/');
+}
+
 
 
 module.exports = {
@@ -144,5 +151,6 @@ module.exports = {
     loadLogin,
     loginValidate,
     loadHome,
+    logOut
     
 }

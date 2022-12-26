@@ -11,8 +11,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set(express.static('public'))
 
+
 app.use(session({
-    secret: process.env.SESSION_SECRET
+    secret: "heyboi",
+    cookie:{
+        maxAge:6000000
+    }, 
+    resave:true,
+    saveUninitialized:true
+
 }))
 //---------------------------------------------
 const PORT  = process.env.PORT || 4000;

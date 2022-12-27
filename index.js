@@ -32,9 +32,11 @@ app.set('views',__dirname+'/views')
 app.use(express.static('public'))
 // app.use('/twilio-sms', twilioRouter)
 const user_route = require('./routes/userRoute');
+const admin_route = require('./routes/adminRoute');
 
 
-app.use('/', user_route)
+app.use('/', user_route);
+app.use('/admin', admin_route);
 
 
 
@@ -51,7 +53,7 @@ app.use('/', user_route)
 
 
 app.listen(PORT, ()=> {
-    console.log(`server started on http://localhost:${PORT}/`)
+    console.log(`server started on http://localhost:${PORT}/admin`)
 })
 
 

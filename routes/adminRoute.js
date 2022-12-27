@@ -21,6 +21,8 @@ admin_route.post('/', userController.loginValidate);
 admin_route.get('/home', auth.isLogin, userController.loadHome)
 admin_route.get('/usermanage', auth.isLogin,userController.loadUserManagement)
 admin_route.get('/logout', auth.isLogin, userController.adminLogout);
+admin_route.get('/blockuser/:id', userController.blockUser)
+admin_route.get('/unblockuser/:id', userController.unBlockUser)
 
 
 admin_route.get('*', function(req, res){

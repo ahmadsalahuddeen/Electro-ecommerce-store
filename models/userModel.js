@@ -24,14 +24,11 @@ const UserSchema = new mongoose.Schema({
         type: String, 
         required: true
     },
-    is_admin:{
-        type: Number,
-        required: true
-    },
-    is_verified:{
-        type: Number,
-        default: 0
-    }
+   access:{
+    type: Boolean,
+    default: true
+   }
+   
    
 })
 

@@ -144,7 +144,14 @@
                             <%= user[i].name %>
                           </td>
                           <td> <%= user[i].email %></td>
-                          <td><a class="btn btn-primary btn-sm" href="#">Unblock</a></td>
+                          <td>
+                            <%  if(user[i].access){ %>
+                              <a class="btn btn-primary btn-sm" href="/admin/blockuser/<%= user[i]._id %> ">Block</a>
+                              <%   }else{ %>
+                                <a class="btn btn-primary btn-sm" href="/admin/unblockuser/<%= user[i]._id %> "">Unblock</a>
+                                <%   } %>
+                           
+                          </td>
                         </tr>
 
                         

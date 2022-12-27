@@ -50,6 +50,20 @@ const adminLogout = async(req, res)=>{
     res.redirect('/admin')
 }
 
+const blockUser = async(req,res)=>{
+    const id = req.params.id;
+
+    await User.findByIdAndUpdate(id,{access: false})
+    res.redirect('/admin/usermanage')
+}
+const unBlockUser = async(req,res)=>{
+    const id = req.params.id;
+
+    await User.findByIdAndUpdate(id,{access: true})
+    res.redirect('/admin/usermanage')
+    
+     
+}
 
 module.exports = {
     loadAdminLogin,
@@ -57,4 +71,6 @@ module.exports = {
     loadUserManagement,
     loadHome,
     adminLogout,
+    blockUser,
+    unBlockUser,
 }

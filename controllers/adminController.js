@@ -1,3 +1,4 @@
+const User = require("../models/userModel");
 const { render } = require("../routes/userRoute");
 
 const loadAdminLogin = async(req, res)=>{
@@ -26,7 +27,8 @@ if(email == adminEmail ){
 
 const loadUserManagement = async (req, res) =>{
     try {
-        res.render('user-manage')
+  const userData = await User.find({});
+        res.render('user-manage', {user: userData})
     } catch (error) {
      console.log(error.message);   
     }

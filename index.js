@@ -5,8 +5,10 @@ const dotenv = require('dotenv').config({path: './config/.env'})
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const bcrypt = require('bcrypt');
+
 const session = require('express-session');
 const cookieParser = require('cookie-parser')
+
 
 app.use(cookieParser())
 app.use(bodyParser.json());

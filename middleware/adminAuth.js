@@ -1,8 +1,8 @@
-const { RecordingRulesInstance } = require("twilio/lib/rest/video/v1/room/roomRecordingRule");
+
 
 const isLogin = async(req, res, next)=>{
-   
-        
+   try {
+            
 if (req.session.user) {
     
 } else {
@@ -10,17 +10,25 @@ if (req.session.user) {
 }
 
 next();
+   } catch (error) {
+    
+   }
+
   
 }
 
 
 const isLogout = async(req, res, next )  =>{
-   
-        if (req.session.user) {
-         return   res.redirect('/admin/home')
-            
-        }
-        next();
+   try {
+    if (req.session.user) {
+      return  res.redirect('/admin/home')
+         
+     }
+     next();
+   } catch (error) {
+    
+   }
+       
    
 }
 

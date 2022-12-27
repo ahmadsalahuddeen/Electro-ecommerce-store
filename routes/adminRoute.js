@@ -13,8 +13,14 @@ admin_route.use(session({
 
 
 const userController = require('../controllers/adminController');
+const auth = require('../middleware/adminAuth');
 
-admin_route.get('/', userController.loadAdminLogin);
+
+admin_route.get('/', auth.isLogout, userController.loadAdminLogin);
+admin_route.post('/', userController.loginValidate);
+admin_route.get('/home', auth.isLogin, userController.loadHome)
+admin_route.get('/usermanage', auth.isLogin,userController.loadUserManagement)
+admin_route.get('/logout', auth.isLogin, userController.adminLogout);
 
 
 admin_route.get('*', function(req, res){

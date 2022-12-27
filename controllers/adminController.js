@@ -1,22 +1,58 @@
+const { render } = require("../routes/userRoute");
+
 const loadAdminLogin = async(req, res)=>{
     res.render('adminlogin');
 }
 const loginValidate = async(req, res)=>{
     const email = req.body.email;
-    const passoword = req.body.passoword;
+    const passoword = req.body.password;
     const adminEmail  = process.env.ADMINEMAIL;
-    const admimPassword = process.env.ADMINPASSWORD;
-if(email == adminEmail && passoword == admimPassword ){
-res.render('')
+    const sadmimPassword = process.env.ADMINPASSWORD;
+    // console.log(`${passoword}  ${sadmimPassword}`);
+if(email == adminEmail ){
+    if (passoword == sadmimPassword ) {
+        req.session.user = req.body.email
+        res.redirect('/admin/adminhome')
+        
+    } else {
+        res.render('adminlogin', {message: "hi passoword"})
+    }
 }else{
-    res.render('adminlogin', {message: "Invalid Email"})
+    res.render('adminlogin', {message: "hi something woring"})
 }
 
 }
 
 
+const loadUserManagement = async (req, res) =>{
+    try {
+        res.render('user-manage')
+    } catch (error) {
+     console.log(error.message);   
+    }
+    
+}
+
+
+const loadHome = async (req, res) =>{
+    try {
+        res.render('adminhome')
+    } catch (error) {
+     console.log(error.message);   
+    }
+    
+}
+
+const adminLogout = async(req, res)=>{
+    req.session.destroy();
+    res.redirect('/admin')
+}
 
 
 module.exports = {
     loadAdminLogin,
+    loginValidate,
+    loadUserManagement,
+    loadHome,
+    adminLogout,
 }

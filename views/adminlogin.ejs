@@ -56,7 +56,7 @@
               <div class="card-body">
                 <h2 class="h4 mb-3">Admin Panel Login</h2>
             <p class="fs-sm text-muted mb-4">If you are not a an admin and you somehow reached to this page, <br> Then <a href="/login">click here</a> to Login as an User.</p>
-                <form method="post" action="/adminLogin">
+                <form method="post" action="">
                   <div class="row gx-4 gy-3">
                     
                    
@@ -69,7 +69,7 @@
                
                     <div class="col-sm-6">
                       <label class="form-label" for="reg-password">Password</label>
-                      <input class="form-control" type="password" required name="password">
+                      <input class="form-control"  name="password" type="password" required>
                       <div class="invalid-feedback">Please enter password!</div>
                     </div>
                    
@@ -78,7 +78,7 @@
                     </div>
                   </div>
                 </form>
-                <!-- <% 
+                <% 
                 if(typeof message  !== 'undefined') {
                    %> 
                 <p style="color: green;"><%= message %> </p>
@@ -87,7 +87,7 @@
                   
               <%
             } 
-            %>  -->
+            %> 
               </div>
             </div>
           </div>

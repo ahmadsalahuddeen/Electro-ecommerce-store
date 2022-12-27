@@ -4,7 +4,7 @@ const session = require('express-session')
 admin_route.use(session({
     secret: "heyboi",
     cookie:{
-        maxAge:6000000
+        maxAge:600000000
     }, 
     resave:true,
     saveUninitialized:true

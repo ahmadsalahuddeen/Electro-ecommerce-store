@@ -8,7 +8,7 @@ const session = require('express-session')
 user_route.use(session({
     secret: "heyboi",
     cookie:{
-        maxAge:6000000
+        maxAge:6000000000
     }, 
     resave:true,
     saveUninitialized:true

@@ -85,7 +85,7 @@ const addUser = async(req, res)=>{
           mobile: req.body.mobile,
           image:req.file.filename,
           password: sPassword,
-          is_admin: 0
+          
               })
               const userData = await user.save();
           
@@ -117,10 +117,15 @@ const loginValidate = async (req, res)=> {
             console.log('got user');
             const passwordMatch = await bcrypt.compare(password, userData.password)
             if (passwordMatch) {
+                if (userData.access) {
+                    req.session.user = userData;
+                    console.log(` sesssion testing ${req.session.user}`);
+                    res.render('home')
+                } else {
+                    res.render('login', {message: "Your access in blocked by ADMIN"})
+                }
                 
-                req.session.user = userData;
-                console.log(` sesssion testing ${req.session.user}`);
-                res.render('home')
+               
             } else {
                 res.render('login', {message: "incorrect password"})
             }

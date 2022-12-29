@@ -113,15 +113,15 @@
                 <h2 class="h3 py-2 me-2 text-center text-sm-start">Edit your Category</h2>
 
               </div>
-              <form method="post" action="/admin/changecat">
+              <form method="post" action="">
                 <div class="mb-3 pb-2">
                   <label class="form-label" for="unp-product-name">change Name</label>
-                  <input class="form-control" type="text" name="name" id="category-name" value="<%= category.name  %> ">
+                  <input class="form-control" type="text" name="newName" id="category-name" value="<%= category.name  %>">
                   <div class="form-text"></div>
                 </div>
-                <input type="hidden" name="id" value="<%= category._id  %> ">
+                <input type="hidden" name="oldName" value="<%= category.name  %>">
                 
-                <button class="btn btn-primary d-block w-100" type="submit"><i
+                <button class="btn btn-primary d-block w-100"  type="submit"><i
                     class="ci-cloud-upload fs-lg me-2"></i>Change</button>
               </form>
             </div>

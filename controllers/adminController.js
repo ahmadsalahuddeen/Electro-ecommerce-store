@@ -81,19 +81,39 @@ const AddCategory = async (req, res) => {
 }
 
 const loadEditcategory = async (req, res) => {
-  const { id } = req.query
+  try {
+    const { id } = req.query
 
   const categoryData = await Category.findById({ _id: id })
   res.render('editcategory', { category: categoryData })
+
+  } catch (e) {
+    console.log(e.message);
+  }
+  
 }
 
 const editCategory = async (req, res) => {
-  await Category.findByIdAndUpdate(
-    { _id: req.bod.id },
-    { name: req.body.name }
-  )
 
-  res.redirect('/admin/categorymanage')
+  try {
+    const oldName = req.body.oldName
+    const newName = req.body.newName
+    
+    const editCat =  await Category.findOneAndUpdate(
+      { name: oldName},
+      {name: newName}
+    )
+  if (editCat) {
+     res.redirect('/admin/categorymanage')
+  } else {
+    res.render('editcategory', {message: "something wrong"})
+  }
+
+  } catch (e) {
+    console.log(e.message);
+  }
+ 
+ 
 }
 
 module.exports = {
@@ -108,5 +128,5 @@ module.exports = {
   loadAddCategory,
   AddCategory,
   loadEditcategory,
-  editCategory
+  editCategory,
 }

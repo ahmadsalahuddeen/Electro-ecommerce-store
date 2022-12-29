@@ -21,7 +21,7 @@ adminRoute.get('/categorymanage', userController.loadCategory)
 adminRoute.get('/addcategory', userController.loadAddCategory)
 adminRoute.post('/addcategory', userController.AddCategory)
 adminRoute.get('/editcategory', userController.loadEditcategory)
-adminRoute.post('/changecat', userController.editCategory)
+adminRoute.post('/editcategory', userController.editCategory)
 
 adminRoute.get('*', function (req, res) {
   res.redirect('/admin')

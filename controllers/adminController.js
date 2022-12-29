@@ -1,7 +1,9 @@
 const User = require('../models/userModel')
 const Category = require('../models/categoryModel')
+const Product = require('../models/poductModel')
 const { render } = require('../routes/userRoute')
 const { findByIdAndDelete } = require('../models/categoryModel')
+
 
 const loadAdminLogin = async (req, res) => {
   res.render('adminlogin')
@@ -130,6 +132,11 @@ if (dltStatus) {
   
 }
 }
+const loadProductManage = async(req, res)=>{
+
+const product = await Product.find({})
+  res.render('productmanage' ,{product: product});
+}
 
 module.exports = {
   loadAdminLogin,
@@ -145,4 +152,5 @@ module.exports = {
   loadEditcategory,
   editCategory,
   deleteCategory,
+  loadProductManage,
 }

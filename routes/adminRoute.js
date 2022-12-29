@@ -23,6 +23,7 @@ adminRoute.post('/addcategory', userController.AddCategory)
 adminRoute.get('/editcategory', userController.loadEditcategory)
 adminRoute.post('/editcategory', userController.editCategory)
 adminRoute.get('/deletecategory', userController.deleteCategory)
+adminRoute.get('/productmanage', userController.loadProductManage)
 
 adminRoute.get('*', function (req, res) {
   res.redirect('/admin')

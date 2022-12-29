@@ -1,6 +1,7 @@
 const User = require('../models/userModel')
 const Category = require('../models/categoryModel')
 const { render } = require('../routes/userRoute')
+const { findByIdAndDelete } = require('../models/categoryModel')
 
 const loadAdminLogin = async (req, res) => {
   res.render('adminlogin')
@@ -116,6 +117,20 @@ const editCategory = async (req, res) => {
  
 }
 
+const deleteCategory = async(req,res)=>{
+const id  = req.query.id
+
+const dltStatus = await Category.findByIdAndDelete(id);
+if (dltStatus) {
+  res.redirect('/admin/categorymanage')
+  
+} else {
+  
+  console.log('delete failed');
+  
+}
+}
+
 module.exports = {
   loadAdminLogin,
   loginValidate,
@@ -129,4 +144,5 @@ module.exports = {
   AddCategory,
   loadEditcategory,
   editCategory,
+  deleteCategory,
 }

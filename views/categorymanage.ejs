@@ -113,7 +113,9 @@
                 <h2 class="h3 py-2 me-2 text-center text-sm-start">Category Management<span
                     class="badge bg-faded-accent fs-sm text-body align-middle ms-2"> count: <%= category.length %>
                   </span></h2>
+                  
                 <div class="py-2">
+                  <h2>  </h2>
                   <div class="d-flex flex-nowrap align-items-center pb-3">
                     <a class="btn btn-primary btn-sm" href="/admin/addcategory">Add Category</a>
 
@@ -154,8 +156,13 @@
                             <button class="btn bg-faded-info btn-icon me-2" type="button" data-bs-toggle="tooltip"
                               title="Edit"><a href="/admin/editcategory?id=<%= category[i]._id %>"> <i
                                   class="ci-edit text-info"></i></a></button>
-                            <button class="btn bg-faded-danger btn-icon" type="button" data-bs-toggle="tooltip"
-                              title="Delete"><i class="ci-trash text-danger"></i></button>
+                                  <button class="btn bg-faded-danger btn-icon me-2" type="button" data-bs-toggle="tooltip"
+                                  title="Edit"><a href="/admin/deletecategory?id=<%= category[i]._id %>"> <i
+                                      class="ci-trash text-danger"></i></a></button>
+                           
+                           
+                                   
+                           
 
                           </td>
 

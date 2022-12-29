@@ -13,7 +13,7 @@ next();
 adminRoute.get('/', auth.isLogout, userController.loadAdminLogin)
 adminRoute.post('/', userController.loginValidate)
 adminRoute.get('/home', userController.loadHome)
-adminRoute.get('/usermanage', userController.loadUserManagement)
+adminRoute.get('/usermanage', userController.loadUserManagement) 
 adminRoute.get('/logout', auth.isLogin, userController.adminLogout)
 adminRoute.get('/blockuser/:id', userController.blockUser)
 adminRoute.get('/unblockuser/:id', userController.unBlockUser)
@@ -22,6 +22,7 @@ adminRoute.get('/addcategory', userController.loadAddCategory)
 adminRoute.post('/addcategory', userController.AddCategory)
 adminRoute.get('/editcategory', userController.loadEditcategory)
 adminRoute.post('/editcategory', userController.editCategory)
+adminRoute.get('/deletecategory', userController.deleteCategory)
 
 adminRoute.get('*', function (req, res) {
   res.redirect('/admin')

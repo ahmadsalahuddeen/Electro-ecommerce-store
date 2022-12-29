@@ -1,100 +1,100 @@
-const User = require('../models/userModel');
-const Category = require('../models/categoryModel');
-const { render } = require('../routes/userRoute');
+const User = require('../models/userModel')
+const Category = require('../models/categoryModel')
+const { render } = require('../routes/userRoute')
 
 const loadAdminLogin = async (req, res) => {
-  res.render('adminlogin');
-};
+  res.render('adminlogin')
+}
 const loginValidate = async (req, res) => {
-  const { email } = req.body;
-  const passoword = req.body.password;
-  const adminEmail = process.env.ADMINEMAIL;
-  const sadmimPassword = process.env.ADMINPASSWORD;
+  const { email } = req.body
+  const passoword = req.body.password
+  const adminEmail = process.env.ADMINEMAIL
+  const sadmimPassword = process.env.ADMINPASSWORD
   // console.log(`${passoword}  ${sadmimPassword}`);
   if (email == adminEmail) {
     if (passoword == sadmimPassword) {
-      req.session.user = req.body.email;
-      res.redirect('/admin/adminhome');
+      req.session.user = req.body.email
+      res.redirect('/admin/adminhome')
     } else {
-      res.render('adminlogin', { message: 'hi passoword' });
+      res.render('adminlogin', { message: 'hi passoword' })
     }
   } else {
-    res.render('adminlogin', { message: 'hi something woring' });
+    res.render('adminlogin', { message: 'hi something woring' })
   }
-};
+}
 
 const loadUserManagement = async (req, res) => {
   try {
-    const userData = await User.find({});
-    res.render('user-manage', { user: userData });
+    const userData = await User.find({})
+    res.render('user-manage', { user: userData })
   } catch (error) {
-    console.log(error.message);
+    console.log(error.message)
   }
-};
+}
 
 const loadHome = async (req, res) => {
   try {
-    res.render('adminhome');
+    res.render('adminhome')
   } catch (error) {
-    console.log(error.message);
+    console.log(error.message)
   }
-};
+}
 
 const adminLogout = async (req, res) => {
-  req.session.destroy();
-  res.redirect('/admin');
-};
+  req.session.destroy()
+  res.redirect('/admin')
+}
 
 const blockUser = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params
 
-  await User.findByIdAndUpdate(id, { access: false });
-  res.redirect('/admin/usermanage');
-};
+  await User.findByIdAndUpdate(id, { access: false })
+  res.redirect('/admin/usermanage')
+}
 const unBlockUser = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params
 
-  await User.findByIdAndUpdate(id, { access: true });
-  res.redirect('/admin/usermanage');
-};
+  await User.findByIdAndUpdate(id, { access: true })
+  res.redirect('/admin/usermanage')
+}
 
 const loadCategory = async (req, res) => {
-  const category = await Category.find({});
-  res.render('categorymanage', { category });
-};
+  const category = await Category.find({})
+  res.render('categorymanage', { category })
+}
 
 const loadAddCategory = async (req, res) => {
-  res.render('addcategory');
-};
+  res.render('addcategory')
+}
 
 const AddCategory = async (req, res) => {
-  const categoryName = req.body.name;
+  const categoryName = req.body.name
   const category = new Category({
-    name: categoryName,
-  });
-  const catData = await category.save();
+    name: categoryName
+  })
+  const catData = await category.save()
   if (catData) {
-    res.redirect('/admin/category');
+    res.redirect('/admin/categorymanage')
   } else {
-    res.render('category', { message: 'something wrong' });
+    res.render('category', { message: 'something wrong' })
   }
-};
+}
 
 const loadEditcategory = async (req, res) => {
-  const { id } = req.query;
+  const { id } = req.query
 
-  const categoryData = await Category.findById({ _id: id });
-  res.render('editcategory', { category: categoryData });
-};
+  const categoryData = await Category.findById({ _id: id })
+  res.render('editcategory', { category: categoryData })
+}
 
 const editCategory = async (req, res) => {
-  const categoryData = await Category.findByIdAndUpdate(
+  await Category.findByIdAndUpdate(
     { _id: req.bod.id },
-    { name: req.body.name },
-  );
+    { name: req.body.name }
+  )
 
-  res.redirect('/admin/categorymanage');
-};
+  res.redirect('/admin/categorymanage')
+}
 
 module.exports = {
   loadAdminLogin,
@@ -108,5 +108,5 @@ module.exports = {
   loadAddCategory,
   AddCategory,
   loadEditcategory,
-  editCategory,
-};
+  editCategory
+}

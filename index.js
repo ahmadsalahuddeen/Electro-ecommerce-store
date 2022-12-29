@@ -5,10 +5,19 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv').config({ path: './config/.env' })
 const bodyParser = require('body-parser')
 const multer = require('multer')
+const path = require('path')
 const bcrypt = require('bcrypt')
+const cookieParser = require('cookie-parser')
 
 const session = require('express-session')
-const cookieParser = require('cookie-parser')
+app.use(session({
+  secret: "heyboi",
+  cookie: {
+    maxAge: 6000000
+  },
+ 
+
+}))
 
 app.use(cookieParser())
 app.use(bodyParser.json())
@@ -26,17 +35,17 @@ mongoose.connect(process.env.DATABASE, { useNewUrlParser: true }, (err) => {
   }
 })
 
-app.set(express.static(`${__dirname}/public`))
+app.set(express.static(path.join(__dirname, '/public')))
 app.set('view engine', 'ejs')
-app.set('views', `${__dirname}/views`)
+app.set('views', path.join(__dirname, '/views'))
 app.use(express.static('public'))
 // app.use('/twilio-sms', twilioRouter)
-const user_route = require('./routes/userRoute')
-const admin_route = require('./routes/adminRoute')
+const userRoute = require('./routes/userRoute')
+const adminRoute = require('./routes/adminRoute')
 
-app.use('/', user_route)
-app.use('/admin', admin_route)
+app.use('/', userRoute)
+app.use('/admin', adminRoute)
 
 app.listen(PORT, () => {
-  console.log(`server started on http://localhost:${PORT}/admin`)
+  console.log(`server started on http://localhost:${PORT}/admin/categorymanage`)
 })

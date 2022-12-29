@@ -29,20 +29,25 @@
   <!-- Main Theme Styles + Bootstrap-->
   <link rel="stylesheet" media="screen" href="/css/theme.min.css">
   <!-- Google Tag Manager-->
-  <script>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          '../www.googletagmanager.com/gtm5445.html?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-WKV3GT5');
-  </script>
+  
 </head>
 <!-- Body-->
 
 <body class="handheld-toolbar-enabled">
+  <style>
+    .dataTables_filter{
+      display: flex;
+  justify-content: center;
+    } 
+    .dataTables_paginate{
+      display: flex;
+  justify-content: center;
+    }
+    #userTable_wrapper .row{
+      padding-bottom: 10px;
+    }
+  </style>
+  
   <!-- Google Tag Manager (noscript)-->
 
   <main class="page-wrapper">
@@ -83,7 +88,7 @@
                   <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3  active "
                       href="/admin/usermanage"><i class="ci-settings opacity-60 me-2"></i>User management</a></li>
                   <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
-                      href="dashboard-purchases.html"><i class="ci-basket opacity-60 me-2"></i>Category Managements</a>
+                      href="/admin/categorymanage"><i class="ci-basket opacity-60 me-2"></i>Category Management</a>
                   </li>
                   <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                       href="dashboard-products.html"><i class="ci-package opacity-60 me-2"></i>Product management<span
@@ -120,7 +125,9 @@
               <h2 class="h3 py-2 text-center text-sm-start">User Management</h2>
 
               <div class="table-responsive">
-                <table class="table table-layout-fixed fs-sm mb-0">
+                <table id="userTable" class="table table-layout-fixed fs-sm mb-0
+                
+                ">
                   <thead>
                     <tr>
                       <th>Name</th>
@@ -144,9 +151,9 @@
                             <%= user[i].name %>
                           </td>
                           <td> <%= user[i].email %></td>
-                          <td>
+                          <td >
                             <%  if(user[i].access){ %>
-                              <a class="btn btn-primary btn-sm" href="/admin/blockuser/<%= user[i]._id %> ">Block</a>
+                              <a class="btn btn-primary btn-sm px-4"  href="/admin/blockuser/<%= user[i]._id %> ">Block  </a>
                               <%   }else{ %>
                                 <a class="btn btn-primary btn-sm" href="/admin/unblockuser/<%= user[i]._id %> "">Unblock</a>
                                 <%   } %>
@@ -191,12 +198,24 @@
       class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span><i class="btn-scroll-top-icon ci-arrow-up">
     </i></a>
   <!-- Vendor scrits: js libraries and plugins-->
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+  <script src="https:/cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
   <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="vendor/simplebar/dist/simplebar.min.js"></script>
   <script src="vendor/tiny-slider/dist/min/tiny-slider.js"></script>
   <script src="vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
   <!-- Main theme script-->
   <script src="js/theme.min.js"></script>
+  <script>
+    $(document).ready(function () {
+    $('#userTable').DataTable();
+    
+});
+
+ 
+  </script>
 </body>
 
 <!-- Mirrored from cartzilla.createx.studio/dashboard-payouts.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 23 Dec 2022 04:02:23 GMT -->

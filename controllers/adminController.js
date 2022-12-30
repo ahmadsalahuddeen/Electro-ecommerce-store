@@ -1,9 +1,6 @@
 const User = require('../models/userModel')
 const Category = require('../models/categoryModel')
 const Product = require('../models/poductModel')
-const { render } = require('../routes/userRoute')
-const { findByIdAndDelete } = require('../models/categoryModel')
-
 
 const loadAdminLogin = async (req, res) => {
   res.render('adminlogin')
@@ -14,8 +11,8 @@ const loginValidate = async (req, res) => {
   const adminEmail = process.env.ADMINEMAIL
   const sadmimPassword = process.env.ADMINPASSWORD
   // console.log(`${passoword}  ${sadmimPassword}`);
-  if (email == adminEmail) {
-    if (passoword == sadmimPassword) {
+  if (email === adminEmail) {
+    if (passoword === sadmimPassword) {
       req.session.user = req.body.email
       res.redirect('/admin/adminhome')
     } else {
@@ -87,57 +84,57 @@ const loadEditcategory = async (req, res) => {
   try {
     const { id } = req.query
 
-  const categoryData = await Category.findById({ _id: id })
-  res.render('editcategory', { category: categoryData })
-
+    const categoryData = await Category.findById({ _id: id })
+    res.render('editcategory', { category: categoryData })
   } catch (e) {
-    console.log(e.message);
+    console.log(e.message)
   }
-  
 }
 
 const editCategory = async (req, res) => {
-
   try {
     const oldName = req.body.oldName
     const newName = req.body.newName
-    
-    const editCat =  await Category.findOneAndUpdate(
-      { name: oldName},
-      {name: newName}
+
+    const editCat = await Category.findOneAndUpdate(
+      { name: oldName },
+      { name: newName }
     )
-  if (editCat) {
-     res.redirect('/admin/categorymanage')
-  } else {
-    res.render('editcategory', {message: "something wrong"})
-  }
-
+    if (editCat) {
+      res.redirect('/admin/categorymanage')
+    } else {
+      res.render('editcategory', { message: 'something wrong' })
+    }
   } catch (e) {
-    console.log(e.message);
+    console.log(e.message)
   }
- 
- 
 }
 
-const deleteCategory = async(req,res)=>{
-const id  = req.query.id
+const deleteCategory = async (req, res) => {
+  const id = req.query.id
 
-const dltStatus = await Category.findByIdAndDelete(id);
-if (dltStatus) {
-  res.redirect('/admin/categorymanage')
-  
-} else {
-  
-  console.log('delete failed');
-  
+  const dltStatus = await Category.findByIdAndDelete(id)
+  if (dltStatus) {
+    res.redirect('/admin/categorymanage')
+  } else {
+    console.log('delete failed')
+  }
 }
-}
-const loadProductManage = async(req, res)=>{
+const loadProductManage = async (req, res) => {
 
-const product = await Product.find({})
-  res.render('productmanage' ,{product: product});
+  const product = await Product.find({})
+  res.render('productmanage', { product: product })
 }
 
+const loadAddProductPage = async(req, res)=>{
+  const product = await Product.find()
+res.render('addproduct' , {product:product})
+}
+
+const loadEditProductPage = async(req,res) =>{
+  const product = await Product.find()
+  res.render('editproduct', {product:product})
+}
 module.exports = {
   loadAdminLogin,
   loginValidate,
@@ -153,4 +150,6 @@ module.exports = {
   editCategory,
   deleteCategory,
   loadProductManage,
+  loadAddProductPage,
+  loadEditProductPage,
 }

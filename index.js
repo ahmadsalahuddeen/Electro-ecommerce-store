@@ -11,11 +11,10 @@ const cookieParser = require('cookie-parser')
 
 const session = require('express-session')
 app.use(session({
-  secret: "heyboi",
+  secret: 'heyboi',
   cookie: {
     maxAge: 6000000
-  },
- 
+  }
 
 }))
 
@@ -47,5 +46,5 @@ app.use('/', userRoute)
 app.use('/admin', adminRoute)
 
 app.listen(PORT, () => {
-  console.log(`server started on http://localhost:${PORT}/admin/categorymanage`)
+  console.log(`server started on http://localhost:${PORT}/admin/productmanage`)
 })

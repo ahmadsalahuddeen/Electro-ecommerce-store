@@ -2,15 +2,13 @@ const User = require('../models/userModel')
 const bcrypt = require('bcrypt')
 
 const loadRegister = async (req, res) => {
-  if (req.session.isLoggedIn == true) {
+  if (req.session.isLoggedIn === true) {
     res.redirect('/home')
-    
   } else {
     res.render(
       'userRegister'
     )
   }
- 
 }
 
 const secretPassword = async (password) => {
@@ -27,40 +25,32 @@ const loadLogin = async (req, res) => {
     res.render('login')
   } else {
     res.redirect('/home')
-    
   }
 }
 
 const addUser = async (req, res) => {
   try {
-    
-if (req.body.password === req.body.confirmpassword) {
-  const sPassword = await secretPassword(req.body.password)
-  
-  
-  const user = User({
-    name: req.body.name,
-    email: req.body.email,
-    mobile: req.body.mobile,
-    image: req.file.filename,
-    password: sPassword
-    
+    if (req.body.password === req.body.confirmpassword) {
+      const sPassword = await secretPassword(req.body.password)
 
-  })
-  const userData = await user.save()
+      const user = User({
+        name: req.body.name,
+        email: req.body.email,
+        mobile: req.body.mobile,
+        image: req.file.filename,
+        password: sPassword
 
-  if (userData) {
-    req.session.isLoggedIn = true
-    req.session.user = userData;
-    res.redirect('/home')
-  } else {
-   
-  }
-} else {
-  res.render('userRegister', { message: 'Incorrect passoword' })
-  
-}
-   
+      })
+      const userData = await user.save()
+
+      if (userData) {
+        req.session.isLoggedIn = true
+        req.session.user = userData
+        res.redirect('/home')
+      }
+    } else {
+      res.render('userRegister', { message: 'Incorrect passoword' })
+    }
   } catch (error) {
     console.log(error.message)
   }
@@ -76,15 +66,15 @@ const loginValidate = async (req, res) => {
     const email = req.body.email
     const password = req.body.password
     const userData = await User.findOne({ email })
-    
+
     if (userData) {
       console.log('got user')
       const passwordMatch = await bcrypt.compare(password, userData.password)
       if (passwordMatch) {
         if (userData.access) {
           req.session.isLoggedIn = true
-          req.session.user = userData;
-          
+          req.session.user = userData
+
           console.log(` sesssion isloggein created: ${userData}`)
           res.redirect('/home')
         } else {
@@ -103,12 +93,13 @@ const loginValidate = async (req, res) => {
 
 const loadHome = async (req, res) => {
   if (req.session.isLoggedIn) {
-    
     res.render('home')
   } else {
     res.redirect('/login')
   }
-  
+}
+const loadProductList = async(req, res)=>{
+  res.render('productlist')
 }
 
 module.exports = {

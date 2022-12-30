@@ -29,11 +29,25 @@
   <!-- Main Theme Styles + Bootstrap-->
   <link rel="stylesheet" media="screen" href="/css/theme.min.css">
   <!-- Google Tag Manager-->
-
+  
 </head>
 <!-- Body-->
 
 <body class="handheld-toolbar-enabled">
+  <style>
+    .dataTables_filter{
+      display: flex;
+  justify-content: center;
+    } 
+    .dataTables_paginate{
+      display: flex;
+  justify-content: center;
+    }
+    #userTable_wrapper .row{
+      padding-bottom: 10px;
+    }
+  </style>
+  
   <!-- Google Tag Manager (noscript)-->
 
   <main class="page-wrapper">
@@ -48,7 +62,7 @@
 
           <div class="ps-3">
             <h3 class="text-light fs-lg mb-0">Electro⚡| Admin </h3><span
-              class="d-block text-light fs-ms opacity-60 py-1">Hi admin how are you!
+              class="d-block text-light fs-ms opacity-60 py-1">With Great Power comes Great Responsiblity!
           </div>
         </div>
 
@@ -70,15 +84,14 @@
                 </div>
                 <ul class="list-unstyled mb-0">
                   <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
-                      href="/admin/adminhome"><i class="ci-settings opacity-60 me-2"></i>Home</a></li>
-                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3  "
-                      href="/admin/usermanage"><i class="ci-settings opacity-60 me-2"></i>User management</a></li>
-                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 active"
-                      href="/admin/Productmanage"><i class="ci-basket opacity-60 me-2"></i>Product Management</a>
-                  </li>
+                      href="/admin/adminhome"><i class="ci-home opacity-60 me-2"></i>Home</a></li>
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3   "
+                      href="/admin/usermanage"><i class="ci-user-circle opacity-60 me-2"></i>User Management</a></li>
                   <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
-                      href="/admin/productmanage"><i class="ci-package opacity-60 me-2"></i>Product management<span
-                        class="fs-sm text-muted ms-auto">5</span></a></li>
+                      href="/admin/categorymanage"><i class="ci-basket opacity-60 me-2"></i>Category Management</a>
+                  </li>
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 active"
+                      href="/admin/productmanage"><i class="ci-package opacity-60 me-2"></i>Product management</a></li>
                   <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                       href="dashboard-favorites.html"><i class="ci-heart opacity-60 me-2"></i>Favorites<span
                         class="fs-sm text-muted ms-auto">4</span></a></li>
@@ -98,8 +111,8 @@
                       Product</a></li>
                   <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 "
                       href="dashboard-payouts.html"><i class="ci-currency-exchange opacity-60 me-2"></i>Payouts</a></li>
-                  <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="/admin/logout"><i
-                        class="ci-sign-out opacity-60 me-2"></i>Sign out</a></li>
+                  <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                      href="/admin/logout"><i class="ci-sign-out opacity-60 me-2"></i>Sign out</a></li>
                 </ul>
                 <hr>
               </div>
@@ -108,30 +121,32 @@
           <!-- Content-->
           <section class="col-lg-8 pt-lg-4 pb-4 mb-3">
             <div class="pt-2 px-4 ps-lg-0 pe-xl-5">
-              <!-- Title-->
               <div class="d-sm-flex flex-wrap justify-content-between align-items-center border-bottom">
                 <h2 class="h3 py-2 me-2 text-center text-sm-start">Product Management<span
-                    class="badge bg-faded-accent fs-sm text-body align-middle ms-2"> count: <%= Product.length %>
+                    class="badge bg-faded-accent fs-sm text-body align-middle ms-2"> count: <%= product.length %>
                   </span></h2>
 
                 <div class="py-2">
                   <h2> </h2>
                   <div class="d-flex flex-nowrap align-items-center pb-3">
-                    <a class="btn btn-primary btn-sm" href="/admin/addProduct">Add Product</a>
+                    <a class="btn btn-primary btn-sm" href="/admin/addproduct">Add Product</a>
 
                   </div>
                 </div>
               </div>
-              <!-- Product-->
+              
+
               <div class="table-responsive">
-                <table class="table table-layout-fixed fs-sm mb-0">
+                <table id="userTable" class="table table-layout-fixed fs-sm mb-0
+                
+                ">
+                <%  if(product.length> 0){ %>
+                  <%   for (let i = 0; i < product.length; i++) { %>
                   <thead>
                     <tr>
                       <th>Name</th>
-
-                      <th>
-                        Actions
-                      </th>
+                      <th>Email</th>
+                      <th>User Access</th>
 
                     </tr>
                   </thead>
@@ -140,57 +155,48 @@
 
 
                   <tbody>
+                   
+                    
+                    
 
-
-
-                    <% if(Product.length> 0 ){ %>
-                      <% for (let i=0; i < Product.length; i++) { %>
                         <tr>
                           <td>
-                            <h4 class="h6 product-title mb-2 ">
-                              <%= Product[i].name %>
-                            </h4>
+                            <%= product[i].name %>
                           </td>
-                          <td>
-
-                            <a href="/admin/editProduct?id=<%= Product[i]._id %>"> <button
-                                class="btn bg-faded-info btn-icon me-2" type="button" data-bs-toggle="tooltip"
-                                title="Edit"> <i class="ci-edit text-info"></i></button></a> <a
-                              href="/admin/deleteProduct?id=<%= Product[i]._id %>"> <button
-                              class="btn bg-faded-danger btn-icon me-2" type="button" data-bs-toggle="tooltip"
-                              title="Edit"><i class="ci-trash text-danger"></i></button></a>
-
-
-
-
-
+                          <td> <%= product[i].email %></td>
+                          <td >
+                            <%  if(product[i].access){ %>
+                              <a class="btn btn-primary btn-sm px-4"  href="/admin/blockuser/<%= product[i]._id %> ">Block  </a>
+                              <%   }else{ %>
+                                <a class="btn btn-primary btn-sm" href="/admin/unblockuser/<%= product[i]._id %> "">Unblock</a>
+                                <%   } %>
+                           
                           </td>
-
                         </tr>
 
-                        <% } %>
-                          <% }else{ %>
-                            <h5>seems like there is not catogory in the DB</h5>
-                            <% } %>
+                        
+                    <%  } }else{%>
+                         
 
 
+                          <h3 class="text-danger py-4">i can show you product if i have one, So add one! 👆 </h3>
 
-
-
-
-
-
-
-
-
-
-
+                          <% } %>
 
 
                   </tbody>
                 </table>
               </div>
-
+              <hr class="mb-grid-gutter">
+              <!-- Pagination-->
+              <!-- <nav class="d-md-flex justify-content-between align-items-center text-center text-md-start" aria-label="Page navigation">
+                  <div class="d-md-flex align-items-center w-100"><span class="fs-sm text-muted me-md-3">Showing 10 of 52 records</span>
+                    <div class="progress w-100 my-3 mx-auto mx-md-0" style="max-width: 10rem; height: 4px;">
+                      <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                  <button class="btn btn-outline-primary btn-sm" type="button">More records</button>
+                </nav> -->
             </div>
           </section>
         </div>
@@ -205,12 +211,24 @@
       class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span><i class="btn-scroll-top-icon ci-arrow-up">
     </i></a>
   <!-- Vendor scrits: js libraries and plugins-->
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+  <script src="https:/cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
   <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="vendor/simplebar/dist/simplebar.min.js"></script>
   <script src="vendor/tiny-slider/dist/min/tiny-slider.js"></script>
   <script src="vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
   <!-- Main theme script-->
   <script src="js/theme.min.js"></script>
+  <script>
+    $(document).ready(function () {
+    $('#userTable').DataTable();
+    
+});
+
+ 
+  </script>
 </body>
 
 <!-- Mirrored from cartzilla.createx.studio/dashboard-payouts.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 23 Dec 2022 04:02:23 GMT -->

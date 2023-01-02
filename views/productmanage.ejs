@@ -148,15 +148,16 @@
                       <tr>
                         <th>Name</th>
                         <th>category</th>
-                        
+
                         <th>Price</th>
                         <th>Discount</th>
                         <th>Stock</th>
+                        <th>Image</th>
                         <th>Actions</th>
 
                       </tr>
                     </thead>
-                    
+
 
 
 
@@ -165,48 +166,62 @@
 
 
                       <% for (let i=0; i < product.length; i++) { %>
-                        <tr>
-                          <td>
-                            <%= product[i].name %>
-                          </td>
-                          <td>
-                            <%= product[i].category %>
-                          </td>
-                          <td>
-                            <%= product[i].price %>
-                          </td>
-                          <td>
-                            <%= product[i].discount %>
-                          </td>
-                          
-                          <td>
-                            <%= product[i].stock %>
-                          </td>
-                          <td>
-                            <a href="/admin/editproduct?id=<%= product[i]._id %>"> <button
-                              class="btn bg-faded-info btn-icon me-2" type="button" data-bs-toggle="tooltip"
-                              title="Edit"> <i class="ci-edit text-info"></i></button></a> <a
-                            href="/admin/deleteproduct?id=<%= product[i]._id %>"> <button
-                            class="btn bg-faded-danger btn-icon me-2" type="button" data-bs-toggle="tooltip"
-                            title="Edit"><i class="ci-trash text-danger"></i></button></a>
-                          </td>
+                        <% product._id %>
+                          <tr>
+                            <td>
+                              <%= product[i].name %>
+                            </td>
+                            <td>
+                              <%= product[i].category %>
+                            </td>
+                            <td>
+                              <%= product[i].price %>
+                            </td>
+                            <td>
+                              <%= product[i].discount %>
+                            </td>
 
-                        </tr>
+                            <td>
+                              <%= product[i].stock %>
+                            </td>
+
+                            <td>
+                              <% product[i].image.forEach((el)=> {%>
+                                <img style="border-radius: 10px; object-fit: contain; padding-bottom: 2px;"
+                                  src="<%= el %> " alt="">
+
+                                <% }); %>
+
+                            </td>
+                            <td>
+                              <a href="/admin/editproduct?id=<%= product[i]._id%>">
+                                <button class="btn bg-faded-info btn-icon me-2" type="button" data-bs-toggle="tooltip"
+                                  title="Edit"> <i class="ci-edit text-info"></i></button>
+                              </a>
+
+
+                              <button onclick="deleteAlert('<%=product[i]._id %>')"
+                                class="btn bg-faded-danger btn-icon me-2" type="button" data-bs-toggle="tooltip"
+                                title="Edit"><i class="ci-trash text-danger"></i></button>
+                            </td>
+
+                          </tr>
 
 
 
 
 
-
+                          <% }}else{ %>
+                            <h3 class="text-danger py-4">i can show you product if i have one, So add one! 👆 </h3>
+                            <% } %>
 
 
 
 
 
                     </tbody>
-                    <% }}else{ %>
-                      <h3 class="text-danger py-4">i can show you product if i have one, So add one! 👆 </h3>
-                      <% } %>
+
+
                 </table>
               </div>
               <hr class="mb-grid-gutter">
@@ -225,6 +240,7 @@
       </div>
     </div>
   </main>
+
   <!-- Footer-->
 
   <!-- Toolbar for handheld devices (Marketplace)-->
@@ -241,9 +257,27 @@
   <script src="vendor/simplebar/dist/simplebar.min.js"></script>
   <script src="vendor/tiny-slider/dist/min/tiny-slider.js"></script>
   <script src="vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- Main theme script-->
   <script src="js/theme.min.js"></script>
   <script>
+    function deleteAlert(id) {
+      Swal.fire({
+        title: ' <h4>Delete Product? </h4>',
+        icon: 'warning',
+
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText:
+          '<a class="text-light " href="/admin/deleteproduct?id=' + id + '">Delete</a>',
+
+        cancelButtonText:
+          'Cancel',
+
+
+      })
+    }
     $(document).ready(function () {
       $('#userTable').DataTable();
 

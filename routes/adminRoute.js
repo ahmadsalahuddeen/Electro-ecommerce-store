@@ -21,6 +21,8 @@ adminRoute.get('/productmanage', adminController.loadProductManage)
 adminRoute.get('/addproduct', adminController.loadAddProductPage)
 adminRoute.post('/addproduct', adminController.addProduct)
 adminRoute.get('/editproduct', adminController.loadEditProductPage)
+adminRoute.get('/deleteproduct', adminController.deleteProduct)
+adminRoute.get('/editproduct', adminController.editProduct)
 adminRoute.get('*', function (req, res) {
   res.redirect('/admin')
 })

@@ -1,6 +1,7 @@
 const User = require('../models/userModel')
 const Category = require('../models/categoryModel')
 const Product = require('../models/poductModel')
+const { findByIdAndDelete } = require('../models/poductModel')
 
 const loadAdminLogin = async (req, res) => {
   res.render('adminlogin')
@@ -21,6 +22,43 @@ const loginValidate = async (req, res) => {
   } else {
     res.render('adminlogin', { message: 'hi something woring' })
   }
+}
+const loadCategory = async (req, res) => {
+  const category = await Category.find({})
+  res.render('categorymanage', { category })
+}
+
+const loadAddCategory = async (req, res) => {
+  res.render('addcategory')
+}
+
+const loadEditcategory = async (req, res) => {
+  try {
+    const { id } = req.query
+
+    const categoryData = await Category.findById({ _id: id })
+    res.render('editcategory', { category: categoryData })
+  } catch (e) {
+    console.log(e.message)
+  }
+}
+const loadProductManage = async (req, res) => {
+  const product = await Product.find({})
+  res.render('productmanage', { product })
+}
+
+const loadAddProductPage = async (req, res) => {
+  const category = await Category.find()
+  const product = await Product.find()
+  res.render('addproduct', { product, category })
+}
+
+const loadEditProductPage = async (req, res) => {
+  const id = req.query.id
+  const category = await Category.find()
+  const product = await Product.find({ _id: id })
+  
+  res.render('editproduct', { product, category })
 }
 
 const loadUserManagement = async (req, res) => {
@@ -58,14 +96,7 @@ const unBlockUser = async (req, res) => {
   res.redirect('/admin/usermanage')
 }
 
-const loadCategory = async (req, res) => {
-  const category = await Category.find({})
-  res.render('categorymanage', { category })
-}
 
-const loadAddCategory = async (req, res) => {
-  res.render('addcategory')
-}
 
 const AddCategory = async (req, res) => {
   const categoryName = req.body.name
@@ -80,16 +111,7 @@ const AddCategory = async (req, res) => {
   }
 }
 
-const loadEditcategory = async (req, res) => {
-  try {
-    const { id } = req.query
 
-    const categoryData = await Category.findById({ _id: id })
-    res.render('editcategory', { category: categoryData })
-  } catch (e) {
-    console.log(e.message)
-  }
-}
 
 const editCategory = async (req, res) => {
   try {
@@ -121,28 +143,12 @@ const deleteCategory = async (req, res) => {
   }
 }
 
-const loadProductManage = async (req, res) => {
-  const product = await Product.find({})
-  res.render('productmanage', { product })
-}
-
-const loadAddProductPage = async (req, res) => {
-  const category = await Category.find()
-  const product = await Product.find()
-  res.render('addproduct', { product, category })
-}
-
-const loadEditProductPage = async (req, res) => {
-  const id = req.query.id
-  const category = await Category.find()
-  const product = await Product.find({ _id: id })
-  res.render('editproduct', { product, category })
-}
 
 const addProduct = async (req, res) => {
-  const image = req.files.images,
-  console.log(image)
-  const img = [],
+  try {
+    const image = req.files.images
+  console.log(image);
+ const img = []
   image.forEach((element , i) => {
     img.push(element.path.substring(6))
 });
@@ -161,6 +167,27 @@ const addProduct = async (req, res) => {
   if (productData) { res.redirect('/admin/productmanage') } else {
     res.render('addproduct', { message: 'something wrong wrong' })
   }
+  } catch (error) {
+    console.log(error.message);
+  }
+  
+}
+const deleteProduct = async(req, res) =>{
+  const id = req.query.id
+  const result = await  Product.findByIdAndDelete(id)
+  if(result){
+    res.redirect('/admin/productmanage')
+
+  }else{
+console.log("something gone wrong while deleting");
+  }
+
+}
+
+const editProduct = async (req, res) =>{
+  id = req.query.id
+await Product.findByIdAndUpdate
+
 }
 
 module.exports = {
@@ -180,6 +207,8 @@ module.exports = {
   loadProductManage,
   loadAddProductPage,
   loadEditProductPage,
-  addProduct
+  deleteProduct,
+  addProduct,
+  editProduct,
 
 }

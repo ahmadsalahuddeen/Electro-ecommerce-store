@@ -15,12 +15,16 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  images: {
-    type: [String]
+  thumbnailImage: {
+    type: String
 
   },
+  image: {
+    type: [String],
+    required: true
+  },
   category: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     refer: 'Category',
     required: true
   },
@@ -29,7 +33,7 @@ const productSchema = new mongoose.Schema({
     required: true
   },
   discount: {
-    type: String,
+    type: Number,
     required: true
 
   },

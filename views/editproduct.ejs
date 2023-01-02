@@ -71,14 +71,13 @@
                 <ul class="list-unstyled mb-0">
                   <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                       href="/admin/adminhome"><i class="ci-home opacity-60 me-2"></i>Home</a></li>
-                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3  active "
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3  "
                       href="/admin/usermanage"><i class="ci-user-circle opacity-60 me-2"></i>User Management</a></li>
-                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 "
                       href="/admin/categorymanage"><i class="ci-basket opacity-60 me-2"></i>Category Management</a>
                   </li>
-                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
-                      href="/admin/productmanage"><i class="ci-package opacity-60 me-2"></i>Product management<span
-                        class="fs-sm text-muted ms-auto">5</span></a></li>
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 active"
+                      href="/admin/productmanage"><i class="ci-package opacity-60 me-2"></i>Product management</a></li>
                   <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                       href="dashboard-favorites.html"><i class="ci-heart opacity-60 me-2"></i>Favorites<span
                         class="fs-sm text-muted ms-auto">4</span></a></li>
@@ -110,19 +109,71 @@
             <div class="pt-2 px-4 ps-lg-0 pe-xl-5">
               <!-- Title-->
               <div class="d-sm-flex flex-wrap justify-content-between align-items-center pb-2">
-                <h2 class="h3 py-2 me-2 text-center text-sm-start">Edit your Category</h2>
+                <h2 class="h3 py-2 me-2 text-center text-sm-start">Edit Your Product</h2>
 
               </div>
-              <form method="post" action="">
+              <form action="" method="post" enctype="multipart/form-data">
                 <div class="mb-3 pb-2">
-                  <label class="form-label" for="unp-product-name">change Name</label>
-                  <input class="form-control" type="text" name="newName" id="category-name" value="<%= category.name  %>">
-                  <div class="form-text"></div>
+                  <label class="form-label" for="unp-product-name">Product <%= product.name%> </label>
+                  <input class="form-control" name="name" type="text" id="unp-product-name" required value="<%= product.name%> ">
+                  <div class="form-text">Maximum 100 characters. No HTML or emoji allowed.</div>
                 </div>
-                <input type="hidden" name="oldName" value="<%= category.name  %>">
-                
-                <button class="btn btn-primary d-block w-100"  type="submit"><i
-                    class="ci-cloud-upload fs-lg me-2"></i>Change</button>
+                <div class="mb-3 pb-2">
+                  <label class="form-label" for="unp-product-name">Brand name</label>
+                  <input class="form-control" name="brand" type="text" id="unp-product-name" required>
+                  <div class="form-text">Maximum 100 characters. No HTML or emoji allowed.</div>
+                </div>
+
+                <div class="py-2">
+                  <label class="form-label" for="unp-product-name">Select Category</label>
+                  <select name="category" class="form-select me-2" id="unp-category" required>
+                    
+                    
+                       
+                        
+                          <option>skdjfhjk</option>
+
+                         
+
+                  </select>
+                </div>
+                <div class="mb-3 py-2">
+                  <label class="form-label" for="unp-product-description">Product description</label>
+                  <textarea name="description" class="form-control" rows="6" id="unp-product-description" required></textarea>
+
+                </div>
+                <div class="row">
+                  <div class="col-sm-6 mb-3">
+                    <label class="form-label" for="unp-standard-price">Price</label>
+                    <div class="input-group"><span class="input-group-text"><i class="ci-rupee"></i></span>
+                      <input class="form-control" type="text" id="unp-standard-price" name="price" required>
+                    </div>
+
+                  </div>
+                  <div class="col-sm-6 mb-3">
+                    <label class="form-label" for="unp-extended-price">Discount price</label>
+                    <div class="input-group"><span class="input-group-text"><i class="ci-rupee"></i></span>
+                      <input class="form-control" type="text" id="unp-extended-price" name="discount" required>
+                    </div>
+
+                  </div>
+                  <div class="col-sm-6 mb-3">
+                    <label class="form-label" for="unp-standard-price">stock</label>
+                    <div class="input-group"><span class="input-group-text"><i class="ci-package"></i></span>
+                      <input class="form-control" type="text" id="unp-standard-price" name="stock"  required>
+                    </div>
+
+                  </div>
+                </div>
+               
+                <div class="mb-3 pb-2">
+                  <label class="form-label" for="unp-product-files">Product Images</label>
+                  <input class="form-control" name="image" type="file" id="unp-product-files"
+                    accept="image/*" multiple>
+                  <div class="form-text">Maximum no of images: 3</div>
+                </div>
+                <button class="btn btn-primary d-block w-100" type="submit"><i
+                    class="ci-cloud-upload fs-lg me-2"></i>Upload Product</button>
               </form>
             </div>
           </section>

@@ -120,21 +120,49 @@ const deleteCategory = async (req, res) => {
     console.log('delete failed')
   }
 }
+
 const loadProductManage = async (req, res) => {
-
   const product = await Product.find({})
-  res.render('productmanage', { product: product })
+  res.render('productmanage', { product })
 }
 
-const loadAddProductPage = async(req, res)=>{
+const loadAddProductPage = async (req, res) => {
+  const category = await Category.find()
   const product = await Product.find()
-res.render('addproduct' , {product:product})
+  res.render('addproduct', { product, category })
 }
 
-const loadEditProductPage = async(req,res) =>{
-  const product = await Product.find()
-  res.render('editproduct', {product:product})
+const loadEditProductPage = async (req, res) => {
+  const id = req.query.id
+  const category = await Category.find()
+  const product = await Product.find({ _id: id })
+  res.render('editproduct', { product, category })
 }
+
+const addProduct = async (req, res) => {
+  const image = req.files.images,
+  console.log(image)
+  const img = [],
+  image.forEach((element , i) => {
+    img.push(element.path.substring(6))
+});
+
+  const product = new Product({
+    name: req.body.name,
+    brand: req.body.brand,
+    description: req.body.description,
+    image: img,
+    category: req.body.category,
+    price: req.body.price,
+    discount: req.body.discount,
+    stock: req.body.stock
+  })
+  const productData = await product.save()
+  if (productData) { res.redirect('/admin/productmanage') } else {
+    res.render('addproduct', { message: 'something wrong wrong' })
+  }
+}
+
 module.exports = {
   loadAdminLogin,
   loginValidate,
@@ -152,4 +180,6 @@ module.exports = {
   loadProductManage,
   loadAddProductPage,
   loadEditProductPage,
+  addProduct
+
 }

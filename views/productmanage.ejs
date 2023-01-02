@@ -29,25 +29,27 @@
   <!-- Main Theme Styles + Bootstrap-->
   <link rel="stylesheet" media="screen" href="/css/theme.min.css">
   <!-- Google Tag Manager-->
-  
+
 </head>
 <!-- Body-->
 
 <body class="handheld-toolbar-enabled">
   <style>
-    .dataTables_filter{
+    .dataTables_filter {
       display: flex;
-  justify-content: center;
-    } 
-    .dataTables_paginate{
-      display: flex;
-  justify-content: center;
+      justify-content: center;
     }
-    #userTable_wrapper .row{
+
+    .dataTables_paginate {
+      display: flex;
+      justify-content: center;
+    }
+
+    #userTable_wrapper .row {
       padding-bottom: 10px;
     }
   </style>
-  
+
   <!-- Google Tag Manager (noscript)-->
 
   <main class="page-wrapper">
@@ -111,8 +113,8 @@
                       Product</a></li>
                   <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 "
                       href="dashboard-payouts.html"><i class="ci-currency-exchange opacity-60 me-2"></i>Payouts</a></li>
-                  <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
-                      href="/admin/logout"><i class="ci-sign-out opacity-60 me-2"></i>Sign out</a></li>
+                  <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="/admin/logout"><i
+                        class="ci-sign-out opacity-60 me-2"></i>Sign out</a></li>
                 </ul>
                 <hr>
               </div>
@@ -134,57 +136,77 @@
                   </div>
                 </div>
               </div>
-              
+
 
               <div class="table-responsive">
                 <table id="userTable" class="table table-layout-fixed fs-sm mb-0
                 
                 ">
-                <%  if(product.length> 0){ %>
-                  <%   for (let i = 0; i < product.length; i++) { %>
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>User Access</th>
+                  <% if(product.length> 0){ %>
 
-                    </tr>
-                  </thead>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>category</th>
+                        
+                        <th>Price</th>
+                        <th>Discount</th>
+                        <th>Stock</th>
+                        <th>Actions</th>
 
-
-
-
-                  <tbody>
-                   
-                    
+                      </tr>
+                    </thead>
                     
 
+
+
+                    <tbody>
+
+
+
+                      <% for (let i=0; i < product.length; i++) { %>
                         <tr>
                           <td>
                             <%= product[i].name %>
                           </td>
-                          <td> <%= product[i].email %></td>
-                          <td >
-                            <%  if(product[i].access){ %>
-                              <a class="btn btn-primary btn-sm px-4"  href="/admin/blockuser/<%= product[i]._id %> ">Block  </a>
-                              <%   }else{ %>
-                                <a class="btn btn-primary btn-sm" href="/admin/unblockuser/<%= product[i]._id %> "">Unblock</a>
-                                <%   } %>
-                           
+                          <td>
+                            <%= product[i].category %>
                           </td>
+                          <td>
+                            <%= product[i].price %>
+                          </td>
+                          <td>
+                            <%= product[i].discount %>
+                          </td>
+                          
+                          <td>
+                            <%= product[i].stock %>
+                          </td>
+                          <td>
+                            <a href="/admin/editproduct?id=<%= product[i]._id %>"> <button
+                              class="btn bg-faded-info btn-icon me-2" type="button" data-bs-toggle="tooltip"
+                              title="Edit"> <i class="ci-edit text-info"></i></button></a> <a
+                            href="/admin/deleteproduct?id=<%= product[i]._id %>"> <button
+                            class="btn bg-faded-danger btn-icon me-2" type="button" data-bs-toggle="tooltip"
+                            title="Edit"><i class="ci-trash text-danger"></i></button></a>
+                          </td>
+
                         </tr>
 
-                        
-                    <%  } }else{%>
-                         
 
 
-                          <h3 class="text-danger py-4">i can show you product if i have one, So add one! 👆 </h3>
-
-                          <% } %>
 
 
-                  </tbody>
+
+
+
+
+
+
+                    </tbody>
+                    <% }}else{ %>
+                      <h3 class="text-danger py-4">i can show you product if i have one, So add one! 👆 </h3>
+                      <% } %>
                 </table>
               </div>
               <hr class="mb-grid-gutter">
@@ -223,11 +245,11 @@
   <script src="js/theme.min.js"></script>
   <script>
     $(document).ready(function () {
-    $('#userTable').DataTable();
-    
-});
+      $('#userTable').DataTable();
 
- 
+    });
+
+
   </script>
 </body>
 

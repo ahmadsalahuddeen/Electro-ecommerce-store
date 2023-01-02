@@ -1,26 +1,9 @@
 const express = require('express')
 const adminRoute = express()
-const multer = require('multer');
 
 const adminController = require('../controllers/adminController')
 const auth = require('../middleware/adminAuth')
-const storage = multer.diskStorage({
-  destination: function (req, res, cb) {
-    cb(null, path.join(__dirname, '../public/userImages'))
-  },
-  filename: function (req, file, cb) {
-    const name = Date.now() + ' ' + file.originalname
-    cb(null, name)
-  }
-})
 
-const upload = multer({ storage })
-adminRoute.use(function (req, res, next) {
-  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate')
-  res.header('Expires', '-1')
-  res.header('Pragma', 'no-cache')
-  next()
-})
 adminRoute.get('/', auth.isLogout, adminController.loadAdminLogin)
 adminRoute.post('/', adminController.loginValidate)
 adminRoute.get('/home', adminController.loadHome)
@@ -35,7 +18,8 @@ adminRoute.get('/editcategory', adminController.loadEditcategory)
 adminRoute.post('/editcategory', adminController.editCategory)
 adminRoute.get('/deletecategory', adminController.deleteCategory)
 adminRoute.get('/productmanage', adminController.loadProductManage)
-adminRoute.get('/addproduct', upload.array('image' , 3) , adminController.loadAddProductPage)
+adminRoute.get('/addproduct', adminController.loadAddProductPage)
+adminRoute.post('/addproduct', adminController.addProduct)
 adminRoute.get('/editproduct', adminController.loadEditProductPage)
 adminRoute.get('*', function (req, res) {
   res.redirect('/admin')

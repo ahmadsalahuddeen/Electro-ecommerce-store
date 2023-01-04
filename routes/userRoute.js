@@ -19,7 +19,7 @@ const upload = multer({ storage })
 const userController = require('../controllers/userController')
 
 userRoute.use(function (req, res, next) {
-  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate')
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate') 
   res.header('Expires', '-1')
   res.header('Pragma', 'no-cache')
   next()
@@ -35,5 +35,6 @@ userRoute.post('/login', userController.loginValidate)
 userRoute.get('/home', userController.loadHome)
 userRoute.get('/productlist', userController.loadProductList)
 userRoute.get('/logout', userController.logOut)
+userRoute.post('/addtocart', userController.addCart)
 
 module.exports = userRoute

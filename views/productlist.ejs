@@ -1347,8 +1347,11 @@
                 </div>
               </div>
               <div class="card-body card-body-hidden">
-                <button class="btn btn-primary btn-sm d-block w-100 mb-2" type="button"><i
+                <form method="post" action="addtocart">
+                  <input type="text" hidden name="id" value="<%= product._id %> ">
+                <button class="btn btn-primary btn-sm d-block w-100 mb-2" type="submit"><i
                     class="ci-cart fs-sm me-1"></i>Add to Cart</button>
+                  </form>
                 <div class="text-center"><a class="nav-link-style fs-ms" href="#quick-view" data-bs-toggle="modal"><i
                       class="ci-eye align-middle me-1"></i>Quick view</a></div>
               </div>

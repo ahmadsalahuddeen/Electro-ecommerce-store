@@ -55,7 +55,7 @@ const loadAddProductPage = async (req, res) => {
   const product = await Product.find();
   res.render("addproduct", { product, category });
 };
-
+ 
 const loadEditProductPage = async (req, res) => {
   const id = req.query.id;
   const category = await Category.find();

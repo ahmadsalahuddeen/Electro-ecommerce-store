@@ -10,7 +10,7 @@ const loadRegister = async (req, res) => {
       'userRegister'
     )
   }
-}
+} 
 
 const secretPassword = async (password) => {
   try {
@@ -104,6 +104,29 @@ const loadProductList = async(req, res)=>{
   res.render('productlist' ,{product})
 }
 
+const addCart = async(req, res) =>{
+
+  const id = '63aaf99ac1b3169733e7a7a4'
+  const user = await User.findById(id)
+  const cart = user.cart
+  const product = req.body.id
+  
+  if (cart.items.length == 0) {
+    
+    cart.items.push({product:product, qty:1})
+    cart.toftalPrice += product.discount
+
+  }else {
+    const isExisting = await cart.items.findIndex(items => {items.product._id == product._id })
+    console.log(isExisting)
+
+  }
+  console.log(cart);
+  
+res.redirect('/productlist')
+
+}
+
 
 
 module.exports = {
@@ -114,6 +137,7 @@ module.exports = {
   loadHome,
   logOut,
   loadProductList,
+  addCart,
 
 }
 

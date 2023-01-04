@@ -67,8 +67,13 @@ const loadEditProductPage = async (req, res) => {
 
 const loadUserManagement = async (req, res) => {
   try {
+
+
     const userData = await User.find({});
     res.render("user-manage", { user: userData });
+  
+  
+  
   } catch (error) {
     console.log(error.message);
   }

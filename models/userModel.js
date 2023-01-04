@@ -11,6 +11,25 @@ const UserSchema = new mongoose.Schema({
     lowercase: true,
     unique: true
   },
+  cart: {
+    items:[{
+      product:{ type: mongoose.Schema.Types.ObjectId,
+        refer: 'Product',
+        required: true
+      
+      },
+      qty:{
+        type: Number,
+        required: true
+      },
+      totalPrice: {
+        type: Number
+      }
+      },
+    
+      
+  ]
+  },
   mobile: {
     type: Number,
     required: true

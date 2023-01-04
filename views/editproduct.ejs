@@ -114,24 +114,28 @@
               </div>
               <form action="" method="post" enctype="multipart/form-data">
                 <div class="mb-3 pb-2">
-                  <label class="form-label" for="unp-product-name">Product <%= product.name%> </label>
-                  <input class="form-control" name="name" type="text" id="unp-product-name" required value="<%= product.name%> ">
+                  <label class="form-label" for="unp-product-name">Product <%= product.name %> </label>
+                  <input class="form-control" name="name" type="text" id="unp-product-name" required value="<%= product.name%>">
                   <div class="form-text">Maximum 100 characters. No HTML or emoji allowed.</div>
                 </div>
+                <input hidden type="text" name="id" value="<%=product._id%>">
                 <div class="mb-3 pb-2">
                   <label class="form-label" for="unp-product-name">Brand name</label>
-                  <input class="form-control" name="brand" type="text" id="unp-product-name" required>
+                  <input class="form-control" name="brand" type="text" id="unp-product-name" required value="<%= product.brand%>">
                   <div class="form-text">Maximum 100 characters. No HTML or emoji allowed.</div>
                 </div>
 
                 <div class="py-2">
                   <label class="form-label" for="unp-product-name">Select Category</label>
-                  <select name="category" class="form-select me-2" id="unp-category" required>
+                  <select name="category" class="form-select me-2" id="unp-category" required >
                     
-                    
-                       
+                 <option ><%= product.category %></option>
+                       <% category.forEach(element => {%> 
+
+                        <option > <%= element.name %>  </option>
+                        <%}); %> 
                         
-                          <option>skdjfhjk</option>
+                          
 
                          
 
@@ -139,36 +143,47 @@
                 </div>
                 <div class="mb-3 py-2">
                   <label class="form-label" for="unp-product-description">Product description</label>
-                  <textarea name="description" class="form-control" rows="6" id="unp-product-description" required></textarea>
+                  <textarea name="description" class="form-control" rows="6" id="unp-product-description" required value="<%= product.description %>"></textarea>
 
                 </div>
                 <div class="row">
                   <div class="col-sm-6 mb-3">
                     <label class="form-label" for="unp-standard-price">Price</label>
                     <div class="input-group"><span class="input-group-text"><i class="ci-rupee"></i></span>
-                      <input class="form-control" type="text" id="unp-standard-price" name="price" required>
+                      <input class="form-control" type="text" id="unp-standard-price" name="price" required value="<%= product.price%>">
                     </div>
 
                   </div>
                   <div class="col-sm-6 mb-3">
                     <label class="form-label" for="unp-extended-price">Discount price</label>
                     <div class="input-group"><span class="input-group-text"><i class="ci-rupee"></i></span>
-                      <input class="form-control" type="text" id="unp-extended-price" name="discount" required>
+                      <input class="form-control" type="text" id="unp-extended-price" name="discount" required value="<%= product.discount%>">
                     </div>
 
                   </div>
                   <div class="col-sm-6 mb-3">
                     <label class="form-label" for="unp-standard-price">stock</label>
                     <div class="input-group"><span class="input-group-text"><i class="ci-package"></i></span>
-                      <input class="form-control" type="text" id="unp-standard-price" name="stock"  required>
+                      <input class="form-control" type="text" id="unp-standard-price" name="stock"  required value="<%= product.stock%>">
                     </div>
 
                   </div>
                 </div>
-               
+                <div class="row mb-3 pb-2">
+                  <label class="form-label" for="unp-product-files">Product Images</label>
+                  <% product.image.forEach(element => {%>
+                    
+                    <div style="max-width: 200px;" class="col"> <img  class="rounded-3 " src="<%= element  %>" alt=""></div>
+                    <%}); %> 
+                 
+                   
+                   
+                  
+                  <div class="form-text">Maximum no of images: 3</div>
+                </div>
                 <div class="mb-3 pb-2">
                   <label class="form-label" for="unp-product-files">Product Images</label>
-                  <input class="form-control" name="image" type="file" id="unp-product-files"
+                  <input class="form-control" name="images" type="file" id="unp-product-files"
                     accept="image/*" multiple>
                   <div class="form-text">Maximum no of images: 3</div>
                 </div>

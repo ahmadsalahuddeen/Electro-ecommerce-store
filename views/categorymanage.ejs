@@ -12,10 +12,14 @@
   <meta name="description" content="Cartzilla - Bootstrap E-commerce Template">
   <meta name="keywords"
     content="bootstrap, shop, e-commerce, market, modern, responsive,  business, mobile, bootstrap, html5, css3, js, gallery, slider, touch, creative, clean">
-  <meta name="author" content="Createx Studio">
+  <meta name="author" content="swalahCodes">
   <!-- Viewport-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Favicon and Touch Icons-->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -154,11 +158,10 @@
 
                             <a href="/admin/editcategory?id=<%= category[i]._id %>"> <button
                                 class="btn bg-faded-info btn-icon me-2" type="button" data-bs-toggle="tooltip"
-                                title="Edit"> <i class="ci-edit text-info"></i></button></a> <a
-                              href="/admin/deletecategory?id=<%= category[i]._id %>"> <button
-                              class="btn bg-faded-danger btn-icon me-2" type="button" data-bs-toggle="tooltip"
-                              title="Edit"><i class="ci-trash text-danger"></i></button></a>
-
+                                title="Edit"> <i class="ci-edit text-info"></i></button></a> 
+                                <button  onclick="deleteAlert('<%=category[i]._id %>')"
+                                  class="mt-2 btn bg-faded-danger btn-icon me-2" type="button" data-bs-toggle="tooltip"
+                                  title="Edit"><i class="ci-trash text-danger"></i></button>
 
 
 
@@ -169,7 +172,7 @@
 
                         <% } %>
                           <% }else{ %>
-                            <h5>seems like there is not catogory in the DB</h5>
+                            <h3 class="text-danger py-4">i can show you category if i have one, So add one! 👆 </h3>
                             <% } %>
 
 
@@ -208,8 +211,28 @@
   <script src="vendor/simplebar/dist/simplebar.min.js"></script>
   <script src="vendor/tiny-slider/dist/min/tiny-slider.js"></script>
   <script src="vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- Main theme script-->
   <script src="js/theme.min.js"></script>
+  <script>
+     function deleteAlert(id) {
+      Swal.fire({
+        title: ' <h4>Delete Product? </h4>',
+        icon: 'warning',
+
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText:
+          '<a class="text-light " href="/admin/deletecategory?id=' + id + '">Delete</a>',
+
+        cancelButtonText:
+          'Cancel',
+
+
+      })
+    }
+  </script>
 </body>
 
 <!-- Mirrored from cartzilla.createx.studio/dashboard-payouts.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 23 Dec 2022 04:02:23 GMT -->

@@ -33,7 +33,7 @@ userRoute.post('/register', upload.single('image'), userController.addUser)
 userRoute.get('/login', userController.loadLogin)
 userRoute.post('/login', userController.loginValidate)
 userRoute.get('/home', userController.loadHome)
-// userRoute.get('/productList', userController.loadProductList)
+userRoute.get('/productlist', userController.loadProductList)
 userRoute.get('/logout', userController.logOut)
 
 module.exports = userRoute

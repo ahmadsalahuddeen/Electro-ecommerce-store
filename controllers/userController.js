@@ -1,5 +1,6 @@
 const User = require('../models/userModel')
 const bcrypt = require('bcrypt')
+const Product = require('../models/poductModel')
 
 const loadRegister = async (req, res) => {
   if (req.session.isLoggedIn === true) {
@@ -99,8 +100,11 @@ const loadHome = async (req, res) => {
   }
 }
 const loadProductList = async(req, res)=>{
-  res.render('productlist')
+  const product = await Product.find()
+  res.render('productlist' ,{product})
 }
+
+
 
 module.exports = {
   loadRegister,
@@ -108,7 +112,8 @@ module.exports = {
   loadLogin,
   loginValidate,
   loadHome,
-  logOut
+  logOut,
+  loadProductList,
 
 }
 

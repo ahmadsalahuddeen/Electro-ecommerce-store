@@ -1,48 +1,46 @@
 const isLogin = async (req, res, next) => {
   try {
-    if (req.session.user) {
-    } else {
-      return res.redirect("/admin");
+    if (!req.session.user) {
+      return res.redirect('/admin')
     }
 
-    next();
+    next()
   } catch (error) {}
-};
+}
 
 const isLogout = async (req, res, next) => {
   try {
     if (req.session.user) {
-      return res.redirect("/admin/home");
+      return res.redirect('/admin/home')
     }
-    next();
+    next()
   } catch (error) {}
-};
+}
 
 const isUserLogin = async (req, res, next) => {
   try {
-    if (req.session.user) {
-    } else {
-      res.redirect("/login");
+    if (!req.session.user) {
+      res.redirect('/login')
     }
-    next();
+    next()
   } catch (e) {
-    console.log(e.message);
+    console.log(e.message)
   }
-}; 
+}
 const isUserLogout = async (req, res, next) => {
   try {
     if (req.session.user) {
-      res.redirect("/home");
+      res.redirect('/home')
     }
-    next();
+    next()
   } catch (e) {
-    console.log(e.message);
-  } 
-};
+    console.log(e.message)
+  }
+}
 
 module.exports = {
   isLogin,
   isLogout,
   isUserLogin,
-  isUserLogout,
-};
+  isUserLogout
+}

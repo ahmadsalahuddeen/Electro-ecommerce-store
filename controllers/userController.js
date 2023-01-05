@@ -1,7 +1,6 @@
 const User = require('../models/userModel')
 const bcrypt = require('bcrypt')
 const Product = require('../models/poductModel')
-const { findByIdAndUpdate } = require('../models/userModel')
 
 const loadRegister = async (req, res) => {
   if (req.session.isLoggedIn === true) {
@@ -11,7 +10,7 @@ const loadRegister = async (req, res) => {
       'userRegister'
     )
   }
-} 
+}
 
 const secretPassword = async (password) => {
   try {
@@ -26,7 +25,7 @@ const loadLogin = async (req, res) => {
   if (!req.session.isLoggedIn) {
     res.render('login')
   } else {
-    res.redirect('/home')
+    res.redirect('/productlist')
   }
 }
 
@@ -34,12 +33,12 @@ const addUser = async (req, res) => {
   try {
     if (req.body.password === req.body.confirmpassword) {
       const sPassword = await secretPassword(req.body.password)
-   
+
       const user = User({
         name: req.body.name,
         email: req.body.email,
         mobile: req.body.mobile,
-        
+
         password: sPassword
 
       })
@@ -89,7 +88,7 @@ const loginValidate = async (req, res) => {
       res.render('login', { message: 'invalid email or password' })
     }
   } catch (error) {
-    console.log(error.message) 
+    console.log(error.message)
   }
 }
 
@@ -100,48 +99,32 @@ const loadHome = async (req, res) => {
     res.redirect('/login')
   }
 }
-const loadProductList = async(req, res)=>{
-  const user = await User.findById(req.session.user).populate("cart.items.product")
-console.log(user.cart);
+const loadProductList = async (req, res) => {
+  const user = await User.findById(req.session.user).populate('cart.items.product')
+
   const product = await Product.find()
-  res.render('productlist' ,{product, user: user})
+  res.render('productlist', { product, user })
 }
 
+const addToCart = async (req, res) => {
+  const useer = await User.findById(req.session.user._id)
+  console.log(useer)
 
-
-
-
-
-
-
-const addToCart = async(req, res) =>{
-  
- const useer = await User.findById(req.session.user._id)
-console.log(useer);
-
- 
-Product.findById(req.body.id)
-.then(product =>{
-  useer.addToCart(product)
-  .then(()=> {res.redirect('/productlist')})
-  
-}).catch(err => console.log(err))
-
+  Product.findById(req.body.id)
+    .then(product => {
+      useer.addToCart(product)
+        .then(() => { res.redirect('/productlist') })
+    }).catch(err => console.log(err))
 }
 
-const loadCartManage = async(req, res) =>{
-
-
+const loadCartManage = async (req, res) => {
   try {
-    const user = await User.findById(req.session.user).populate("cart.items.product")
- res.render('cartmanage', {user: user})
+    const user = await User.findById(req.session.user).populate('cart.items.product')
+    res.render('cartmanage', { user })
   } catch (e) {
-    console.log(e.message);
+    console.log(e.message)
   }
-  
 }
-
-
 
 module.exports = {
   loadRegister,
@@ -152,10 +135,18 @@ module.exports = {
   logOut,
   loadProductList,
   addToCart,
-  loadCartManage,
+  loadCartManage
 
 }
+// const deleteCartItem = async (req, res) => {
+//   const product = await Product.findById(req.query.id)
+//   const itemId = user.cart.items.findIndex(items => { items.product == product._id })
+//   const itId = itemId._id
 
+//   const userId = req.session.user._id
+//   const result = await User.findOneAndUpdate({ _id: userId }, { $pull: { cart: { items: { _id: itId } } } })
+//   res.redirect('/cartmanage')
+// }
 // const { TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_SERVICE_SID } = process.env
 // const client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, {
 //   lazyLoading: true

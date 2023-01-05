@@ -2,10 +2,12 @@ const express = require('express')
 
 const app = express()
 const mongoose = require('mongoose')
+// eslint-disable-next-line no-unused-vars
 const dotenv = require('dotenv').config({ path: './config/.env' })
 const bodyParser = require('body-parser')
 const multer = require('multer')
 const path = require('path')
+// eslint-disable-next-line no-unused-vars
 const bcrypt = require('bcrypt')
 const cookieParser = require('cookie-parser')
 const flash = require('connect-flash')

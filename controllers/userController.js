@@ -1,6 +1,7 @@
 const User = require('../models/userModel')
 const bcrypt = require('bcrypt')
 const Product = require('../models/poductModel')
+const { findByIdAndUpdate } = require('../models/userModel')
 
 const loadRegister = async (req, res) => {
   if (req.session.isLoggedIn === true) {
@@ -33,12 +34,12 @@ const addUser = async (req, res) => {
   try {
     if (req.body.password === req.body.confirmpassword) {
       const sPassword = await secretPassword(req.body.password)
-
+   
       const user = User({
         name: req.body.name,
         email: req.body.email,
         mobile: req.body.mobile,
-        image: req.file.filename,
+        
         password: sPassword
 
       })
@@ -105,25 +106,12 @@ const loadProductList = async(req, res)=>{
 }
 
 const addCart = async(req, res) =>{
-
-  const id = '63aaf99ac1b3169733e7a7a4'
-  const user = await User.findById(id)
-  const cart = user.cart
-  const product = req.body.id
-  
-  if (cart.items.length == 0) {
-    
-    cart.items.push({product:product, qty:1})
-    cart.toftalPrice += product.discount
-
-  }else {
-    const isExisting = await cart.items.findIndex(items => {items.product._id == product._id })
-    console.log(isExisting)
-
-  }
-  console.log(cart);
-  
-res.redirect('/productlist')
+  userId = '63b63264870b02d32a5b114c'
+Product.findById(req.body.id)
+.then(product =>{
+  id.addToCart(product)
+  res.redirect('/productlist')
+})
 
 }
 

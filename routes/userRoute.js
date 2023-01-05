@@ -29,7 +29,7 @@ userRoute.get('/', function (req, res) {
 })
 
 userRoute.get('/register', userController.loadRegister)
-userRoute.post('/register', upload.single('image'), userController.addUser)
+userRoute.post('/register', userController.addUser)
 userRoute.get('/login', userController.loadLogin)
 userRoute.post('/login', userController.loginValidate)
 userRoute.get('/home', userController.loadHome)

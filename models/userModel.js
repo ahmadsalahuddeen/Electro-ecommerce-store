@@ -35,7 +35,7 @@ const UserSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    required: true,
+    required: false,
   },
   password: {
     type: String,
@@ -46,6 +46,10 @@ const UserSchema = new mongoose.Schema({
     default: true,
   },
 });
+
+UserSchema.methods.addToCart = function(product){
+  
+}
 
 const User = mongoose.model("User", UserSchema);
 

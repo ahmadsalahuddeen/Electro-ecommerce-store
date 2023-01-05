@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage })
 
 const userController = require('../controllers/userController')
-
+const auth = require('../middleware/adminAuth')
 userRoute.use(function (req, res, next) {
   res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate') 
   res.header('Expires', '-1')
@@ -28,13 +28,13 @@ userRoute.get('/', function (req, res) {
   res.redirect('/login')
 })
 
-userRoute.get('/register', userController.loadRegister)
+userRoute.get('/register', auth.isUserLogout, userController.loadRegister)
 userRoute.post('/register', userController.addUser)
-userRoute.get('/login', userController.loadLogin)
+userRoute.get('/login', auth.isUserLogout, userController.loadLogin)
 userRoute.post('/login', userController.loginValidate)
-userRoute.get('/home', userController.loadHome)
-userRoute.get('/productlist', userController.loadProductList)
-userRoute.get('/logout', userController.logOut)
-userRoute.post('/addtocart', userController.addCart)
+userRoute.get('/home', auth.isUserLogin, userController.loadHome)
+userRoute.get('/productlist', auth.isUserLogin, userController.loadProductList)
+userRoute.get('/logout', auth.isUserLogout, userController.logOut)
+userRoute.post('/addtocart', userController.addToCart)
 
 module.exports = userRoute

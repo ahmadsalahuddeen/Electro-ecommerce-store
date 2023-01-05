@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema({
       {
         product: {
           type: mongoose.Schema.Types.ObjectId,
-          refer: "Product",
+          ref: "Product",
           required: true,
         },
         qty: {
@@ -27,6 +27,7 @@ const UserSchema = new mongoose.Schema({
     ],
     totalPrice: {
       type: Number,
+      default: 0
     },
   },
   mobile: {
@@ -47,9 +48,22 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-UserSchema.methods.addToCart = function(product){
-  
-}
+UserSchema.methods.addToCart = function (product) {
+  const cart = this.cart;
+  const isProductExist = cart.items.findIndex(
+    (itemsproduct) =>
+      new String(itemsproduct.product).trim() === new String(product._id).trim()
+  );
+
+  if (isProductExist >= 0) {
+    cart.items[isProductExist].qty += 1;
+  } else {
+    cart.items.push({ product: product._id, qty: 1 });
+  }
+
+  cart.totalPrice += product.discount;
+  return this.save();
+};
 
 const User = mongoose.model("User", UserSchema);
 

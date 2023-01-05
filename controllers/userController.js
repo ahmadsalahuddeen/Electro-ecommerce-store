@@ -101,17 +101,31 @@ const loadHome = async (req, res) => {
   }
 }
 const loadProductList = async(req, res)=>{
+  const user = await User.findById(req.session.user).populate("cart.items.product")
+console.log(user.cart);
   const product = await Product.find()
-  res.render('productlist' ,{product})
+  res.render('productlist' ,{product, user: user})
 }
 
-const addCart = async(req, res) =>{
-  userId = '63b63264870b02d32a5b114c'
+
+
+
+
+
+
+
+const addToCart = async(req, res) =>{
+  
+ const useer = await User.findById(req.session.user._id)
+console.log(useer);
+
+ 
 Product.findById(req.body.id)
 .then(product =>{
-  id.addToCart(product)
-  res.redirect('/productlist')
-})
+  useer.addToCart(product)
+  .then(()=> {res.redirect('/productlist')})
+  
+}).catch(err => console.log(err))
 
 }
 
@@ -125,7 +139,7 @@ module.exports = {
   loadHome,
   logOut,
   loadProductList,
-  addCart,
+  addToCart,
 
 }
 

@@ -89,7 +89,7 @@ const loginValidate = async (req, res) => {
       res.render('login', { message: 'invalid email or password' })
     }
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message) 
   }
 }
 
@@ -129,6 +129,18 @@ Product.findById(req.body.id)
 
 }
 
+const loadCartManage = async(req, res) =>{
+
+
+  try {
+    const user = await User.findById(req.session.user).populate("cart.items.product")
+ res.render('cartmanage', {user: user})
+  } catch (e) {
+    console.log(e.message);
+  }
+  
+}
+
 
 
 module.exports = {
@@ -140,6 +152,7 @@ module.exports = {
   logOut,
   loadProductList,
   addToCart,
+  loadCartManage,
 
 }
 

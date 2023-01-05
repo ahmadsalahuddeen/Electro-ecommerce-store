@@ -36,5 +36,8 @@ userRoute.get('/home', auth.isUserLogin, userController.loadHome)
 userRoute.get('/productlist', auth.isUserLogin, userController.loadProductList)
 userRoute.get('/logout', auth.isUserLogout, userController.logOut)
 userRoute.post('/addtocart', userController.addToCart)
+userRoute.get('/cartmanage',auth.isUserLogin, userController.loadCartManage)
+
 
 module.exports = userRoute
+  

@@ -1,6 +1,7 @@
 const User = require('../models/userModel')
 const bcrypt = require('bcrypt')
 const Product = require('../models/poductModel')
+const { response } = require('../routes/userRoute')
 
 const loadRegister = async (req, res) => {
   if (req.session.isLoggedIn === true) {
@@ -109,11 +110,15 @@ const loadProductList = async (req, res) => {
 const addToCart = async (req, res) => {
   const useer = await User.findById(req.session.user._id)
   console.log(useer)
+const productId = req.query.id
 
-  Product.findById(req.body.id)
-    .then(product => {
-      useer.addToCart(product)
-        .then(() => { res.redirect('/productlist') })
+  Product.findById(req.body.productid)
+    .then((product) => {
+      
+      useer.addToCart(product, (response)=>{
+        res.json(response)
+      })
+        
     }).catch(err => console.log(err))
 }
 

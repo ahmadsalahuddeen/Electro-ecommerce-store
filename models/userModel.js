@@ -1,3 +1,4 @@
+const { response } = require("express");
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
@@ -48,7 +49,7 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-UserSchema.methods.addToCart = function (product) {
+UserSchema.methods.addToCart = function (product, cb) {
   const cart = this.cart;
   const isProductExist = cart.items.findIndex(
     (itemsproduct) =>
@@ -62,7 +63,12 @@ UserSchema.methods.addToCart = function (product) {
   }
 
   cart.totalPrice += product.discount;
-  return this.save();
+  this.save().then((doc)=>{
+     response.cartLength = doc.cart.items.length
+     response.totalPrice = doc.cart.totalPrice
+     cb(response)
+
+  });
 };
 
 const User = mongoose.model("User", UserSchema);

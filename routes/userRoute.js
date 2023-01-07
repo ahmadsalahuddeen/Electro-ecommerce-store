@@ -18,7 +18,7 @@ userRoute.get('/', function (req, res) {
 userRoute.get('/register', auth.isUserLogout, userController.loadRegister)
 userRoute.post('/register', userController.addUser)
 userRoute.get('/login', auth.isUserLogout, userController.loadLogin)
-userRoute.post('/login', userController.loginValidate)
+userRoute.post('/login', userController.loginValidate) 
 userRoute.get('/home', auth.isUserLogin, userController.loadHome)
 userRoute.get('/productlist', auth.isUserLogin, userController.loadProductList)
 userRoute.get('/logout', auth.isUserLogout, userController.logOut)

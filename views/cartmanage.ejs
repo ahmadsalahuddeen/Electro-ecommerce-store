@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from cartzilla.createx.studio/shop-cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 23 Dec 2022 04:00:53 GMT -->
+<!-- Mirrored from cartzilla.createx.studio/productlist by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 23 Dec 2022 04:00:53 GMT -->
 <!-- Added by HTTrack -->
 <meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 
@@ -27,16 +27,76 @@
   <link rel="stylesheet" media="screen" href="vendor/simplebar/dist/simplebar.min.css" />
   <link rel="stylesheet" media="screen" href="vendor/tiny-slider/dist/tiny-slider.css" />
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"> </script>
   </script>
   <!-- Main Theme Styles + Bootstrap-->
   <link rel="stylesheet" media="screen" href="/css/theme.min.css">
   <!-- Google Tag Manager-->
-  
+
 </head>
 <!-- Body-->
 
 <body class="handheld-toolbar-enabled">
+  <style>
+    .quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.quantity__minus,
+.quantity__plus {
+  display: block;
+  width: 22px;
+  height: 23px;
+  margin: 0;
+  background: #dee0ee;
+  text-decoration: none;
+  text-align: center;
+  line-height: 23px;
+}
+.quantity__minus:hover,
+.quantity__plus:hover {
+  background: #575b71;
+  color: #fff;
+} 
+.quantity__minus {
+  height: 35px !important;
+  width: 32px !important;
+  border-radius: 5px;
+  margin-right: 5px;
+  border-width: 0ch;
+}
+.quantity__plus {
+  height: 35px !important;
+  width: 32px !important;
+  border-radius: 5px;
+  margin-left: 5px;
+  border-width: 0ch;
+}
+.quantity__input {
+  width: 32px;
+  height: 35px;
+  margin: 0;
+  padding: 0;
+  border-radius: 5px;
+  text-align: center;
+  border-top: 2px solid #dee0ee;
+  border-bottom: 2px solid #dee0ee;
+  border-left: 1px solid #dee0ee;
+  border-right: 2px solid #dee0ee;
+  background: #fff;
+  color: #8184a1;
+}
+.quantity__minus:link,
+.quantity__plus:link {
+  color: #8184a1;
+} 
+.quantity__minus:visited,
+.quantity__plus:visited {
+  color: #fff;
+}
+  </style>
   <!-- Google Tag Manager (noscript)-->
 
   <main class="page-wrapper">
@@ -207,50 +267,11 @@
                 <div class="navbar-tool-text ms-n3"><small>Hello, Sign in</small>My Account</div>
               </a>
               <div class="navbar-tool dropdown ms-3"><a class="navbar-tool-icon-box bg-secondary dropdown-toggle"
-                  href="shop-cart.html"><span class="navbar-tool-label">
-                    <%= user.cart.items.length %>
-                  </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
-                  href="shop-cart.html"><small>My
-                    Cart</small>₹<%= user.cart.totalPrice %> </a>
-                <!-- Cart dropdown-->
-                <div class="dropdown-menu dropdown-menu-end">
-                  <div class="widget widget-cart px-3 pt-2 pb-3" style="width: 20rem;">
-
-
-                    <div style="height: 15rem;" data-simplebar data-simplebar-auto-hide="false">
-                      <% user.cart.items.forEach(items=> { %>
-
-                        <div class="widget-cart-item pb-2 border-bottom">
-                         
-                         
-                          
-                          <div class="d-flex align-items-center"><a class="flex-shrink-0"
-                              href="shop-single-v1.html"><img src="<%= items.product.image[1] %> " width="64"
-                                alt="Product"></a>
-                            <div class="ps-2">
-                              <h6 class="widget-product-title"><a href="shop-single-v1.html">
-                                  <%= items.product.name %>
-                                </a>
-                              </h6>
-                              <div class="widget-product-meta"><span class="text-accent me-2">
-                                  <%= items.product.discount %>
-                                </span><span class="text-muted">x <%= items.qty %>
-                                </span></div>
-                            </div>
-                          </div>
-                        </div>
-                        <% }); %>
-
-                    </div>
-                    <div class="d-flex flex-wrap justify-content-between align-items-center py-3">
-                      <div class="fs-sm me-2 py-2"><span class="text-muted">Subtotal:</span><span
-                          class="text-accent fs-base ms-1">₹ <%= user.cart.totalPrice %> </span></div><a
-                        class="btn btn-outline-secondary btn-sm" href="shop-cart.html">Expand cart<i
-                          class="ci-arrow-right ms-1 me-n1"></i></a>
-                    </div><a class="btn btn-primary btn-sm d-block w-100" href="checkout-details.html"><i
-                        class="ci-card me-2 fs-base align-middle"></i>Checkout</a>
-                  </div>
-                </div>
+                  href="cartmanage"><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
+                  href="cartmanage"><small>My
+                    Cart</small><span id="totalPrice2"> ₹<%= user.cart.totalPrice %></span> </a>
+                <!-- Cart dropdown--> 
+               
               </div>
             </div>
           </div>
@@ -511,7 +532,7 @@
                                 Page v.1</a></li>
                             <li class="widget-list-item"><a class="widget-list-link" href="shop-single-v2.html">Product
                                 Page v.2</a></li>
-                            <li class="widget-list-item"><a class="widget-list-link" href="shop-cart.html">Cart</a></li>
+                            <li class="widget-list-item"><a class="widget-list-link" href="cartmanage">Cart</a></li>
                             <li class="widget-list-item"><a class="widget-list-link"
                                 href="checkout-details.html">Checkout - Details</a></li>
                             <li class="widget-list-item"><a class="widget-list-link"
@@ -710,8 +731,9 @@
               href="shop-grid-ls.html"><i class="ci-arrow-left me-2"></i>Continue shopping</a>
           </div>
           <!-- Item-->
+          <% if(user.cart.items.length !== 0){%> 
           <% user.cart.items.forEach(items=> {%>
-            <div class="d-sm-flex justify-content-between align-items-center my-2 pb-3 border-bottom">
+            <div id="<%= items.product._id %>" class="d-sm-flex justify-content-between align-items-center my-2 pb-3 border-bottom">
               <div class="d-block d-sm-flex align-items-center text-center text-sm-start"><a
                   class="d-inline-block flex-shrink-0 mx-auto me-sm-4" href="shop-single-v1.html"><img class="rounded"
                     src="<%= items.product.image[0] %>" width="160" alt="Product"></a>
@@ -731,30 +753,24 @@
                 </div>
               </div>
               <div class="pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-start" style="max-width: 9rem;">
-                <label class="form-label" for="quantity1">quantity </label>
-                <select onselect="" class="form-select" name="qty" id="qty">
-                  <option>
-                    <%=items.qty%>
-                  </option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                  <option>6</option>
-                  <option>7</option>
-                  <option>8</option>
-                  <option>9</option>
-                  <option>10</option>
-                  <option>11</option>
-                  <option>12</option>
-                  <option>13</option>
-                </select>
+                <p style="margin-bottom: 8px;">Quantity</p>
+                <div class="quantity">
+                  
+                  <button onclick="qtyChange('<%= items.product._id %>',-1)" class="quantity__minus"><span>-</span></button>
+
+
+                  <input readonly name="qty" type="text"  class="quantity__input"  value="<%= items.qty %>" >
+                  <input type="text" id="<%= items.product._id%>minus" hidden value="<%= items.qty %> ">
+
+                  
+                  
+                  <button  onclick="qtyChange('<%= items.product._id %>',
+                  1)" class="quantity__plus"><span>+</span></button>
+                </div>
+
+               <button onclick="removeItem('<%= items.product._id %>')" class="mt-2 btn bg-faded-danger btn-icon me-2" id="<%=items.product._id  %>"  type="button"
+                     title="Delete"><i class="ci-trash text-danger"></i></button>
                 
-               <a href="#"> <button   
-                  class="mt-2 btn bg-faded-danger btn-icon me-2" type="button" data-bs-toggle="tooltip"
-                  title="Delete"><i class="ci-trash text-danger"></i></button>
-                </a>
               </div>
               <!-- <div class="pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-start" style="max-width: 9rem;">
                   <label class="form-label" for="quantity1">quantity </label>
@@ -762,12 +778,16 @@
                   <button class="btn btn-link px-0 text-danger" type="button"><i class="ci-close-circle me-2"></i><span class="fs-sm">Remove</span></button>
                 </div> -->
             </div>
+            
             <% }); %>
-
+            
               <!-- Item-->
-              <form action=""></form>
+              
               <a href="/cartmanage"> <button class="btn btn-outline-accent d-block w-100 mt-4" type="button"><i
                     class="ci-loading fs-base me-2"></i>Update cart</button></a>
+                    <%}else{%>
+                      <h4>The cart is empty</h4>
+                                  <%} %>
         </section>
         <!-- Sidebar-->
         <aside class="col-lg-4 pt-4 pt-lg-0 ps-xl-5">
@@ -776,14 +796,14 @@
               <div class="text-center mb-4 pb-3 border-bottom">
                 <h2 class="h6 mb-3 pb-1">Subtotal</h2>
                 <p> </p>
-                <h3 class="fw-normal">₹<%= user.cart.totalPrice %>
+                <h3 id="totalPrice3" class="fw-normal">₹<%= user.cart.totalPrice %>
                 </h3>
               </div>
               <div class="mb-3 mb-4">
                 <label class="form-label mb-3" for="order-comments"><span
                     class="badge bg-info fs-xs me-2">Note</span><span class="fw-medium">Additional
                     comments</span></label>
-                <textarea class="form-control" rows="6" id="order-comments"></textarea>
+               <textarea class="form-control" rows="6" id="order-comments"></textarea>
               </div>
               <div class="accordion" id="order-options">
                 <div class="accordion-item">
@@ -1029,7 +1049,7 @@
         href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
         onclick="window.scrollTo(0, 0)"><span class="handheld-toolbar-icon"><i class="ci-menu"></i></span><span
           class="handheld-toolbar-label">Menu</span></a><a class="d-table-cell handheld-toolbar-item"
-        href="shop-cart.html"><span class="handheld-toolbar-icon"><i class="ci-cart"></i><span
+        href="cartmanage"><span class="handheld-toolbar-icon"><i class="ci-cart"></i><span
             class="badge bg-primary rounded-pill ms-1">4</span></span><span
           class="handheld-toolbar-label">$265.00</span></a></div>
   </div>
@@ -1045,11 +1065,74 @@
   <script src="vendor/simplebar/dist/simplebar.min.js"></script>
   <script src="vendor/tiny-slider/dist/min/tiny-slider.js"></script>
   <script src="vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
   <!-- Main theme script-->
   <script src="js/theme.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  
   <script>
+const qtyChange = (proId, count )=>{
+ 
+  const quantity = document.getElementById(proId+'minus').value
+
+$.ajax({
+  url: `/qtyChange?id=${proId}&expressionKey=${count}&currentQuantity=${quantity}`,
+  method: 'POST',
+  success: (response)=>{
+    
+  }
+})
+}
+
+
+
+
+
+
+
+    const removeItem = (productId)=>{
+      
+
+      const id = productId
+    
+      
+      Swal.fire({
+  title: 'Delete this cart item?',
+  
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    $.ajax({
+  url: `/removeCartItem?id=${id}`,
+  method: "POST",
+  success: (response)=>{
+    if (response.remove == true) {
+      document.getElementById(productId).remove()
+     
+     
+      document.getElementById('totalPrice2').innerHTML = `₹ ${response.totalPrice}`
+      document.getElementById('totalPrice3').innerHTML = `₹ ${response.totalPrice}`
+      
+    }
+  
+  
+  }
+})
+
+    Swal.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )
+  }
+})
+
+}
+
+
     function deleteAlert(id) {
       Swal.fire({
         title: ' <h4>Delete Product? </h4>',
@@ -1076,6 +1159,6 @@
   </script>
 </body>
 
-<!-- Mirrored from cartzilla.createx.studio/shop-cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 23 Dec 2022 04:00:53 GMT -->
+<!-- Mirrored from cartzilla.createx.studio/productlist by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 23 Dec 2022 04:00:53 GMT -->
 
 </html>

@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-  },
+  },  
   email: {
     type: String,
     required: true,
@@ -70,6 +70,36 @@ UserSchema.methods.addToCart = function (product, cb) {
 
   });
 };
+
+UserSchema.methods.changeQuantity = (product, count, qty, cb )=>{
+const cart = this.cart
+const response = {}
+const key = parseInt(count)
+const currentQuantity = parseInt(qty)
+const itemId = cart.items.findIndex(element => {element.product._id == product})
+
+if (key === -1 && currentQuantity === 1) {
+  cart.totalPrice -= product.discount 
+  cart.items.splice(itemId, 1)
+  response.remove = true
+  
+} else if(key === -1){
+  cart.items[itemId].qty -= 1
+  cart.totalPrice -= product.discount
+ 
+  response.newQuantityCount = cart.items[itemId].qty  
+} else if(key === 1){
+  cart.items[itemId].qty +=  1
+  cart.totalPrice += product.discount
+  response.newQuantityCount = cart.items[itemId].qty  
+}
+
+this.save().then((doc)=>{
+  response.totalPtice = doc.cart.totalPrice
+  response.cartLength = doc.cart.length
+  cb(response)
+})
+}
 
 const User = mongoose.model("User", UserSchema);
 

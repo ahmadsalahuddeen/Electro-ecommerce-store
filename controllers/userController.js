@@ -2,6 +2,7 @@ const User = require('../models/userModel')
 const bcrypt = require('bcrypt')
 const Product = require('../models/poductModel')
 const { response } = require('../routes/userRoute')
+const { findById, find } = require('../models/userModel')
 
 const loadRegister = async (req, res) => {
   if (req.session.isLoggedIn === true) {
@@ -116,6 +117,7 @@ const productId = req.query.id
     .then((product) => {
       
       useer.addToCart(product, (response)=>{
+        console.log(response);
         res.json(response)
       })
         
@@ -131,6 +133,40 @@ const loadCartManage = async (req, res) => {
   }
 }
 
+
+const removeCartItem = async(req, res)=>{
+ const  productId = req.query.id
+ const userId = req.session.user._id
+ const user = await User.findById(userId)
+ 
+ const product = await Product.findById(productId)
+ const itemId =  user.cart.items.findIndex(
+  (itemsproduct) =>
+    new String(itemsproduct.product).trim() === new String(productId).trim()
+);
+ 
+ const itemPrice =  product.discount * user.cart.items[itemId].qty
+
+ 
+ const newTotalPrice = user.cart.totalPrice - itemPrice
+ 
+  User.findByIdAndUpdate({_id: userId}, {$pull: {'cart.items': {product: productId}}},{new:true}).then(
+    User.updateOne({_id:userId}, {$set: {'cart.totalPrice': newTotalPrice}}).then(()=>{
+
+      res.json({remove: true,totalPrice:newTotalPrice})
+    })
+  )
+}
+
+
+const qtyChange = async(req, res) =>{
+  const product = await Product.find({_id: req.query.id})
+  const user = await User.find({_id:req.session.user._id})
+
+  user.changeQuantity(product, req.query.expressionKey, req.query.currentQuantity, (response)=>{
+    res.json(response)
+  } )
+}
 module.exports = {
   loadRegister,
   addUser,
@@ -140,7 +176,9 @@ module.exports = {
   logOut,
   loadProductList,
   addToCart,
-  loadCartManage
+  loadCartManage,
+  removeCartItem,
+  qtyChange
 
 }
 // const deleteCartItem = async (req, res) => {

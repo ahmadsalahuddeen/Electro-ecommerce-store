@@ -1,7 +1,7 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const Product = require("../models/poductModel");
-const { response } = require("../routes/userRoute");
+const { response, render } = require("../routes/userRoute");
 const { findById, find } = require("../models/userModel");
 
 const loadRegister = async (req, res) => {
@@ -183,6 +183,17 @@ const quantity = req.query.currentQuantity
     console.log(error.message);
   }
 };
+
+
+const loadProductDetail = async(req, res )  =>{
+  try {
+    const product = await Product.findById(req.query.id)
+  res.render('productdetail', {product:product})
+  } catch (e) {
+    console.log(`product detail load page: ${e.message}`);
+  }
+  
+}
 module.exports = {
   loadRegister,
   addUser,
@@ -195,6 +206,7 @@ module.exports = {
   loadCartManage,
   removeCartItem,
   qtyChange,
+  loadProductDetail,
 };
 // const deleteCartItem = async (req, res) => {
 //   const product = await Product.findById(req.query.id)

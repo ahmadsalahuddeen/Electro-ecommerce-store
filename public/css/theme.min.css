@@ -17341,17 +17341,25 @@ html:not([dir="rtl"]) .range-slider-ui.noUi-horizontal .noUi-handle {
   background-color: #42d697;
   color: #fff;
 }
+.product-badge.product-notavailable {
+  background-color: #ff0034;
+  color: #fff;
+}
 .product-badge.product-available::after {
   border-color: rgba(66, 214, 151, 0);
   border-bottom-color: #29bc7d;
 }
+.product-badge.product-notavailable::after {
+  border-color: rgba(66, 214, 151, 0);
+  border-bottom-color: #ff0034;
+}
 .product-badge.product-not-available {
-  background-color: #f3f5f9;
-  color: #4b566b;
+  background-color: #ff0034;
+  color: #fff;
 }
 .product-badge.product-not-available::after {
   border-color: rgba(243, 245, 249, 0);
-  border-bottom-color: #d8deeb;
+  border-bottom-color: #ff0034;
 }
 @media (max-width: 991.98px) {
   .product-badge {

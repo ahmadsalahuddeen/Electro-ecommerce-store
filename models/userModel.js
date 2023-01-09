@@ -69,17 +69,18 @@ UserSchema.methods.addToCart = function (product, cb) {
      cb(response)
 
   });
-};
+},
 
-UserSchema.methods.changeQuantity = (product, count, qty, cb )=>{
+UserSchema.methods.changeQuantity = async function (product, count, qty, cb ){
 const cart = this.cart
 const response = {}
-const key = parseInt(count)
-const currentQuantity = parseInt(qty)
-const itemId = cart.items.findIndex(element => {element.product._id == product})
+const key = parseInt(count, 10)
+const currentQuantity = parseInt(qty, 10)
+const proId = product._id.toString()
+const itemId = cart.items.findIndex(element => new String(element.product) == proId )
 
 if (key === -1 && currentQuantity === 1) {
-  cart.totalPrice -= product.discount 
+  cart.totalPrice -= product.discount * 1
   cart.items.splice(itemId, 1)
   response.remove = true
   
@@ -95,7 +96,7 @@ if (key === -1 && currentQuantity === 1) {
 }
 
 this.save().then((doc)=>{
-  response.totalPtice = doc.cart.totalPrice
+  response.totalPrice = doc.cart.totalPrice
   response.cartLength = doc.cart.length
   cb(response)
 })

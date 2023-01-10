@@ -254,7 +254,7 @@
       <div class="navbar-sticky bg-light">
         <div class="navbar navbar-expand-lg navbar-light">
           <div class="container"><a class="navbar-brand d-none d-sm-block flex-shrink-0" href="index.html"><img
-                src="../public/img/logo-dark.png" width="142" alt="Cartzilla"></a><a
+                src="../public//img/electro-logo.png" width="142" alt="Cartzilla"></a><a
               class="navbar-brand d-sm-none flex-shrink-0 me-2" href="index.html"><img src="../public/img/logo-icon.png"
                 width="74" alt="Cartzilla"></a>
             <div class="input-group d-none d-lg-flex mx-4">
@@ -735,7 +735,7 @@
         <section class="col-lg-8">
           <div class="d-flex justify-content-between align-items-center pt-3 pb-4 pb-sm-5 mt-1">
             <h2 class="h6 text-light mb-0">Products</h2><a class="btn btn-outline-primary btn-sm ps-2"
-              href="shop-grid-ls.html"><i class="ci-arrow-left me-2"></i>Continue shopping</a>
+              href="/productlist"><i class="ci-arrow-left me-2"></i>Continue shopping</a>
           </div>
           <!-- Item-->
           <% if(user.cart.items.length !==0){%>
@@ -743,10 +743,10 @@
               <div id="<%= items.product._id %>"
                 class="d-sm-flex justify-content-between align-items-center my-2 pb-3 border-bottom">
                 <div class="d-block d-sm-flex align-items-center text-center text-sm-start"><a
-                    class="d-inline-block flex-shrink-0 mx-auto me-sm-4" href="shop-single-v1.html"><img class="rounded"
+                    class="d-inline-block flex-shrink-0 mx-auto me-sm-4" href="/productdetail?id=<%= items.product._id%>"><img class="rounded"
                       src="<%= items.product.image[0] %>" width="160" alt="Product"></a>
                   <div class="pt-2">
-                    <h3 class="product-title fs-base mb-2"><a href="shop-single-v1.html">
+                    <h3 class="product-title fs-base mb-2"><a href="/productdetail?id=<%= items.product._id%>">
                         <%= items.product.name %>
                       </a></h3>
                     <div class="fs-sm"><span class="text-muted me-2">Brand:</span>

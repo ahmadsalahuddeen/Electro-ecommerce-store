@@ -46,6 +46,8 @@ const addUser = async (req, res) => {
       if (userData) {
         req.session.isLoggedIn = true;
         req.session.user = userData;
+        req.session.cartLength = userData.cart.items.length
+          req.session.cartTotalPrice = userData.cart.totalPrice
         res.redirect("/home");
       }
     } else {
@@ -74,6 +76,8 @@ const loginValidate = async (req, res) => {
         if (userData.access) {
           req.session.isLoggedIn = true;
           req.session.user = userData;
+          req.session.cartLength = userData.cart.items.length
+          req.session.cartTotalPrice = userData.cart.totalPrice
 
           console.log(` sesssion isloggein created: ${userData}`);
           res.redirect("/home");
@@ -186,9 +190,11 @@ const quantity = req.query.currentQuantity
 
 
 const loadProductDetail = async(req, res )  =>{
+  
   try {
+    const user = await User.findById(req.session.user._id)
     const product = await Product.findById(req.query.id)
-  res.render('productdetail', {product:product})
+  res.render('productdetail', {product:product, user:user})
   } catch (e) {
     console.log(`product detail load page: ${e.message}`);
   }

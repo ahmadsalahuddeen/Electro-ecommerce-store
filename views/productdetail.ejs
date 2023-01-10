@@ -24,6 +24,8 @@
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="theme-color" content="#ffffff">
   <!-- Vendor Styles including: Font Icons, Plugins, etc.-->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"> </script>
   <link rel="stylesheet" media="screen" href="vendor/simplebar/dist/simplebar.min.css" />
   <link rel="stylesheet" media="screen" href="vendor/tiny-slider/dist/tiny-slider.css" />
   <link rel="stylesheet" media="screen" href="vendor/drift-zoom/dist/drift-basic.min.css" />
@@ -175,7 +177,7 @@
       <div class="navbar-sticky bg-light">
         <div class="navbar navbar-expand-lg navbar-light">
           <div class="container"><a class="navbar-brand d-none d-sm-block me-3 flex-shrink-0" href="index.html"><img
-                src="img/logo-dark.png" width="142" alt="Cartzilla"></a><a class="navbar-brand d-sm-none me-2"
+                src="/img/electro-logo.png" width="142" alt="Cartzilla"></a><a class="navbar-brand d-sm-none me-2"
               href="index.html"><img src="img/logo-icon.png" width="74" alt="Cartzilla"></a>
             <!-- Search-->
             <div class="input-group d-none d-lg-flex flex-nowrap mx-4"><i
@@ -206,81 +208,11 @@
                 <div class="navbar-tool-text ms-n3"><small>Hello, Sign in</small>My Account</div>
               </a>
               <div class="navbar-tool dropdown ms-3"><a class="navbar-tool-icon-box bg-secondary dropdown-toggle"
-                  href="shop-cart.html"><span class="navbar-tool-label">4</span><i
-                    class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text" href="shop-cart.html"><small>My
-                    Cart</small>$1,247.00</a>
+                  href="/cartmanage"><span class="navbar-tool-label" id="cartLength"><%= user.cart.items.length %> </span><i
+                    class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text" href="/cartmanage"><small>My
+                    Cart</small><span id="totalPrice" > ₹ <%= user.cart.totalPrice %></span> </a>
                 <!-- Cart dropdown-->
-                <div class="dropdown-menu dropdown-menu-end">
-                  <div class="widget widget-cart px-3 pt-2 pb-3" style="width: 20rem;">
-                    <div style="height: 15rem;" data-simplebar data-simplebar-auto-hide="false">
-                      <div class="widget-cart-item pb-2 border-bottom">
-                        <button class="btn-close text-danger" type="button" aria-label="Remove"><span
-                            aria-hidden="true">&times;</span></button>
-                        <div class="d-flex align-items-center"><a class="d-block flex-shrink-0"
-                            href="shop-single-v2.html"><img src="img/shop/cart/widget/05.jpg" width="64"
-                              alt="Product"></a>
-                          <div class="ps-2">
-                            <h6 class="widget-product-title"><a href="shop-single-v2.html">Bluetooth Headphones</a></h6>
-                            <div class="widget-product-meta"><span
-                                class="text-accent me-2">$259.<small>00</small></span><span class="text-muted">x
-                                1</span></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="widget-cart-item py-2 border-bottom">
-                        <button class="btn-close text-danger" type="button" aria-label="Remove"><span
-                            aria-hidden="true">&times;</span></button>
-                        <div class="d-flex align-items-center"><a class="d-block flex-shrink-0"
-                            href="shop-single-v2.html"><img src="img/shop/cart/widget/06.jpg" width="64"
-                              alt="Product"></a>
-                          <div class="ps-2">
-                            <h6 class="widget-product-title"><a href="shop-single-v2.html">Cloud Security Camera</a>
-                            </h6>
-                            <div class="widget-product-meta"><span
-                                class="text-accent me-2">$122.<small>00</small></span><span class="text-muted">x
-                                1</span></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="widget-cart-item py-2 border-bottom">
-                        <button class="btn-close text-danger" type="button" aria-label="Remove"><span
-                            aria-hidden="true">&times;</span></button>
-                        <div class="d-flex align-items-center"><a class="d-block flex-shrink-0"
-                            href="shop-single-v2.html"><img src="img/shop/cart/widget/07.jpg" width="64"
-                              alt="Product"></a>
-                          <div class="ps-2">
-                            <h6 class="widget-product-title"><a href="shop-single-v2.html">Android Smartphone S10</a>
-                            </h6>
-                            <div class="widget-product-meta"><span
-                                class="text-accent me-2">$799.<small>00</small></span><span class="text-muted">x
-                                1</span></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="widget-cart-item py-2 border-bottom">
-                        <button class="btn-close text-danger" type="button" aria-label="Remove"><span
-                            aria-hidden="true">&times;</span></button>
-                        <div class="d-flex align-items-center"><a class="d-block flex-shrink-0"
-                            href="shop-single-v2.html"><img src="img/shop/cart/widget/08.jpg" width="64"
-                              alt="Product"></a>
-                          <div class="ps-2">
-                            <h6 class="widget-product-title"><a href="shop-single-v2.html">Android Smart TV Box</a></h6>
-                            <div class="widget-product-meta"><span
-                                class="text-accent me-2">$67.<small>00</small></span><span class="text-muted">x 1</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-flex flex-wrap justify-content-between align-items-center py-3">
-                      <div class="fs-sm me-2 py-2"><span class="text-muted">Subtotal:</span><span
-                          class="text-accent fs-base ms-1">$1,247.<small>00</small></span></div><a
-                        class="btn btn-outline-secondary btn-sm" href="shop-cart.html">Expand cart<i
-                          class="ci-arrow-right ms-1 me-n1"></i></a>
-                    </div><a class="btn btn-primary btn-sm d-block w-100" href="checkout-details.html"><i
-                        class="ci-card me-2 fs-base align-middle"></i>Checkout</a>
-                  </div>
-                </div>
+                
               </div>
             </div>
           </div>
@@ -1012,7 +944,7 @@
                                 Page v.1</a></li>
                             <li class="widget-list-item"><a class="widget-list-link" href="shop-single-v2.html">Product
                                 Page v.2</a></li>
-                            <li class="widget-list-item"><a class="widget-list-link" href="shop-cart.html">Cart</a></li>
+                            <li class="widget-list-item"><a class="widget-list-link" href="/cartmanage">Cart</a></li>
                             <li class="widget-list-item"><a class="widget-list-link"
                                 href="checkout-details.html">Checkout - Details</a></li>
                             <li class="widget-list-item"><a class="widget-list-link"
@@ -1189,14 +1121,7 @@
     <div class="page-title-overlap bg-dark pt-4">
       <div class="container d-lg-flex justify-content-between py-2 py-lg-3">
         <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
-              <li class="breadcrumb-item"><a class="text-nowrap" href="index.html"><i class="ci-home"></i>Home</a></li>
-              <li class="breadcrumb-item text-nowrap"><a href="#">Shop</a>
-              </li>
-              <li class="breadcrumb-item text-nowrap active" aria-current="page">Product Page v.2</li>
-            </ol>
-          </nav>
+          
         </div>
         <div class="order-lg-1 pe-lg-4 text-center text-lg-start">
           <h1 class="h3 text-light mb-2">
@@ -1223,15 +1148,15 @@
                 <div class="col-lg-7 pe-lg-0">
                   <div class="product-gallery">
                     <div class="product-gallery-preview order-sm-2">
-                      <div class="product-gallery-preview-item active" id="first"><img class="image-zoom"
+                      <div class="product-gallery-preview-item active" id="first"><img class="rounded-4 image-zoom"
                           src="<%= product.image[0] %>" data-zoom="<%= product.image[0] %>" alt="Product image">
                         <div class="image-zoom-pane"></div>
                       </div>
-                      <div class="product-gallery-preview-item" id="second"><img class="image-zoom"
+                      <div class="product-gallery-preview-item" id="second"><img class="rounded-4 image-zoom"
                           src="<%= product.image[1] %>" data-zoom="<%= product.image[1] %>" alt="Product image">
                         <div class="image-zoom-pane"></div>
                       </div>
-                      <div class="product-gallery-preview-item" id="third"><img class="image-zoom"
+                      <div class="product-gallery-preview-item" id="third"><img class="rounded-4 image-zoom"
                           src="<%= product.image[2] %>" data-zoom="<%= product.image[2] %>" alt="Product image">
                         <div class="image-zoom-pane"></div>
                       </div>
@@ -1247,37 +1172,17 @@
                 <!-- Product details-->
                 <div class="col-lg-5 pt-4 pt-lg-0">
                   <div class="product-details ms-auto pb-3">
+                    <div class="order-lg-1 pe-lg-4 text-center text-lg-start">
+                      <h3 class="h4  mb-3">
+                        <%= product.name %>
+                      </h3>
+            
+                    </div>
                     <div class="h3 fw-normal text-accent mb-3 me-1">₹ <%= product.discount %>
                     </div>
-                    <div class="fs-sm mb-4"><span class="text-muted" id="colorOption">Category: </span><span
-                        class="text-heading fw-medium me-1">
-                        <%= product.category %>
-                      </span></div>
                     <div class="position-relative me-n4 mb-3">
-                      <div class="form-check form-option form-check-inline mb-2">
-                        <input class="form-check-input" type="radio" name="color" id="color1"
-                          data-bs-label="colorOption" value="Dark blue/Orange" checked>
-                        <label class="form-option-label rounded-circle" for="color1"><span
-                            class="form-option-color rounded-circle" style="background-color: #f25540;"></span></label>
-                      </div>
-                      <div class="form-check form-option form-check-inline mb-2">
-                        <input class="form-check-input" type="radio" name="color" id="color2"
-                          data-bs-label="colorOption" value="Dark blue/Green">
-                        <label class="form-option-label rounded-circle" for="color2"><span
-                            class="form-option-color rounded-circle" style="background-color: #65805b;"></span></label>
-                      </div>
-                      <div class="form-check form-option form-check-inline mb-2">
-                        <input class="form-check-input" type="radio" name="color" id="color3"
-                          data-bs-label="colorOption" value="Dark blue/White">
-                        <label class="form-option-label rounded-circle" for="color3"><span
-                            class="form-option-color rounded-circle" style="background-color: #f5f5f5;"></span></label>
-                      </div>
-                      <div class="form-check form-option form-check-inline mb-2">
-                        <input class="form-check-input" type="radio" name="color" id="color4"
-                          data-bs-label="colorOption" value="Dark blue/Black">
-                        <label class="form-option-label rounded-circle" for="color4"><span
-                            class="form-option-color rounded-circle" style="background-color: #333;"></span></label>
-                      </div>
+                      
+                      
                       <% if (product.stock >= 0) {%>
                         <div class="product-badge product-available mt-n1"><i class="ci-security-check"></i>Product
                           available</div>
@@ -1286,17 +1191,16 @@
                             Stock</div>
                             <%} %>
                     </div>
+                    <div class="fs-sm mb-4"><span class="text-muted" id="colorOption">Category: </span><span
+                        class="text-heading fw-medium me-1">
+                        <%= product.category %>
+                      </span></div>
+                    
 
 
                       <div class="d-flex align-items-center pt-2 pb-4">
-                        <select class="form-select me-3" style="width: 5rem;">
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </select>
-                        <button class="btn btn-primary btn-shadow d-block w-100" type="button"><i
+                       
+                        <button onclick="addToCart('<%=product._id %>')" class="btn btn-primary btn-shadow d-block w-100" type="button"><i
                             class="ci-cart fs-lg me-2"></i>Add to Cart</button>
                       </div>
                       <div class="d-flex mb-4">
@@ -1305,71 +1209,22 @@
                               class="ci-heart fs-lg me-2"></i><span class='d-none d-sm-inline'>Add to
                             </span>Wishlist</button>
                         </div>
-                        <div class="w-100">
-                          <button class="btn btn-secondary d-block w-100" type="button"><i
-                              class="ci-compare fs-lg me-2"></i>Compare</button>
-                        </div>
+                        
                       </div>
-                      <!-- Product panels-->
                       <div class="accordion mb-4" id="productPanels">
                         <div class="accordion-item">
-                          <h3 class="accordion-header"><a class="accordion-button" href="#shippingOptions" role="button"
-                              data-bs-toggle="collapse" aria-expanded="true" aria-controls="shippingOptions"><i
-                                class="ci-delivery text-muted lead align-middle mt-n1 me-2"></i>Shipping options</a>
-                          </h3>
-                          <div class="accordion-collapse collapse show" id="shippingOptions"
-                            data-bs-parent="#productPanels">
-                            <div class="accordion-body fs-sm">
-                              <div class="d-flex justify-content-between border-bottom pb-2">
-                                <div>
-                                  <div class="fw-semibold text-dark">Local courier shipping</div>
-                                  <div class="fs-sm text-muted">2 - 4 days</div>
-                                </div>
-                                <div>$16.50</div>
-                              </div>
-                              <div class="d-flex justify-content-between border-bottom py-2">
-                                <div>
-                                  <div class="fw-semibold text-dark">UPS ground shipping</div>
-                                  <div class="fs-sm text-muted">4 - 6 days</div>
-                                </div>
-                                <div>$19.00</div>
-                              </div>
-                              <div class="d-flex justify-content-between pt-2">
-                                <div>
-                                  <div class="fw-semibold text-dark">Local pickup from store</div>
-                                  <div class="fs-sm text-muted">&mdash;</div>
-                                </div>
-                                <div>$0.00</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="accordion-item">
-                          <h3 class="accordion-header"><a class="accordion-button collapsed" href="#localStore"
-                              role="button" data-bs-toggle="collapse" aria-expanded="true" aria-controls="localStore"><i
-                                class="ci-location text-muted fs-lg align-middle mt-n1 me-2"></i>Find in local store</a>
-                          </h3>
-                          <div class="accordion-collapse collapse" id="localStore" data-bs-parent="#productPanels">
+                          <h3 class="accordion-header"><a class="accordion-button" href="#productInfo" role="button" data-bs-toggle="collapse" aria-expanded="true" aria-controls="productInfo"><i class="ci-announcement text-muted fs-lg align-middle mt-n1 me-2"></i>Product Details</a></h3>
+                          <div class="accordion-collapse collapse show" id="productInfo" data-bs-parent="#productPanels">
                             <div class="accordion-body">
-                              <select class="form-select">
-                                <option value>Select your country</option>
-                                <option value="Argentina">Argentina</option>
-                                <option value="Belgium">Belgium</option>
-                                <option value="France">France</option>
-                                <option value="Germany">Germany</option>
-                                <option value="Spain">Spain</option>
-                                <option value="UK">United Kingdom</option>
-                                <option value="USA">USA</option>
-                              </select>
+                              <p><%= product.description %> </p>
                             </div>
                           </div>
                         </div>
-                      </div>
+                        </div>
+                      <!-- Product panels-->
+                      
                       <!-- Sharing-->
-                      <label class="form-label d-inline-block align-middle my-2 me-3">Share:</label><a
-                        class="btn-share btn-twitter me-2 my-2" href="#"><i class="ci-twitter"></i>Twitter</a><a
-                        class="btn-share btn-instagram me-2 my-2" href="#"><i class="ci-instagram"></i>Instagram</a><a
-                        class="btn-share btn-facebook my-2" href="#"><i class="ci-facebook"></i>Facebook</a>
+                      
                   </div>
                 </div>
               </div>
@@ -2072,7 +1927,7 @@
         <div class="row pb-2">
           <div class="col-md-6 text-center text-md-start mb-4">
             <div class="text-nowrap mb-4"><a class="d-inline-block align-middle mt-n1 me-3" href="#"><img
-                  class="d-block" src="img/footer-logo-light.png" width="117" alt="Cartzilla"></a>
+                  class="d-block" src="img/electro-logo.png" width="117" alt="Cartzilla"></a>
               <div class="btn-group dropdown disable-autohide">
                 <button class="btn btn-outline-light border-light btn-sm dropdown-toggle px-2" type="button"
                   data-bs-toggle="dropdown"><img class="me-2" src="img/flags/en.png" width="20" alt="English">Eng /
@@ -2128,7 +1983,7 @@
         href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
         onclick="window.scrollTo(0, 0)"><span class="handheld-toolbar-icon"><i class="ci-menu"></i></span><span
           class="handheld-toolbar-label">Menu</span></a><a class="d-table-cell handheld-toolbar-item"
-        href="shop-cart.html"><span class="handheld-toolbar-icon"><i class="ci-cart"></i><span
+        href="/cartmanage"><span class="handheld-toolbar-icon"><i class="ci-cart"></i><span
             class="badge bg-primary rounded-pill ms-1">4</span></span><span
           class="handheld-toolbar-label">$265.00</span></a></div>
   </div>
@@ -2145,6 +2000,34 @@
   <script src="vendor/lg-video.js/dist/lg-video.min.html"></script>
   <!-- Main theme script-->
   <script src="js/theme.min.js"></script>
+  <script>
+    const addToCart =  (productId)=>{
+      console.log("kdfhsdkfhsldfhskdj",productId);
+$.ajax({
+  url: '/addtocart',
+  method: 'POST',
+  data: {
+    productid:  productId
+  },
+  success:(response)=>{
+    console.log("akdfhsdhfjhsgd",response);
+    document.getElementById('totalPrice').innerHTML = `₹  ${response.totalPrice}`,
+    document.getElementById('cartLength').innerHTML = response.cartLength
+    Swal.fire({
+  position: 'top-start',
+  icon: 'success',
+  widtth: '100',
+  padding: '1em',
+  text: 'Product Added to Cart 🛒',
+  showConfirmButton: false,
+  timer: 1000
+})
+
+  }
+  
+})
+    }
+  </script>
 </body>
 
 <!-- Mirrored from cartzilla.createx.studio/shop-single-v2.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 23 Dec 2022 04:00:43 GMT -->

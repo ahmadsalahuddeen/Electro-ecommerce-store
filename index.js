@@ -11,8 +11,9 @@ const path = require('path')
 const bcrypt = require('bcrypt')
 const cookieParser = require('cookie-parser')
 const flash = require('connect-flash')
-
+const morgan = require('morgan');
 const session = require('express-session')
+
 app.use(session({
   secret: 'heyboi',
   cookie: {

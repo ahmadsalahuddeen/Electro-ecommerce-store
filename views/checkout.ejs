@@ -24,7 +24,7 @@
     <link rel="stylesheet" media="screen" href="vendor/simplebar/dist/simplebar.min.css"/>
     <link rel="stylesheet" media="screen" href="vendor/tiny-slider/dist/tiny-slider.css"/>
     <!-- Main Theme Styles + Bootstrap-->
-    <link rel="stylesheet" media="screen" href="../public/css/theme.min.css">
+    <link rel="stylesheet" media="screen" href="/css/theme.min.css">
     <!-- Google Tag Manager-->
     <script>
       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -562,15 +562,47 @@
                 <div class="step-progress"><span class="step-count">5</span></div>
                 <div class="step-label"><i class="ci-check-circle"></i>Review</div></a></div>
             <!-- Autor info-->
-            <div class="d-sm-flex justify-content-between align-items-center bg-secondary p-4 rounded-3 mb-grid-gutter">
-              <div class="d-flex align-items-center">
-                <div class="img-thumbnail rounded-circle position-relative flex-shrink-0"><span class="badge bg-warning position-absolute end-0 mt-n2" data-bs-toggle="tooltip" title="Reward points">384</span><img class="rounded-circle" src="img/shop/account/avatar.jpg" width="90" alt="Susan Gardner"></div>
-                <div class="ps-3">
-                  <h3 class="fs-base mb-0">Susan Gardner</h3><span class="text-accent fs-sm">s.gardner@example.com</span>
-                </div>
-              </div><a class="btn btn-light btn-sm btn-shadow mt-3 mt-sm-0" href="account-profile.html"><i class="ci-edit me-2"></i>Edit profile</a>
-            </div>
+            
             <!-- Shipping address-->
+            <h2 class="h6 pb-3 mb-2">Choose shipping Address</h2>
+            <div class="table-responsive">
+              <table class="table table-hover fs-sm ">
+                <thead>
+                  <tr>
+                    <th hidden class="align-middle"></th>
+                    <th hidden class="align-middle">Address</th>
+                    
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="form-check mb-4">
+                        <input class="form-check-input" type="radio" id="courier" name="shipping-method" checked>
+                        <label class="form-check-label" for="courier"></label>
+                      </div>
+                    </td>
+                    <td class="align-middle"><span class="text-dark fw-medium">Courier</span><br><span class="text-muted">All addresses (default zone), United States &amp; Canada</span></td>
+                    
+                    
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="form-check mb-4">
+                        <input class="form-check-input" type="radio" id="local" name="shipping-method">
+                        <label class="form-check-label" for="local"></label>
+                      </div>
+                    </td>
+                    <td class="align-middle"><span class="text-dark fw-medium">Local Shipping</span><br><span class="text-muted">All addresses (default zone), United States &amp; Canada</span></td>
+                    
+                   
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+            <div class="text-sm-end pt-4"><a class="btn btn-primary" href="#add-address" data-bs-toggle="modal">Add new address</a></div>
             <h2 class="h6 pt-1 pb-3 mb-3 border-bottom">Shipping address</h2>
             <div class="row">
               <div class="col-sm-6">
@@ -674,45 +706,23 @@
               <div class="py-2 px-xl-2">
                 <div class="widget mb-3">
                   <h2 class="widget-title text-center">Order summary</h2>
-                  <div class="d-flex align-items-center pb-2 border-bottom"><a class="d-block flex-shrink-0" href="shop-single-v1.html"><img src="img/shop/cart/widget/01.jpg" width="64" alt="Product"></a>
-                    <div class="ps-2">
-                      <h6 class="widget-product-title"><a href="shop-single-v1.html">Women Colorblock Sneakers</a></h6>
-                      <div class="widget-product-meta"><span class="text-accent me-2">$150.<small>00</small></span><span class="text-muted">x 1</span></div>
+                  <% user.cart.items.forEach(items => {%> 
+                  <div class="d-flex align-items-center pb-2 border-bottom"><a class="d-block flex-shrink-0" href="/productdetail?id=<%= items.product._id%>"><img src="<%= items.product.image[1]%>" class="rounded"  width="64" alt="Product"></a>
+                      
+                      <div class="ps-2">
+                        <h6 class="widget-product-title"><a href="/productdetail?id=<%= items.product._id%>"><%= items.product.name %> </a></h6>
+                        <div class="widget-product-meta"><span class="text-accent me-2">₹ <%= items.product.discount %> </span><span class="text-muted">x <%= items.qty %> </span></div>
+                      </div>
+                      
                     </div>
-                  </div>
-                  <div class="d-flex align-items-center py-2 border-bottom"><a class="d-block flex-shrink-0" href="shop-single-v1.html"><img src="img/shop/cart/widget/02.jpg" width="64" alt="Product"></a>
-                    <div class="ps-2">
-                      <h6 class="widget-product-title"><a href="shop-single-v1.html">TH Jeans City Backpack</a></h6>
-                      <div class="widget-product-meta"><span class="text-accent me-2">$79.<small>50</small></span><span class="text-muted">x 1</span></div>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center py-2 border-bottom"><a class="d-block flex-shrink-0" href="shop-single-v1.html"><img src="img/shop/cart/widget/03.jpg" width="64" alt="Product"></a>
-                    <div class="ps-2">
-                      <h6 class="widget-product-title"><a href="shop-single-v1.html">3-Color Sun Stash Hat</a></h6>
-                      <div class="widget-product-meta"><span class="text-accent me-2">$22.<small>50</small></span><span class="text-muted">x 1</span></div>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center py-2 border-bottom"><a class="d-block flex-shrink-0" href="shop-single-v1.html"><img src="img/shop/cart/widget/04.jpg" width="64" alt="Product"></a>
-                    <div class="ps-2">
-                      <h6 class="widget-product-title"><a href="shop-single-v1.html">Cotton Polo Regular Fit</a></h6>
-                      <div class="widget-product-meta"><span class="text-accent me-2">$9.<small>00</small></span><span class="text-muted">x 1</span></div>
-                    </div>
-                  </div>
+                    <%  }); %> 
                 </div>
                 <ul class="list-unstyled fs-sm pb-2 border-bottom">
-                  <li class="d-flex justify-content-between align-items-center"><span class="me-2">Subtotal:</span><span class="text-end">$265.<small>00</small></span></li>
-                  <li class="d-flex justify-content-between align-items-center"><span class="me-2">Shipping:</span><span class="text-end">—</span></li>
-                  <li class="d-flex justify-content-between align-items-center"><span class="me-2">Taxes:</span><span class="text-end">$9.<small>50</small></span></li>
-                  <li class="d-flex justify-content-between align-items-center"><span class="me-2">Discount:</span><span class="text-end">—</span></li>
+                  <li class="d-flex justify-content-between align-items-center"><span class="me-2">Subtotal:</span><span class="text-end">₹ <%= user.cart.totalPrice %> </span></li>
+                  
                 </ul>
-                <h3 class="fw-normal text-center my-4">$274.<small>50</small></h3>
-                <form class="needs-validation" method="post" novalidate>
-                  <div class="mb-3">
-                    <input class="form-control" type="text" placeholder="Promo code" required>
-                    <div class="invalid-feedback">Please provide promo code.</div>
-                  </div>
-                  <button class="btn btn-outline-primary d-block w-100" type="submit">Apply promo code</button>
-                </form>
+                <h3 class="fw-normal text-center my-4">₹<%= user.cart.totalPrice %></h3>
+                
               </div>
             </div>
           </aside>
@@ -729,6 +739,77 @@
       </div>
     </main>
     <!-- Footer-->
+    <form class="needs-validation modal fade" method="post" id="add-address" action="/add-address" tabindex="-1" novalidate>
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add a new address</h5>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row gx-4 gy-3">
+              <div class="col-sm-6">
+                <label class="form-label" for="address-fn">Name</label>
+                <input class="form-control" name="addreses" type="text" id="address-fn" required>
+                <div class="invalid-feedback">Please fill in you first name!</div>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="address-ln">Last name</label>
+                <input class="form-control" type="text" id="address-ln" required>
+                <div class="invalid-feedback">Please fill in you last name!</div>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="address-company">Company</label>
+                <input class="form-control" type="text" id="address-company">
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="address-country">Country</label>
+                <select class="form-select" id="address-country" required>
+                  <option value>Select country</option>
+                  <option value="Argentina">Argentina</option>
+                  <option value="Belgium">Belgium</option>
+                  <option value="France">France</option>
+                  <option value="Germany">Germany</option>
+                  <option value="Spain">Spain</option>
+                  <option value="UK">United Kingdom</option>
+                  <option value="USA">USA</option>
+                </select>
+                <div class="invalid-feedback">Please select your country!</div>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="address-city">City</label>
+                <input class="form-control" type="text" id="address-city" required>
+                <div class="invalid-feedback">Please fill in your city!</div>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="address-line1">Line 1</label>
+                <input class="form-control" type="text" id="address-line1" required>
+                <div class="invalid-feedback">Please fill in your address!</div>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="address-line2">Line 2</label>
+                <input class="form-control" type="text" id="address-line2">
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="address-zip">ZIP code</label>
+                <input class="form-control" type="text" id="address-zip" required>
+                <div class="invalid-feedback">Please add your ZIP code!</div>
+              </div>
+              <div class="col-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="address-primary">
+                  <label class="form-check-label" for="address-primary">Make this address primary</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary btn-shadow" type="submit">Add address</button>
+          </div>
+        </div>
+      </div>
+    </form>
     <footer class="footer bg-dark pt-5">
       <div class="container">
         <div class="row pb-2">

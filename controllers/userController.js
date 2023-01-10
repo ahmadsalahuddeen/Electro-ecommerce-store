@@ -200,6 +200,20 @@ const loadProductDetail = async(req, res )  =>{
   }
   
 }
+const loadCheckout = async(req, res )  =>{
+  
+  try {
+    const user = await User.findById(req.session.user._id).populate("cart.items.product")
+    const product = await Product.findById(req.query.id)
+  res.render('checkout', {product:product, user:user})
+  } catch (e) {
+    console.log(`product detail load page: ${e.message}`);
+  }
+  
+}
+
+
+
 module.exports = {
   loadRegister,
   addUser,
@@ -213,6 +227,7 @@ module.exports = {
   removeCartItem,
   qtyChange,
   loadProductDetail,
+  loadCheckout,
 };
 // const deleteCartItem = async (req, res) => {
 //   const product = await Product.findById(req.query.id)

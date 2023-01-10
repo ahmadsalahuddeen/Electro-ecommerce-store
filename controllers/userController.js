@@ -3,6 +3,8 @@ const bcrypt = require("bcrypt");
 const Product = require("../models/poductModel");
 const { response, render } = require("../routes/userRoute");
 const { findById, find } = require("../models/userModel");
+const Address = require('../models/address');
+
 
 const loadRegister = async (req, res) => {
   if (req.session.isLoggedIn === true) {
@@ -203,14 +205,41 @@ const loadProductDetail = async(req, res )  =>{
 const loadCheckout = async(req, res )  =>{
   
   try {
+    const address = await Address.find({user: req.session.user._id})
+    console.log(address);
     const user = await User.findById(req.session.user._id).populate("cart.items.product")
     const product = await Product.findById(req.query.id)
-  res.render('checkout', {product:product, user:user})
+  res.render('checkout', {product, user, address})
   } catch (e) {
     console.log(`product detail load page: ${e.message}`);
   }
   
 }
+
+const addAddress = async(req, res )  =>{
+  
+  try {
+    const reqaddress = req.body
+    const adrsData =  Address({
+      address:[reqaddress],
+      user: req.session.user._id
+    })
+
+    const result = await adrsData.save()
+if (result) {
+  res.redirect('/checkout')
+} else {
+  res.send("something wrong while addin address")
+}
+
+
+  
+  } catch (e) {
+    console.log(`product detail load page: ${e.message}`);
+  }
+  
+}
+
 
 
 
@@ -228,6 +257,7 @@ module.exports = {
   qtyChange,
   loadProductDetail,
   loadCheckout,
+  addAddress,
 };
 // const deleteCartItem = async (req, res) => {
 //   const product = await Product.findById(req.query.id)

@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const { Refer } = require('twilio/lib/twiml/VoiceResponse');
 
 const addressSchema = new mongoose.Schema({
-    address: [
+    address: { type:[
         {
             name: {
                 type: String,
@@ -32,7 +33,14 @@ const addressSchema = new mongoose.Schema({
                 required: true
             }
         }
-    ]
+    ],
+required: true
+},
+    user: {
+type: mongoose.Schema.Types.ObjectId,
+refer: 'User',
+required: true
+    }
 })
 
 

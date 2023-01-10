@@ -28,4 +28,5 @@ userRoute.post('/removeCartItem', userController.removeCartItem)
 userRoute.post('/qtyChange' , userController.qtyChange)
 userRoute.get('/productdetail', userController.loadProductDetail)
 userRoute.get('/checkout', userController.loadCheckout)
+userRoute.post('/add-address', userController.addAddress)
 module.exports = userRoute

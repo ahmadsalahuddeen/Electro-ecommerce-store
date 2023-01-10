@@ -221,7 +221,7 @@ const addAddress = async(req, res )  =>{
   try {
     const reqaddress = req.body
     const adrsData =  Address({
-      address:[reqaddress],
+      add:[reqaddress],
       user: req.session.user._id
     })
 

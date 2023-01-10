@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Refer } = require('twilio/lib/twiml/VoiceResponse');
 
 const addressSchema = new mongoose.Schema({
-    address: { type:[
+    add: { type:[
         {
             name: {
                 type: String,

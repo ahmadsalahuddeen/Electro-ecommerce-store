@@ -753,36 +753,27 @@
               </thead>
               <tbody>
                 <% address.forEach(adrs=> {%>
-                  <p><%= adrs %> </p>
+                <% adrs.add.forEach(addr=> {%>
+                
 
                   <tr>
                     <td>
                       <div class="form-check mb-4">
-                        <input class="form-check-input" type="radio" id="courier" name="shipping-method" checked>
+                        <input class="form-check-input" type="radio" id="courier" name="address" checked>
                         <label class="form-check-label" for="courier"></label>
                       </div>
                     </td>
                     <td class="align-middle"><span class="text-dark fw-medium">
-                        <%= adrs.name %>
+                        <%= addr.name %>
                       </span><br><span class="text-muted">
-                        <%= adrs.fullAddress %>, near <%= adrs.landmark %>, <%= adrs.district %>, <%= adrs.state %>Pincode: <%= adrs.pincode %>
+                        <%= addr.fullAddress %>, near <%= addr.landmark %>, <%= addr.district %>, <%= addr.state %>, Pincode: <%= addr.pincode %>
                       </span></td>
 
 
                   </tr>
                   <% }); %>
-                    <tr>
-                      <td>
-                        <div class="form-check mb-4">
-                          <input class="form-check-input" type="radio" id="local" name="shipping-method">
-                          <label class="form-check-label" for="local"></label>
-                        </div>
-                      </td>
-                      <td class="align-middle"><span class="text-dark fw-medium">Local Shipping</span><br><span
-                          class="text-muted">All addresses (default zone), United States &amp; Canada</span></td>
-
-
-                    </tr>
+                  <% }); %>
+                   
 
               </tbody>
             </table>

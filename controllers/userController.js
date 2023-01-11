@@ -246,7 +246,7 @@ const newOrder = async(req, res) =>{
   try {
      
     const userId = req.session.user._id
-    const userData = await User.findById(userId)
+    const user = await User.findById(userId)
 
 
 
@@ -257,15 +257,29 @@ const newOrder = async(req, res) =>{
 
     const newOrderData = Order({
 user: userId,
-cart: userData.cart,
-totalPrice: userData.cart.totalPrice,
+cart: user.cart,
+totalPrice: user.cart.totalPrice,
 orderStat: "placed",
 address: req.body.address._id,
 paymentMethod: req.body.paymentMethod
 })
 const orderAdded = await newOrderData.save()
 
+if (orderAdded) {
+  user.cart.items.forEach(async(eachItems)=>{
+    const proId = eachItems.product._id
+    await Product.findByIdAndUpdate(proId, { $inc: {stock: -eachItems.qty}})
+   
+    
+  })
+} else {
+  console.log("order add failed succefully");
+}
+user.cart.items =[]
+user.cart.totalPrice = null
+await user.save()
 
+res.redirect('/productlist')
 
   } catch (e) {
     console.log(e.message);

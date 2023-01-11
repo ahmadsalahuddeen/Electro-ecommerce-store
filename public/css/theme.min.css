@@ -1811,8 +1811,22 @@ progress {
   color: var(--cz-table-active-color);
 }
 .table-hover > tbody > tr:hover > * {
-  --cz-table-accent-bg: var(--cz-table-hover-bg);
+  --cz-table-accent-bg: #dcdcdc;
+  
   color: var(--cz-table-hover-color);
+}
+.table-hover > tbody > tr > * {
+  --cz-table-accent-bg: #f5f5f5;
+  
+  color: var(--cz-accordion-border-color);
+}
+.adrs-border-ri{
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.adrs-border-lef{
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 .table-primary {
   --cz-table-color: #000;
@@ -7121,6 +7135,7 @@ fieldset:disabled .btn {
 }
 .align-middle {
   vertical-align: middle !important;
+  
 }
 .align-bottom {
   vertical-align: bottom !important;
@@ -7296,6 +7311,9 @@ fieldset:disabled .btn {
 }
 .border-top-0 {
   border-top: 0 !important;
+}
+.newwidth{
+  width: auto;
 }
 .border-end {
   border-right: var(--cz-border-width) var(--cz-border-style)

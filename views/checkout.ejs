@@ -49,79 +49,75 @@
       style="display: none; visibility: hidden;"></iframe>
   </noscript>
   <!-- Sign in / sign up modal-->
-  <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header bg-secondary">
-          <ul class="nav nav-tabs card-header-tabs" role="tablist">
-            <li class="nav-item"><a class="nav-link fw-medium active" href="#signin-tab" data-bs-toggle="tab" role="tab"
-                aria-selected="true"><i class="ci-unlocked me-2 mt-n1"></i>Sign in</a></li>
-            <li class="nav-item"><a class="nav-link fw-medium" href="#signup-tab" data-bs-toggle="tab" role="tab"
-                aria-selected="false"><i class="ci-user me-2 mt-n1"></i>Sign up</a></li>
-          </ul>
-          <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body tab-content py-4">
-          <form class="needs-validation tab-pane fade show active" autocomplete="off" novalidate id="signin-tab">
-            <div class="mb-3">
-              <label class="form-label" for="si-email">Email address</label>
-              <input class="form-control" type="email" id="si-email" placeholder="johndoe@example.com" required>
-              <div class="invalid-feedback">Please provide a valid email address.</div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="si-password">Password</label>
-              <div class="password-toggle">
-                <input class="form-control" type="password" id="si-password" required>
-                <label class="password-toggle-btn" aria-label="Show/hide password">
-                  <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
-                </label>
-              </div>
-            </div>
-            <div class="mb-3 d-flex flex-wrap justify-content-between">
-              <div class="form-check mb-2">
-                <input class="form-check-input" type="checkbox" id="si-remember">
-                <label class="form-check-label" for="si-remember">Remember me</label>
-              </div><a class="fs-sm" href="#">Forgot password?</a>
-            </div>
-            <button class="btn btn-primary btn-shadow d-block w-100" type="submit">Sign in</button>
-          </form>
-          <form class="needs-validation tab-pane fade" autocomplete="off" novalidate id="signup-tab">
-            <div class="mb-3">
-              <label class="form-label" for="su-name">Full name</label>
-              <input class="form-control" type="text" id="su-name" placeholder="John Doe" required>
-              <div class="invalid-feedback">Please fill in your name.</div>
-            </div>
-            <div class="mb-3">
-              <label for="su-email">Email address</label>
-              <input class="form-control" type="email" id="su-email" placeholder="johndoe@example.com" required>
-              <div class="invalid-feedback">Please provide a valid email address.</div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="su-password">Password</label>
-              <div class="password-toggle">
-                <input class="form-control" type="password" id="su-password" required>
-                <label class="password-toggle-btn" aria-label="Show/hide password">
-                  <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
-                </label>
-              </div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="su-password-confirm">Confirm password</label>
-              <div class="password-toggle">
-                <input class="form-control" type="password" id="su-password-confirm" required>
-                <label class="password-toggle-btn" aria-label="Show/hide password">
-                  <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
-                </label>
-              </div>
-            </div>
-            <button class="btn btn-primary btn-shadow d-block w-100" type="submit">Sign up</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+  
   <main class="page-wrapper">
     <!-- Navbar 3 Level (Light)-->
+    <form class="needs-validation modal fade" method="post" id="add-address" action="/add-address" tabindex="-1"
+      novalidate>
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add a new address</h5>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row gx-4 gy-3">
+              <div class="col-sm-6">
+                <label class="form-label" for="address-fn">Name</label>
+                <input class="form-control" name="name" type="text" id="address-fn" required>
+                <div class="invalid-feedback">Please fill in you name!</div>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="address-ln">Mobile Number</label>
+                <input class="form-control" type="tel" name="mobile" id="address-ln" required>
+                <div class="invalid-feedback">Please fill in you last name!</div>
+              </div>
+              <div class="col-sm-12">
+                <label class="form-label" for="address-line1">Your Address (house name, street etc.)</label>
+                <input class="form-control" name="fullAddress" type="text" id="address-line1" required>
+                <div class="invalid-feedback">Please fill in your address!</div>
+              </div>
+
+              <div class="col-sm-6">
+                <label class="form-label" for="address-country">State</label>
+                <select class="form-select" name="state" id="address-country" required>
+                  <option value>Select State</option>
+                  <option value="Kerala">Kerala</option>
+                  <option value="Karnataka">Karnataka</option>
+                  <option value="Tamil">Tamil Nadu</option>
+                  <option value="Kashmir">Kashmir</option>
+                  <option value="Telengana">Telengana</option>
+
+                </select>
+
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="address-city">District</label>
+                <input class="form-control" name="district" type="text" id="address-city" required>
+                <div class="invalid-feedback">Please fill in your District</div>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="address-line1">Landmark</label>
+                <input class="form-control" name="landmark" type="text" id="address-line1" required>
+                <div class="invalid-feedback">Please fill in your address!</div>
+              </div>
+
+
+              <div class="col-sm-6">
+                <label class="form-label" for="address-zip">Pincode</label>
+                <input class="form-control" type="tel" name="pincode" id="address-zip" required>
+                <div class="invalid-feedback">Please add your ZIP code!</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary btn-shadow" type="submit">Add address</button>
+          </div>
+        </div>
+      </div>
+    </form>
     <header class="shadow-sm">
       <!-- Topbar-->
       <div class="topbar topbar-dark bg-dark">
@@ -712,7 +708,7 @@
           </nav>
         </div>
         <div class="order-lg-1 pe-lg-4 text-center text-lg-start">
-          <h1 class="h3 text-light mb-0">Checkout</h1>
+          <h1 class="h3 text-light mb-0">Checkout  - Address &amp; Payment</h1>
         </div>
       </div>
     </div>
@@ -723,27 +719,18 @@
           <div class="steps steps-light pt-2 pb-3 mb-5"><a class="step-item active" href="/cartmanage">
               <div class="step-progress"><span class="step-count">1</span></div>
               <div class="step-label"><i class="ci-cart"></i>Cart</div>
-            </a><a class="step-item active current" href="checkout-details.html">
+            </a><a class="step-item active current" href="/checkout">
               <div class="step-progress"><span class="step-count">2</span></div>
-              <div class="step-label"><i class="ci-user-circle"></i>Details</div>
-            </a><a class="step-item" href="checkout-shipping.html">
-              <div class="step-progress"><span class="step-count">3</span></div>
-              <div class="step-label"><i class="ci-package"></i>Shipping</div>
-            </a><a class="step-item" href="checkout-payment.html">
-              <div class="step-progress"><span class="step-count">4</span></div>
-              <div class="step-label"><i class="ci-card"></i>Payment</div>
-            </a><a class="step-item" href="checkout-review.html">
-              <div class="step-progress"><span class="step-count">5</span></div>
-              <div class="step-label"><i class="ci-check-circle"></i>Review</div>
+              <div class="step-label"><i class="ci-user-circle"></i>Checkout</div>
             </a></div>
           <!-- Autor info-->
 
           <!-- Shipping address-->
-
+<form method="post" action="/newOrder">
           <h2 class="h6 pb-3 mb-2">Choose shipping Address</h2>
           <div class="table-responsive">
-            <table class="table table-hover fs-sm ">
-              <thead>
+            <table class="table table-hover fs-sm newwidth ">
+              <thead style="border-collapse: collapse;">
                 <tr>
                   <th hidden class="align-middle"></th>
                   <th hidden class="align-middle">Address</th>
@@ -753,133 +740,98 @@
               </thead>
               <tbody>
                 <% address.forEach(adrs=> {%>
-                <% adrs.add.forEach(addr=> {%>
-                
-
-                  <tr>
-                    <td>
-                      <div class="form-check mb-4">
-                        <input class="form-check-input" type="radio" id="courier" name="address" checked>
-                        <label class="form-check-label" for="courier"></label>
-                      </div>
-                    </td>
-                    <td class="align-middle"><span class="text-dark fw-medium">
-                        <%= addr.name %>
-                      </span><br><span class="text-muted">
-                        <%= addr.fullAddress %>, near <%= addr.landmark %>, <%= addr.district %>, <%= addr.state %>, Pincode: <%= addr.pincode %>
-                      </span></td>
+                  <% adrs.add.forEach(addr=> {%>
 
 
-                  </tr>
-                  <% }); %>
-                  <% }); %>
-                   
+                    <tr>
+                      <td style="border: none; " class="adrs-border-ri">
+                        <div class="form-check mb-4">
+                          <input class="form-check-input" type="radio" id="courier" value="<%= addr %>" name="address" required>
+                          <label class="form-check-label" for="courier"></label>
+                        </div>
+                      </td>
+                      <td class="adrs-border-lef align-middle" style="border: none; Padding-right: 10em;"><span
+                          class="text-dark fw-medium">
+                          <%= addr.name %>
+                        </span><br><span class="text-muted">
+                          <%= addr.fullAddress %>,<br> near <%= addr.landmark %>, <br>
+                              <%= addr.district %>, <%= addr.state %>, <br> Pincode: <%= addr.pincode %>
+                        </span></td>
+
+
+                    </tr>
+                    <% }); %>
+                      <% }); %>
+
 
               </tbody>
             </table>
           </div>
-          <div class="text-sm-end pt-4"><a class="btn btn-primary" href="#add-address" data-bs-toggle="modal">Add new
+          <div class="text-sm-start  pb-5"><a class="btn btn-primary" href="#add-address" data-bs-toggle="modal">Add new
               address</a></div>
-          <h2 class="h6 pt-1 pb-3 mb-3 border-bottom">Shipping address</h2>
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="checkout-fn">First Name</label>
-                <input class="form-control" type="text" id="checkout-fn">
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="checkout-ln">Last Name</label>
-                <input class="form-control" type="text" id="checkout-ln">
-              </div>
-            </div>
+          <h2 class="h6 pb-3 mb-2">Choose Payement Method</h2>
+          <div class="table-responsive">
+            <table class="table table-hover fs-sm newwidth">
+              <thead style="border-collapse: collapse;">
+                <tr>
+                  <th hidden class="align-middle"></th>
+                  <th hidden class="align-middle">Address</th>
+
+
+                </tr>
+              </thead>
+              <tbody>
+
+
+
+                <tr>
+                  <td style="border: none; " class="adrs-border-ri">
+                    <div class="form-check mb-4">
+                      <input class="form-check-input" type="radio" id="paymentMethod" name="paymentMethod" value="cod" required>
+                      <label class="form-check-label" for="paymentMethod"></label>
+                    </div>
+                  </td>
+                  <td class="adrs-border-lef align-middle" style="border: none; padding-right: 10em;"><span
+                      class="text-dark fw-medium">Cash On Delivery
+                    </span><br><span class="text-muted">
+                      Free cash on delivery
+                    </span></td>
+
+
+                </tr>
+                <tr>
+                  <td style="border: none;" class="adrs-border-ri">
+                    <div class="form-check mb-4">
+                      <input class="form-check-input" type="radio" id="payement" value="po" name="paymentMethod" required>
+                      <label class="form-check-label" for="payement"></label>
+                    </div>
+                  </td>
+                  <td class="adrs-border-lef align-middle" style="border: none; padding-right: 10em;"><span
+                      class="text-dark fw-medium">Online Payement
+                    </span><br><span class="text-muted"> UPI, Net Banking, etc...
+
+                    </span></td>
+
+
+                </tr>
+
+
+
+              </tbody>
+            </table>
           </div>
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="checkout-email">E-mail Address</label>
-                <input class="form-control" type="email" id="checkout-email">
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="checkout-phone">Phone Number</label>
-                <input class="form-control" type="text" id="checkout-phone">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="checkout-company">Company</label>
-                <input class="form-control" type="text" id="checkout-company">
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="checkout-country">Country</label>
-                <select class="form-select" id="checkout-country">
-                  <option>Choose country</option>
-                  <option>Australia</option>
-                  <option>Canada</option>
-                  <option>France</option>
-                  <option>Germany</option>
-                  <option>Switzerland</option>
-                  <option>USA</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="checkout-city">Country</label>
-                <select class="form-select" id="checkout-city">
-                  <option>Choose city</option>
-                  <option>Amsterdam</option>
-                  <option>Berlin</option>
-                  <option>Geneve</option>
-                  <option>New York</option>
-                  <option>Paris</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="checkout-zip">ZIP Code</label>
-                <input class="form-control" type="text" id="checkout-zip">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="checkout-address-1">Address 1</label>
-                <input class="form-control" type="text" id="checkout-address-1">
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="mb-3">
-                <label class="form-label" for="checkout-address-2">Address 2</label>
-                <input class="form-control" type="text" id="checkout-address-2">
-              </div>
-            </div>
-          </div>
-          <h6 class="mb-3 py-3 border-bottom">Billing address</h6>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" checked id="same-address">
-            <label class="form-check-label" for="same-address">Same as shipping address</label>
-          </div>
+       
+
           <!-- Navigation (desktop)-->
           <div class="d-none d-lg-flex pt-4 mt-3">
             <div class="w-50 pe-3"><a class="btn btn-secondary d-block w-100" href="/cartmanage"><i
                   class="ci-arrow-left mt-sm-0 me-1"></i><span class="d-none d-sm-inline">Back to Cart</span><span
                   class="d-inline d-sm-none">Back</span></a></div>
-            <div class="w-50 ps-2"><a class="btn btn-primary d-block w-100" href="checkout-shipping.html"><span
-                  class="d-none d-sm-inline">Proceed to Shipping</span><span class="d-inline d-sm-none">Next</span><i
-                  class="ci-arrow-right mt-sm-0 ms-1"></i></a></div>
+            <div class="w-50 ps-2"><button type="submit" class="btn btn-primary d-block w-100" ><span
+                  class="d-none d-sm-inline">Confirm Order </span><span class="d-inline d-sm-none">Next</span><i
+                  class="ci-check-circle mt-sm-0 ms-1"></i></button></div>
           </div>
+        </form>
         </section>
         <!-- Sidebar-->
         <aside class="col-lg-4 pt-4 pt-lg-0 ps-xl-5">
@@ -923,160 +875,17 @@
                   class="ci-arrow-left mt-sm-0 me-1"></i><span class="d-none d-sm-inline">Back to Cart</span><span
                   class="d-inline d-sm-none">Back</span></a></div>
             <div class="w-50 ps-2"><a class="btn btn-primary d-block w-100" href="checkout-shipping.html"><span
-                  class="d-none d-sm-inline">Proceed to Shipping</span><span class="d-inline d-sm-none">Next</span><i
-                  class="ci-arrow-right mt-sm-0 ms-1"></i></a></div>
+                  class="d-none d-sm-inline">Confirm Order</span><span class="d-inline d-sm-none">Next</span><i
+                  class="ci-arrow-right-circle mt-sm-0 ms-1"></i></a></div>
           </div>
         </div>
       </div>
     </div>
   </main>
   <!-- Footer-->
-  <form class="needs-validation modal fade" method="post" id="add-address" action="/add-address" tabindex="-1"
-    novalidate>
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Add a new address</h5>
-          <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row gx-4 gy-3">
-            <div class="col-sm-6">
-              <label class="form-label" for="address-fn">Name</label>
-              <input class="form-control" name="name" type="text" id="address-fn" required>
-              <div class="invalid-feedback">Please fill in you name!</div>
-            </div>
-            <div class="col-sm-6">
-              <label class="form-label" for="address-ln">Mobile Number</label>
-              <input class="form-control" type="tel" name="mobile" id="address-ln" required>
-              <div class="invalid-feedback">Please fill in you last name!</div>
-            </div>
-            <div class="col-sm-12">
-              <label class="form-label" for="address-line1">Your Address (house name, street etc.)</label>
-              <input class="form-control" name="fullAddress" type="text" id="address-line1" required>
-              <div class="invalid-feedback">Please fill in your address!</div>
-            </div>
 
-            <div class="col-sm-6">
-              <label class="form-label" for="address-country">State</label>
-              <select class="form-select" name="state" id="address-country" required>
-                <option value>Select State</option>
-                <option value="Kerala">Kerala</option>
-                <option value="Karnataka">Karnataka</option>
-                <option value="Tamil">Tamil Nadu</option>
-                <option value="Kashmir">Kashmir</option>
-                <option value="Telengana">Telengana</option>
-
-              </select>
-
-            </div>
-            <div class="col-sm-6">
-              <label class="form-label" for="address-city">District</label>
-              <input class="form-control" name="district" type="text" id="address-city" required>
-              <div class="invalid-feedback">Please fill in your District</div>
-            </div>
-            <div class="col-sm-6">
-              <label class="form-label" for="address-line1">Landmark</label>
-              <input class="form-control" name="landmark" type="text" id="address-line1" required>
-              <div class="invalid-feedback">Please fill in your address!</div>
-            </div>
-
-
-            <div class="col-sm-6">
-              <label class="form-label" for="address-zip">Pincode</label>
-              <input class="form-control" type="tel" name="pincode" id="address-zip" required>
-              <div class="invalid-feedback">Please add your ZIP code!</div>
-            </div>
-
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-          <button class="btn btn-primary btn-shadow" type="submit">Add address</button>
-        </div>
-      </div>
-    </div>
-  </form>
   <footer class="footer bg-dark pt-5">
-    <div class="container">
-      <div class="row pb-2">
-        <div class="col-md-4 col-sm-6">
-          <div class="widget widget-links widget-light pb-2 mb-4">
-            <h3 class="widget-title text-light">Shop departments</h3>
-            <ul class="widget-list">
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Sneakers &amp; Athletic</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Athletic Apparel</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Sandals</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Jeans</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Shirts &amp; Tops</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Shorts</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">T-Shirts</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Swimwear</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Clogs &amp; Mules</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Bags &amp; Wallets</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Accessories</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Sunglasses &amp; Eyewear</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Watches</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="widget widget-links widget-light pb-2 mb-4">
-            <h3 class="widget-title text-light">Account &amp; shipping info</h3>
-            <ul class="widget-list">
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Your account</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Shipping rates &amp; policies</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Refunds &amp; replacements</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Order tracking</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Delivery info</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Taxes &amp; fees</a></li>
-            </ul>
-          </div>
-          <div class="widget widget-links widget-light pb-2 mb-4">
-            <h3 class="widget-title text-light">About us</h3>
-            <ul class="widget-list">
-              <li class="widget-list-item"><a class="widget-list-link" href="#">About company</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Our team</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">Careers</a></li>
-              <li class="widget-list-item"><a class="widget-list-link" href="#">News</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="widget pb-2 mb-4">
-            <h3 class="widget-title text-light pb-1">Stay informed</h3>
-            <form class="subscription-form validate"
-              action="https://studio.us12.list-manage.com/subscribe/post?u=c7103e2c981361a6639545bd5&amp;amp;id=29ca296126"
-              method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate>
-              <div class="input-group flex-nowrap"><i
-                  class="ci-mail position-absolute top-50 translate-middle-y text-muted fs-base ms-3"></i>
-                <input class="form-control rounded-start" type="email" name="EMAIL" placeholder="Your email" required>
-                <button class="btn btn-primary" type="submit" name="subscribe">Subscribe*</button>
-              </div>
-              <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-              <div style="position: absolute; left: -5000px;" aria-hidden="true">
-                <input class="subscription-form-antispam" type="text" name="b_c7103e2c981361a6639545bd5_29ca296126"
-                  tabindex="-1">
-              </div>
-              <div class="form-text text-light opacity-50">*Subscribe to our newsletter to receive early discount
-                offers, updates and new products info.</div>
-              <div class="subscription-status"></div>
-            </form>
-          </div>
-          <div class="widget pb-2 mb-4">
-            <h3 class="widget-title text-light pb-1">Download our app</h3>
-            <div class="d-flex flex-wrap">
-              <div class="me-2 mb-2"><a class="btn-market btn-apple" href="#" role="button"><span
-                    class="btn-market-subtitle">Download on the</span><span class="btn-market-title">App
-                    Store</span></a></div>
-              <div class="mb-2"><a class="btn-market btn-google" href="#" role="button"><span
-                    class="btn-market-subtitle">Download on the</span><span class="btn-market-title">Google
-                    Play</span></a></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <div class="pt-5 bg-darker">
       <div class="container">
         <div class="row pb-3">

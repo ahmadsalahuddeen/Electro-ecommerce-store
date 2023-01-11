@@ -4,6 +4,7 @@ const Product = require("../models/poductModel");
 const { response, render } = require("../routes/userRoute");
 const { findById, find } = require("../models/userModel");
 const Address = require('../models/address');
+const Order = require('../models/order')
 
 
 const loadRegister = async (req, res) => {
@@ -241,7 +242,37 @@ if (result) {
 }
 
 
+const newOrder = async(req, res) =>{
+  try {
+     
+    const userId = req.session.user._id
+    const userData = await User.findById(userId)
 
+
+
+
+
+
+
+
+    const newOrderData = Order({
+user: userId,
+cart: userData.cart,
+totalPrice: userData.cart.totalPrice,
+orderStat: "placed",
+address: req.body.address._id,
+paymentMethod: req.body.paymentMethod
+})
+const orderAdded = await newOrderData.save()
+
+
+
+  } catch (e) {
+    console.log(e.message);
+  }
+
+
+}
 
 module.exports = {
   loadRegister,
@@ -258,6 +289,7 @@ module.exports = {
   loadProductDetail,
   loadCheckout,
   addAddress,
+  newOrder,
 };
 // const deleteCartItem = async (req, res) => {
 //   const product = await Product.findById(req.query.id)

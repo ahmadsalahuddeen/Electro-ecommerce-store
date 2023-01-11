@@ -30,4 +30,6 @@ userRoute.get('/productdetail', userController.loadProductDetail)
 userRoute.get('/checkout', userController.loadCheckout)
 userRoute.post('/add-address', userController.addAddress)
 userRoute.post('/newOrder', userController.newOrder)
+userRoute.get('/ordersuccess', userController.loadOrderSuccess)
+
 module.exports = userRoute

@@ -279,7 +279,7 @@ user.cart.items =[]
 user.cart.totalPrice = null
 await user.save()
 
-res.redirect('/productlist')
+res.redirect('/ordersuccess')
 
   } catch (e) {
     console.log(e.message);
@@ -288,6 +288,15 @@ res.redirect('/productlist')
 
 }
 
+const loadOrderSuccess = async(req, res)  =>{
+  try {
+    res.render('ordersuccess')
+
+
+  } catch (e) {
+    console.log(e);
+  }
+}
 module.exports = {
   loadRegister,
   addUser,
@@ -304,6 +313,7 @@ module.exports = {
   loadCheckout,
   addAddress,
   newOrder,
+  loadOrderSuccess,
 };
 // const deleteCartItem = async (req, res) => {
 //   const product = await Product.findById(req.query.id)

@@ -7,8 +7,8 @@ user: {
     refer: 'User',
     required: true
 },
-cart: {
-    items: [
+
+items: [
       {
         product: {
           type: mongoose.Schema.Types.ObjectId,
@@ -25,7 +25,7 @@ cart: {
       type: Number,
       default: 0
     },
-  },
+  
 address: {
     type: mongoose.Schema.Types.ObjectId,
     refer: 'Address'

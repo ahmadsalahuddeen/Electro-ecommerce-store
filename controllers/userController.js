@@ -6,7 +6,6 @@ const { findById, find } = require("../models/userModel");
 const Address = require('../models/address');
 const Order = require('../models/order')
 
-
 const loadRegister = async (req, res) => {
   if (req.session.isLoggedIn === true) {
     res.redirect("/home");
@@ -14,6 +13,7 @@ const loadRegister = async (req, res) => {
     res.render("userRegister");
   }
 };
+
 
 const secretPassword = async (password) => {
   try {
@@ -283,7 +283,7 @@ const newOrder = async(req, res) =>{
 
     const newOrderData = Order({
 user: userId,
-cart: user.cart,
+items: user.cart.items,
 totalPrice: user.cart.totalPrice,
 orderStat: "placed",
 address: req.body.address._id,
@@ -357,6 +357,19 @@ const useer = await User.findById(req.session.user._id)
     console.log(e);
   }
 }
+const laoduserOrderManage = async(req, res)  =>{
+  try {
+    const useer = await User.findById(req.session.user._id)
+ const orderData = await Order.find({user: req.session.user._id}).populate("items.product")
+
+ console.log(orderData);
+  res.render('userOrderManage',{orderData: orderData, user:useer})
+
+    
+  } catch (e) {
+    console.log(e);
+  }
+}
 module.exports = {
   loadRegister,
   addUser,
@@ -378,6 +391,7 @@ module.exports = {
   updateProfile,
   loaduserAddress,
   addAddressProfile,
+  laoduserOrderManage,
 };
 // const deleteCartItem = async (req, res) => {
 //   const product = await Product.findById(req.query.id)

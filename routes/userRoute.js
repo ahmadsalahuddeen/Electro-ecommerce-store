@@ -35,4 +35,5 @@ userRoute.get('/ordersuccess', userController.loadOrderSuccess)
 userRoute.get('/userProfile', userController.loadUserProfile)
 userRoute.post('/updateProfile', userController.updateProfile)
 userRoute.get('/userAddress', userController.loaduserAddress)
+userRoute.get('/userOrderManage', userController.laoduserOrderManage)
 module.exports = userRoute

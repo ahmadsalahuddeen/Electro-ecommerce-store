@@ -73,7 +73,7 @@ const loginValidate = async (req, res) => {
     const userData = await User.findOne({ email });
 
     if (userData) {
-      console.log("got user");
+     
       const passwordMatch = await bcrypt.compare(password, userData.password);
       if (passwordMatch) {
         if (userData.access) {
@@ -82,7 +82,7 @@ const loginValidate = async (req, res) => {
           req.session.cartLength = userData.cart.items.length
           req.session.cartTotalPrice = userData.cart.totalPrice
 
-          console.log(` sesssion isloggein created: ${userData}`);
+   
           res.redirect("/home");
         } else {
           res.render("login", { message: "Your access in blocked by ADMIN" });
@@ -109,20 +109,22 @@ const loadProductList = async (req, res) => {
   const user = await User.findById(req.session.user).populate(
     "cart.items.product"
   );
+ 
 
   const product = await Product.find();
-  res.render("productlist", { product, user });
+  res.render("productlist", { product, user 
+  });
 };
 
 const addToCart = async (req, res) => {
   const useer = await User.findById(req.session.user._id);
-  console.log(useer);
+
   const productId = req.query.id;
 
   Product.findById(req.body.productid)
     .then((product) => {
       useer.addToCart(product, (response) => {
-        console.log(response);
+        
         res.json(response);
       });
     })
@@ -199,7 +201,7 @@ const loadProductDetail = async(req, res )  =>{
     const product = await Product.findById(req.query.id)
   res.render('productdetail', {product:product, user:user})
   } catch (e) {
-    console.log(`product detail load page: ${e.message}`);
+    
   }
   
 }
@@ -207,7 +209,7 @@ const loadCheckout = async(req, res )  =>{
   
   try {
     const address = await Address.find({user: req.session.user._id})
-    console.log(address);
+
     const user = await User.findById(req.session.user._id).populate("cart.items.product")
     const product = await Product.findById(req.query.id)
   res.render('checkout', {product, user, address})
@@ -229,6 +231,30 @@ const addAddress = async(req, res )  =>{
     const result = await adrsData.save()
 if (result) {
   res.redirect('/checkout')
+} else {
+  res.send("something wrong while addin address")
+}
+
+
+  
+  } catch (e) {
+    console.log(`product detail load page: ${e.message}`);
+  }
+  
+}
+
+const addAddressProfile = async(req, res )  =>{
+  
+  try {
+    const reqaddress = req.body
+    const adrsData =  Address({
+      add:[reqaddress],
+      user: req.session.user._id
+    })
+
+    const result = await adrsData.save()
+if (result) {
+  res.redirect('/userAddress')
 } else {
   res.send("something wrong while addin address")
 }
@@ -297,6 +323,40 @@ const loadOrderSuccess = async(req, res)  =>{
     console.log(e);
   }
 }
+const loadUserProfile = async(req, res)  =>{
+  try {
+
+    const useer = await User.findOne({_id: req.session.user._id})
+    console.log(useer);
+    res.render('userprofile',  {user: useer})
+
+
+  } catch (e) {
+    console.log(e);
+  }
+}
+const updateProfile = async(req, res)  =>{
+  try {
+
+   await User.findByIdAndUpdate(req.session.user._id, {name: req.body.name, mobile: req.body.mobile}).then(
+    res.redirect('/userProfile')
+   )
+
+  } catch (e) {
+    console.log(e);
+  }
+}
+const loaduserAddress = async(req, res)  =>{
+  try {
+const useer = await User.findById(req.session.user._id)
+    Address.find({user: req.session.user._id}).then((data)=>{
+          
+          res.render('userAddress',{adrsdata: data, user:useer })
+   })
+  } catch (e) {
+    console.log(e);
+  }
+}
 module.exports = {
   loadRegister,
   addUser,
@@ -314,6 +374,10 @@ module.exports = {
   addAddress,
   newOrder,
   loadOrderSuccess,
+  loadUserProfile,
+  updateProfile,
+  loaduserAddress,
+  addAddressProfile,
 };
 // const deleteCartItem = async (req, res) => {
 //   const product = await Product.findById(req.query.id)

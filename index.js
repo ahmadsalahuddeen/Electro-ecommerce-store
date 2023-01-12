@@ -59,6 +59,8 @@ mongoose.connect(process.env.DATABASE, { useNewUrlParser: true }, (err) => {
   }
 })
 
+
+
 app.set(express.static(path.join(__dirname, '/public')))
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, '/views'))
@@ -66,6 +68,7 @@ app.use(express.static('public'))
 // app.use('/twilio-sms', twilioRouter)
 const userRoute = require('./routes/userRoute')
 const adminRoute = require('./routes/adminRoute')
+const User = require('./models/userModel')
 
 app.use('/', userRoute)
 app.use('/admin', adminRoute)

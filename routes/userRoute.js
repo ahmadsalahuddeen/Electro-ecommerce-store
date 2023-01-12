@@ -29,7 +29,10 @@ userRoute.post('/qtyChange' , userController.qtyChange)
 userRoute.get('/productdetail', userController.loadProductDetail)
 userRoute.get('/checkout', userController.loadCheckout)
 userRoute.post('/add-address', userController.addAddress)
+userRoute.post('/add-address-userprofile', userController.addAddressProfile)
 userRoute.post('/newOrder', userController.newOrder)
 userRoute.get('/ordersuccess', userController.loadOrderSuccess)
-
+userRoute.get('/userProfile', userController.loadUserProfile)
+userRoute.post('/updateProfile', userController.updateProfile)
+userRoute.get('/userAddress', userController.loaduserAddress)
 module.exports = userRoute

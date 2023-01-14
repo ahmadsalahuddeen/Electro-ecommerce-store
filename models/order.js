@@ -35,7 +35,7 @@ totalPrice: Number,
 orderStat: {
     type: String, 
     required: true
-},
+},   
 paymentMethod:{
     type: String,
     required: true

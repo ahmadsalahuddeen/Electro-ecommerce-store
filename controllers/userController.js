@@ -99,8 +99,10 @@ const loginValidate = async (req, res) => {
 };
 
 const loadHome = async (req, res) => {
+  const product = await Product.find()
+  const user = await User.find({_id: req.session.user._id})
   if (req.session.isLoggedIn) {
-    res.render("home");
+    res.render("home", {product, user});
   } else {
     res.redirect("/login");
   }

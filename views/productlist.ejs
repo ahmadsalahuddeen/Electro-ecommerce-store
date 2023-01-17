@@ -107,7 +107,7 @@
                           class="star-rating-icon ci-star-filled active"></i><i class="star-rating-icon ci-star"></i>
                       </div><span class="d-inline-block fs-sm text-body align-middle mt-1 ms-1">74 Reviews</span>
                     </a>
-                    <button class="btn-wishlist" type="button" data-bs-toggle="tooltip" title="Add to wishlist"><i
+                    <button  class="btn-wishlist" type="button" data-bs-toggle="tooltip" title="Add to wishlist"><i
                         class="ci-heart"></i></button>
                   </div>
                   <div class="mb-3"><span class="h3 fw-normal text-accent me-1">$18.<small>99</small></span>
@@ -470,7 +470,7 @@
       <% product.forEach((product, i)=> { %>
         <div class="col-lg-3 col-md-4 col-sm-6 px-2 mb-4">
           <div class="card product-card">
-            <button class="btn-wishlist btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="left"
+            <button onclick="addToWishlist('<%= product._id %>')" class="btn-wishlist btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="left"
               title="Add to wishlist"><i class="ci-heart"></i></button><a
               class="d-flex justify-content-center card-img-topoverflow-hidden"
               href="/productdetail?id=<%= product._id%>"><img style="width: 200px; object-fit: fill;" class="rounded"
@@ -673,6 +673,55 @@
 
       })
     }
+    const  toastMixin = Swal.mixin({
+    toast: true,
+    icon: 'success',
+    title: 'General Title',
+    animation: false,
+    position: 'top-right',
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  });
+
+
+const addToWishlist = (productId)=>{
+  
+$.ajax(
+  {
+    url: `/addToWishlist?id=${productId}`,
+    method: 'POST',
+    success:(res)=>{
+     
+      if (res.exists) {
+        toastMixin.fire({
+    title: 'Product is Already in Wishlist',
+    icon: 'warning',
+    iconColor:'#fff',
+    color:'#fff',
+    background: '#cc3300',
+  });
+      } else {
+        toastMixin.fire({
+          title: "product added to Wishlist🌟",
+          icon: 'success',
+    iconColor:'#fff',
+    color:'#fff',
+    
+          background: '#228B22',
+        })
+      }
+      
+    }
+  }
+)
+}
+      
+
     </script>
   <script src="js/search.js"></script>
 </body>

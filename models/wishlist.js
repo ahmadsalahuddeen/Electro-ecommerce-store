@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const wishlistSchema = new mongoose.Schema({
-  user: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
     refer: "User",
     required: true,

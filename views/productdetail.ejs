@@ -1205,7 +1205,7 @@
                       </div>
                       <div class="d-flex mb-4">
                         <div class="w-100 me-3">
-                          <button class="btn btn-secondary d-block w-100" type="button"><i
+                          <button onclick="addToWishlist('<%= product._id %>')" class="btn btn-secondary d-block w-100" type="button"><i
                               class="ci-heart fs-lg me-2"></i><span class='d-none d-sm-inline'>Add to
                             </span>Wishlist</button>
                         </div>
@@ -2001,6 +2001,56 @@
   <!-- Main theme script-->
   <script src="js/theme.min.js"></script>
   <script>
+
+const  toastMixin = Swal.mixin({
+    toast: true,
+    icon: 'success',
+    title: 'General Title',
+    animation: false,
+    position: 'top-right',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  });
+
+
+const addToWishlist = (productId)=>{
+  
+$.ajax(
+  {
+    url: `/addToWishlist?id=${productId}`,
+    method: 'POST',
+    success:(res)=>{
+     
+      if (res.exists) {
+        toastMixin.fire({
+    title: 'Product is Already in Wishlist',
+    icon: 'warning',
+    iconColor:'#fff',
+    color:'#fff',
+    background: '#cc3300',
+  });
+      } else {
+        toastMixin.fire({
+          title: "product added to Wishlist🌟",
+          icon: 'success',
+    iconColor:'#fff',
+    color:'#fff',
+    
+          background: '#228B22',
+        })
+      }
+      
+    }
+  }
+)
+}
+      
+
     const addToCart =  (productId)=>{
       console.log("kdfhsdkfhsldfhskdj",productId);
 $.ajax({

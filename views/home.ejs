@@ -1016,9 +1016,9 @@
               </div></a></div>
         </div>
       </section>
+      <!-- Footer-->
+      <footer class="footer bg-dark pt-5">
     </main>
-    <!-- Footer-->
-    <footer class="footer bg-dark pt-5">
       <div class="container">
         <div class="row pb-2">
           <div class="col-md-4 col-sm-6">
@@ -1180,6 +1180,21 @@
     <!-- Main theme script-->
     <script src="js/theme.min.js"></script>
     <script>
+const  toastMixin = Swal.mixin({
+    toast: true,
+    icon: 'success',
+    title: 'General Title',
+    animation: false,
+    position: 'top-right',
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  });
+
 
 const addToWishlist = (productId)=>{
   
@@ -1188,40 +1203,31 @@ $.ajax(
     url: `/addToWishlist?id=${productId}`,
     method: 'POST',
     success:(res)=>{
-      
-      console.log(res);
+     
+      if (res.exists) {
+        toastMixin.fire({
+    title: 'Product is Already in Wishlist',
+    icon: 'warning',
+    iconColor:'#fff',
+    color:'#fff',
+    background: '#cc3300',
+  });
+      } else {
+        toastMixin.fire({
+          title: "product added to Wishlist🌟",
+          icon: 'success',
+    iconColor:'#fff',
+    color:'#fff',
+    
+          background: '#228B22',
+        })
+      }
       
     }
   }
 )
 }
       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 const addToCart = (productId) => {

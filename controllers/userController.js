@@ -2,7 +2,7 @@ const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const Product = require("../models/poductModel");
 const { response, render } = require("../routes/userRoute");
-const { findById, find } = require("../models/userModel");
+const { findById, find, findOne } = require("../models/userModel");
 const Address = require('../models/address');
 const Order = require('../models/order')
 const Wishlist = require('../models/wishlist')
@@ -387,40 +387,39 @@ const loadwishlist = async(req, res)  =>{
   }
 }
 const addToWishlist = async(req, res)=>{
-try {
-  
-  const id = req.query.id
+const userId = req.session.user._id
+const proId = req.query.id
+const wListData = await Wishlist.findOne({userId})
+console.log(`wishlist Data
+${wListData}`);
 
-  console.log(wishlistData);
-  const isAlready =  wishlistData.products.findIndex((array)=>{new String( array).trim() == new String( id).trim()})
-  console.log(isAlready);
-  
-  if (isAlready >= 0 ) {
-  await Wishlist.findById({_id: wishlistData._id}, {$push: {items:id}}).then((data)=>{
-    res.json(data)
-  })
-  
-        
-      } else {
-        const wishlistData = await Wishlist.find({user: req.session.user._id})
-        const newItem = Wishlist({
-          user: req.session.user._id,
-          items:{product:id}
-        })
-        
-        await newItem.save().then((data)=>{
+if (wListData) {
+  const isProductExist = wListData.products.findIndex(el=> new String(el).trim()  === new String(proId).trim()  )
+  console.log(`product exist: ${isProductExist}`);
+  if (isProductExist === -1) {
     
-          res.json({wishlistData: data})
-        })
-        
-     
-      }
+    await Wishlist.updateOne({userId: userId}, {$push: {products: proId}}).then((doc)=>{
+      console.log(`update Data:
+      ${doc}`);
 
-
-
-} catch (error) {
+      const wListLength = doc.length 
+      res.json({count: wListLength, exists: false})
+    })
+  } else {
+    res.json({exists: true})
+  }
   
+} else {
+  const newItem = new Wishlist({
+    userId,
+    products: proId
+  })
+  await newItem.save().then((doc)=>{
+    const wListLength = doc.length
+    res.json({count: wListLength, exists: false})
+  })
 }
+
 
 
 }

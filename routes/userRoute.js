@@ -36,4 +36,6 @@ userRoute.get('/userProfile', userController.loadUserProfile)
 userRoute.post('/updateProfile', userController.updateProfile)
 userRoute.get('/userAddress', userController.loaduserAddress)
 userRoute.get('/userOrderManage', userController.laoduserOrderManage)
+userRoute.get('/wishlist', userController.loadwishlist)
+userRoute.post('/addToWishlist', userController.addToWishlist)
 module.exports = userRoute

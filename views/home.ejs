@@ -13,28 +13,27 @@
     <!-- Viewport-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon and Touch Icons-->
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
     <link rel="mask-icon" color="#fe6a6a" href="safari-pinned-tab.svg">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
     <!-- Vendor Styles including: Font Icons, Plugins, etc.-->
-    <link rel="stylesheet" media="screen" href="vendor/simplebar/dist/simplebar.min.css"/>
-    <link rel="stylesheet" media="screen" href="vendor/tiny-slider/dist/tiny-slider.css"/>
-    <link rel="stylesheet" media="screen" href="vendor/drift-zoom/dist/drift-basic.min.css"/>
-    <link rel="stylesheet" media="screen" href="vendor/lightgallery.js/dist/css/lightgallery.min.html"/>
+    <link rel="stylesheet" media="screen" href="vendor/simplebar/dist/simplebar.min.css" />
+    <link rel="stylesheet" media="screen" href="vendor/tiny-slider/dist/tiny-slider.css" />
+    <link rel="stylesheet" media="screen" href="vendor/nouislider/dist/nouislider.min.css" />
+    <link rel="stylesheet" media="screen" href="vendor/drift-zoom/dist/drift-basic.min.css" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"> </script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
     <!-- Main Theme Styles + Bootstrap-->
-    <link rel="stylesheet" media="screen" href="css/theme.min.css">
-    <!-- Google Tag Manager-->
-    <script>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      '../www.googletagmanager.com/gtm5445.html?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-WKV3GT5');
-    </script>
+    <link rel="stylesheet" media="screen" href="/css/theme.min.css">
   </head>
   <!-- Body-->
   <body class="handheld-toolbar-enabled">
@@ -895,11 +894,11 @@
         <!-- Grid-->
         <div class="row pt-2 mx-n2">
           <!-- Product-->
-          <% product.slice(0,12).forEach((product, i)=> { %>
+          <% product.slice(0,14).forEach((product, i)=> { %>
             <div class="col-lg-3 col-md-4 col-sm-6 px-2 mb-4">
               <div class="card product-card">
                 <button class="btn-wishlist btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="left"
-                  title="Add to wishlist"><i class="ci-heart"></i></button><a
+                  title="Add to wishlist" onclick="addToWishlist('<%= product._id %>')"> <i class="ci-heart"></i></button><a
                   class="d-flex justify-content-center card-img-topoverflow-hidden"
                   href="/productdetail?id=<%= product._id%>"><img style="width: 200px; object-fit: fill;" class="rounded"
                     src="<%= product.image[1] %>" alt="Product"></a>
@@ -1180,6 +1179,78 @@
     <script src="vendor/lg-video.js/dist/lg-video.min.html"></script>
     <!-- Main theme script-->
     <script src="js/theme.min.js"></script>
+    <script>
+
+const addToWishlist = (productId)=>{
+  
+$.ajax(
+  {
+    url: `/addToWishlist?id=${productId}`,
+    method: 'POST',
+    success:(res)=>{
+      
+      console.log(res);
+      
+    }
+  }
+)
+}
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const addToCart = (productId) => {
+        
+        $.ajax({
+          url: '/addtocart',
+          method: 'POST',
+          data: {
+            productid: productId
+          },
+          success: (response) => {
+            console.log("akdfhsdhfjhsgd", response);
+            document.getElementById('totalPrice').innerHTML = `₹  ${response.totalPrice}`,
+              document.getElementById('cartLength').innerHTML = response.cartLength
+            Swal.fire({
+              position: 'top-start',
+              icon: 'success',
+              widtth: '100',
+              padding: '1em',
+              text: 'Product Added to Cart 🛒',
+              showConfirmButton: false,
+              timer: 750
+            })
+  
+          }
+  
+        })
+      }
+      </script>
   </body>
 
 <!-- Mirrored from cartzilla.createx.studio/home-electronics-store.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 23 Dec 2022 04:00:39 GMT -->

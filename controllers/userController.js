@@ -5,6 +5,7 @@ const { response, render } = require("../routes/userRoute");
 const { findById, find } = require("../models/userModel");
 const Address = require('../models/address');
 const Order = require('../models/order')
+const Wishlist = require('../models/wishlist')
 
 const loadRegister = async (req, res) => {
   if (req.session.isLoggedIn === true) {
@@ -372,6 +373,57 @@ const laoduserOrderManage = async(req, res)  =>{
     console.log(e);
   }
 }
+const loadwishlist = async(req, res)  =>{
+  try {
+    const useer = await User.findById(req.session.user._id)
+ 
+
+ 
+  res.render('wishlist',{ user:useer})
+
+    
+  } catch (e) {
+    console.log(e);
+  }
+}
+const addToWishlist = async(req, res)=>{
+try {
+  
+  const id = req.query.id
+
+  console.log(wishlistData);
+  const isAlready =  wishlistData.products.findIndex((array)=>{new String( array).trim() == new String( id).trim()})
+  console.log(isAlready);
+  
+  if (isAlready >= 0 ) {
+  await Wishlist.findById({_id: wishlistData._id}, {$push: {items:id}}).then((data)=>{
+    res.json(data)
+  })
+  
+        
+      } else {
+        const wishlistData = await Wishlist.find({user: req.session.user._id})
+        const newItem = Wishlist({
+          user: req.session.user._id,
+          items:{product:id}
+        })
+        
+        await newItem.save().then((data)=>{
+    
+          res.json({wishlistData: data})
+        })
+        
+     
+      }
+
+
+
+} catch (error) {
+  
+}
+
+
+}
 module.exports = {
   loadRegister,
   addUser,
@@ -394,49 +446,6 @@ module.exports = {
   loaduserAddress,
   addAddressProfile,
   laoduserOrderManage,
+  loadwishlist,
+  addToWishlist,
 };
-// const deleteCartItem = async (req, res) => {
-//   const product = await Product.findById(req.query.id)
-//   const itemId = user.cart.items.findIndex(items => { items.product == product._id })
-//   const itId = itemId._id
-
-//   const userId = req.session.user._id
-//   const result = await User.findOneAndUpdate({ _id: userId }, { $pull: { cart: { items: { _id: itId } } } })
-//   res.redirect('/cartmanage')
-// }
-// const { TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_SERVICE_SID } = process.env
-// const client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, {
-//   lazyLoading: true
-// })
-
-// const sendOTP = async (req, res, next) => {
-//   const phoneNumber = req.body.mobile
-//   // const countryCode = +91;
-
-//   try {
-//     const otpResponse = await client.verify
-//       .services(TWILIO_SERVICE_SID)
-//       .verifications.create({
-//         to: `+91${phoneNumber}`,
-//         channel: 'sms'
-//       })
-//     res.status(200).send(`OTP send succesdfully: ${JSON.stringify(otpResponse)}`)
-//   } catch (error) {
-//     res.status(error?.status || 400).send(error?.message || 'something went wrong')
-//   }
-// }
-
-// const verifyOTP = async (req, res, next) => {
-//   const { phoneNumber, otp } = req.body
-//   try {
-//     const verifiedResponse = await client.verify
-//       .services(TWILIO_SERVICE_SID)
-//       .verificationChecks.create({
-//         to: `+91${phoneNumber}`,
-//         code: otp
-//       })
-//     res.status(200).send(`OTP verified succesfully: ${JSON.stringify(verifiedResponse)}`)
-//   } catch (error) {
-//     res.status(error?.status || 400).send(error?.message || 'something went wrong')
-//   }
-// }

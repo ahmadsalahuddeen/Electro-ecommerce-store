@@ -40,6 +40,8 @@ userRoute.get('/wishlist', userController.loadwishlist)
 userRoute.post('/addToWishlist', userController.addToWishlist)
 userRoute.post('/editAddress', userController.editAddress)
 userRoute.get('/deleteAddress', userController.deleteAddress)
+userRoute.get('/cancelOrder', userController.cancelOrder)
+
 
 
 module.exports = userRoute

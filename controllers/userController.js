@@ -7,6 +7,7 @@ const Address = require("../models/address");
 const Order = require("../models/order");
 const Wishlist = require("../models/wishlist");
 const { findByIdAndUpdate } = require("../models/address");
+const helper = require('../helpers/userHelper')
 
 const loadRegister = async (req, res) => {
   if (req.session.isLoggedIn === true) {
@@ -406,7 +407,21 @@ const editAddress = async (req, res) => {
     console.log(error.message);
   }
 };
+const cancelOrder = async (req, res) => {
+  try {
+    console.log(req.query.id);
+    const status = 'Canceled'
+await helper.chnageOrderStatus(req.query.id, status )
+res.redirect('/userOrderManage')
+
+
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 module.exports = {
+  cancelOrder,
   editAddress,
   deleteAddress,
   loadRegister,

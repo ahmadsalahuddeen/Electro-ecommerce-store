@@ -122,8 +122,8 @@
   </div>
   <main class="page-wrapper">
     <!-- Add New Address-->
-    <form class="needs-validation modal fade" method="post" id="add-address" action="/add-address-userprofile" tabindex="-1"
-      novalidate>
+    <form class="needs-validation modal fade" method="post" id="add-address" action="/add-address-userprofile"
+      tabindex="-1" novalidate>
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -188,8 +188,9 @@
         </div>
       </div>
     </form>
-    
-    
+
+
+
     <!-- Navbar 3 Level (Light)-->
     <header class="shadow-sm">
       <!-- Topbar-->
@@ -244,8 +245,8 @@
         <div class="navbar navbar-expand-lg navbar-light">
           <div class="container"><a class="navbar-brand d-none d-sm-block flex-shrink-0" href="/home"><img
                 src="/img/electro-logo.png" width="142" alt="Cartzilla"></a><a
-              class="navbar-brand d-sm-none flex-shrink-0 me-2" href="/home"><img src="img/logo-icon.png"
-                width="74" alt="Cartzilla"></a>
+              class="navbar-brand d-sm-none flex-shrink-0 me-2" href="/home"><img src="img/logo-icon.png" width="74"
+                alt="Cartzilla"></a>
             <div class="input-group d-none d-lg-flex mx-4">
               <input class="form-control rounded-end pe-5" type="text" placeholder="Search for products"><i
                 class="ci-search position-absolute top-50 end-0 translate-middle-y text-muted fs-base me-3"></i>
@@ -853,18 +854,98 @@
                 </tr>
               </thead>
               <tbody>
-
                 <% adrsdata.forEach((adrsModal, index)=> {%>
+
                   <% adrsModal.add.forEach((adrs)=> {%>
                     <tr>
-                      <td><%= index +1 %> </td>
-                      <td class="py-3 align-middle"><%= adrs.fullAddress %>, near <%= adrs.landmark %>, <%= adrs.district %>  </td>
-                      <td class="py-3 align-middle"><a class="nav-link-style me-2" href="#edit-address" data-bs-toggle="modal"
-                          title="Edit"><i class="ci-edit"></i></a><a class="nav-link-style text-danger" href="#"
-                          data-bs-toggle="tooltip" title="Remove">
+                      <td>
+                        <%= index +1 %>
+                      </td>
+                      <td class="py-3 align-middle">
+                        <%= adrs.fullAddress %>, near <%= adrs.landmark %>, <%= adrs.district %>
+                      </td>
+                      <td class="py-3 align-middle"><a class="nav-link-style me-2" href="#edit<%= adrs._id %>"
+                          data-bs-toggle="modal" title="Edit"><i class="ci-edit"></i></a><a
+                          class="nav-link-style text-danger" href="#" data-bs-toggle="tooltip" title="Remove">
                           <div class="ci-trash"></div>
                         </a></td>
                     </tr>
+                    <div class="modal fade" id="edit<%= adrs._id %>" tabindex="-1" role="dialog" >
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <form class="needs-validation " method="post" id="add-address"
+                            action="/add-address-userprofile"  novalidate>
+                           
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Edit Address</h5>
+                                  <button class="btn-close" type="button" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="row gx-4 gy-3">
+                                    <div class="col-sm-6">
+                                      <label class="form-label" for="address-fn">Name</label>
+                                      <input class="form-control" name="name" type="text" id="address-fn" required value="<%= adrs.name %>">
+                                      <div class="invalid-feedback">Please fill in you name!</div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                      <label class="form-label" for="address-ln">Mobile Number</label>
+                                      <input class="form-control" type="tel" name="mobile" id="address-ln" required value="<%= adrs.mobile %>">
+                                      <div class="invalid-feedback">Please fill in you last name!</div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                      <label class="form-label" for="address-line1">Your Address (house name, street
+                                        etc.)</label>
+                                      <input class="form-control" name="fullAddress" type="text" id="address-line1"
+                                        required value="<%= adrs.fullAddress %>">
+                                      <div class="invalid-feedback">Please fill in your address!</div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                      <label class="form-label" for="address-country">State</label>
+                                      <select class="form-select" name="state" id="address-country" required>
+                                        <option value><%= adrs.state %></option>
+                                        <option value="Kerala">Kerala</option>
+                                        <option value="Karnataka">Karnataka</option>
+                                        <option value="Tamil">Tamil Nadu</option>
+                                        <option value="Kashmir">Kashmir</option>
+                                        <option value="Telengana">Telengana</option>
+
+                                      </select>
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                      <label class="form-label" for="address-city">District</label>
+                                      <input class="form-control" name="district" type="text" id="address-city value="<%= adrs.district%>""
+                                        required>
+                                      <div class="invalid-feedback">Please fill in your District</div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                      <label class="form-label" for="address-line1">Landmark</label>
+                                      <input class="form-control" name="landmark" type="text" id="address-line1" value="<%= adrs.landmark %>"
+                                        required>
+                                      <div class="invalid-feedback">Please fill in your address!</div>
+                                    </div>
+
+
+                                    <div class="col-sm-6">
+                                      <label class="form-label" for="address-zip">Pincode</label>
+                                      <input class="form-control" type="tel" name="pincode" id="address-zip" required value="<%= adrs.pincode%>"> 
+                                      <div class="invalid-feedback">Please add your ZIP code!</div>
+                                    </div>
+
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                                  <button class="btn btn-primary btn-shadow" type="submit">Add address</button>
+                                </div>
+                              
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+
                     <% });%>
 
                       <% }); %>
@@ -872,6 +953,7 @@
 
               </tbody>
             </table>
+
           </div>
           <div class="text-sm-end pt-4"><a class="btn btn-primary" href="#add-address" data-bs-toggle="modal">Add new
               address</a></div>

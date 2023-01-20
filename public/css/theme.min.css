@@ -14138,6 +14138,9 @@ input[type="search"]::-webkit-search-results-decoration {
 .btn-wishlist:hover {
   color: var(--cz-primary);
 }
+.disa-buton:hover{
+  cursor: not-allowed;
+}
 .btn-wishlist:focus {
   outline: 0;
 }

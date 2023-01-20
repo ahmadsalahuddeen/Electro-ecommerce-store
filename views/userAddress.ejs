@@ -857,6 +857,7 @@
                 <% adrsdata.forEach((adrsModal, index)=> {%>
 
                   <% adrsModal.add.forEach((adrs)=> {%>
+                    
                     <tr>
                       <td>
                         <%= index +1 %>
@@ -865,8 +866,9 @@
                         <%= adrs.fullAddress %>, near <%= adrs.landmark %>, <%= adrs.district %>
                       </td>
                       <td class="py-3 align-middle"><a class="nav-link-style me-2" href="#edit<%= adrs._id %>"
-                          data-bs-toggle="modal" title="Edit"><i class="ci-edit"></i></a><a
-                          class="nav-link-style text-danger" href="#" data-bs-toggle="tooltip" title="Remove">
+                          data-bs-toggle="modal" title="Edit"><i class="ci-edit"></i></a>
+                          <a
+                          class="nav-link-style text-danger" href="/deleteAddress?id=<%= adrsModal._id %>" data-bs-toggle="tooltip" title="Remove">
                           <div class="ci-trash"></div>
                         </a></td>
                     </tr>
@@ -874,7 +876,7 @@
                       <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                           <form class="needs-validation " method="post" id="add-address"
-                            action="/add-address-userprofile"  novalidate>
+                            action="/editAddress?id=<%= adrsModal._id %>"  novalidate>
                            
                                 <div class="modal-header">
                                   <h5 class="modal-title">Edit Address</h5>
@@ -938,7 +940,7 @@
                                 </div>
                                 <div class="modal-footer">
                                   <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                                  <button class="btn btn-primary btn-shadow" type="submit">Add address</button>
+                                  <button class="btn btn-primary btn-shadow" type="submit">Edit</button>
                                 </div>
                               
                           </form>

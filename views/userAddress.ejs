@@ -768,6 +768,85 @@
         </div>
       </div>
     </header>
+    <% adrsdata.forEach((adrsModal, index)=> {%>
+
+      <% adrsModal.add.forEach((adrs)=> {%>
+        <form class="needs-validation modal fade" method="post" id="edit<%= adrs._id %>" action="/editAddress?id=<%= adrsModal._id %>"
+        tabindex="-1" novalidate>
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Edit Address</h5>
+              <button class="btn-close" type="button" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row gx-4 gy-3">
+                <div class="col-sm-6">
+                  <label class="form-label" for="address-fn">Name</label>
+                  <input class="form-control" name="name" type="text" id="address-fn" required value="<%= adrs.name %>">
+                  <div class="invalid-feedback">Please fill in you name!</div>
+                </div>
+                <div class="col-sm-6">
+                  <label class="form-label" for="address-ln">Mobile Number</label>
+                  <input class="form-control" type="tel" name="mobile" id="address-ln" required value="<%= adrs.mobile %>">
+                  <div class="invalid-feedback">Please fill in you last name!</div>
+                </div>
+                <div class="col-sm-12">
+                  <label class="form-label" for="address-line1">Your Address (house name, street
+                    etc.)</label>
+                  <input class="form-control" name="fullAddress" type="text" id="address-line1"
+                    required value="<%= adrs.fullAddress %>">
+                  <div class="invalid-feedback">Please fill in your address!</div>
+                </div>
+
+                <div class="col-sm-6">
+                  <label class="form-label" for="address-country">State</label>
+                  <select class="form-select" name="state" id="address-country" required >
+                    <option value="<%= adrs.state %>"><%= adrs.state %></option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Tamil">Tamil Nadu</option>
+                    <option value="Kashmir">Kashmir</option>
+                    <option value="Telengana">Telengana</option>
+
+                  </select>
+
+                </div>
+                <div class="col-sm-6">
+                  <label class="form-label" for="address-city">District</label>
+                  <input class="form-control" name="district" type="text" id="address-city"value="<%= adrs.district%>"
+                    required>
+                  <div class="invalid-feedback">Please fill in your District</div>
+                </div>
+                <div class="col-sm-6">
+                  <label class="form-label" for="address-line1">Landmark</label>
+                  <input class="form-control" name="landmark" type="text" id="address-line1" value="<%= adrs.landmark %>"
+                    required>
+                  <div class="invalid-feedback">Please fill in your address!</div>
+                </div>
+
+
+                <div class="col-sm-6">
+                  <label class="form-label" for="address-zip">Pincode</label>
+                  <input class="form-control" type="tel" name="pincode" id="address-zip" required value="<%= adrs.pincode%>"> 
+                  <div class="invalid-feedback">Please add your ZIP code!</div>
+                </div>
+
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+              <button class="btn btn-primary btn-shadow" type="submit">Edit</button>
+            </div>
+          
+          </div>
+        </div>
+      </form>
+
+        <% });%>
+
+                      <% }); %>
     <!-- Page Title-->
     <div class="page-title-overlap bg-dark pt-4">
       <div class="container d-lg-flex justify-content-between py-2 py-lg-3">
@@ -872,82 +951,7 @@
                           <div class="ci-trash"></div>
                         </a></td>
                     </tr>
-                    <div class="modal fade" id="edit<%= adrs._id %>" tabindex="-1" role="dialog" >
-                      <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                          <form class="needs-validation " method="post" id="add-address"
-                            action="/editAddress?id=<%= adrsModal._id %>"  novalidate>
-                           
-                                <div class="modal-header">
-                                  <h5 class="modal-title">Edit Address</h5>
-                                  <button class="btn-close" type="button" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                  <div class="row gx-4 gy-3">
-                                    <div class="col-sm-6">
-                                      <label class="form-label" for="address-fn">Name</label>
-                                      <input class="form-control" name="name" type="text" id="address-fn" required value="<%= adrs.name %>">
-                                      <div class="invalid-feedback">Please fill in you name!</div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                      <label class="form-label" for="address-ln">Mobile Number</label>
-                                      <input class="form-control" type="tel" name="mobile" id="address-ln" required value="<%= adrs.mobile %>">
-                                      <div class="invalid-feedback">Please fill in you last name!</div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                      <label class="form-label" for="address-line1">Your Address (house name, street
-                                        etc.)</label>
-                                      <input class="form-control" name="fullAddress" type="text" id="address-line1"
-                                        required value="<%= adrs.fullAddress %>">
-                                      <div class="invalid-feedback">Please fill in your address!</div>
-                                    </div>
-
-                                    <div class="col-sm-6">
-                                      <label class="form-label" for="address-country">State</label>
-                                      <select class="form-select" name="state" id="address-country" required>
-                                        <option value><%= adrs.state %></option>
-                                        <option value="Kerala">Kerala</option>
-                                        <option value="Karnataka">Karnataka</option>
-                                        <option value="Tamil">Tamil Nadu</option>
-                                        <option value="Kashmir">Kashmir</option>
-                                        <option value="Telengana">Telengana</option>
-
-                                      </select>
-
-                                    </div>
-                                    <div class="col-sm-6">
-                                      <label class="form-label" for="address-city">District</label>
-                                      <input class="form-control" name="district" type="text" id="address-city value="<%= adrs.district%>""
-                                        required>
-                                      <div class="invalid-feedback">Please fill in your District</div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                      <label class="form-label" for="address-line1">Landmark</label>
-                                      <input class="form-control" name="landmark" type="text" id="address-line1" value="<%= adrs.landmark %>"
-                                        required>
-                                      <div class="invalid-feedback">Please fill in your address!</div>
-                                    </div>
-
-
-                                    <div class="col-sm-6">
-                                      <label class="form-label" for="address-zip">Pincode</label>
-                                      <input class="form-control" type="tel" name="pincode" id="address-zip" required value="<%= adrs.pincode%>"> 
-                                      <div class="invalid-feedback">Please add your ZIP code!</div>
-                                    </div>
-
-                                  </div>
-                                </div>
-                                <div class="modal-footer">
-                                  <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                                  <button class="btn btn-primary btn-shadow" type="submit">Edit</button>
-                                </div>
-                              
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-
+                    
                     <% });%>
 
                       <% }); %>

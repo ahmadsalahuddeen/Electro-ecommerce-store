@@ -388,7 +388,9 @@ const deleteAddress = async (req, res) => {
 
 const editAddress = async (req, res) => {
   try {
+    console.log(req.query.id);
     await Address.findByIdAndUpdate(req.query.id, {
+      $set: {
       add: {
         name: req.body.name,
         mobile: req.body.mobile,
@@ -397,8 +399,9 @@ const editAddress = async (req, res) => {
         state: req.body.state,
         fullAddress: req.body.fullAddress,
         landmark: req.body.landmark,
-      },
+      },},
     });
+    res.redirect('/userAddress')
   } catch (error) {
     console.log(error.message);
   }

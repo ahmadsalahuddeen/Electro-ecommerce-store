@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from cartzilla.createx.studio/dashboard-payouts.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 23 Dec 2022 04:02:23 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+
+<head>
+  <meta charset="utf-8">
+  <title>Electro⚡| Admin Home</title>
+  <!-- SEO Meta Tags-->
+  <meta name="description" content="Cartzilla - Bootstrap E-commerce Template">
+  <meta name="keywords"
+    content="bootstrap, shop, e-commerce, market, modern, responsive,  business, mobile, bootstrap, html5, css3, js, gallery, slider, touch, creative, clean">
+  <meta name="author" content="swalahCodes">
+  <!-- Viewport-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Favicon and Touch Icons-->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="mask-icon" color="#fe6a6a" href="safari-pinned-tab.svg">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Vendor Styles including: Font Icons, Plugins, etc.-->
+  <link rel="stylesheet" media="screen" href="vendor/simplebar/dist/simplebar.min.css" />
+  <link rel="stylesheet" media="screen" href="vendor/tiny-slider/dist/tiny-slider.css" />
+  <!-- Main Theme Styles + Bootstrap-->
+  <link rel="stylesheet" media="screen" href="/css/theme.min.css">
+  <!-- Google Tag Manager-->
+
+</head>
+<!-- Body-->
+
+<body class="handheld-toolbar-enabled">
+  <% orderData.forEach(element=> {%>
+  
+  
+      <div class="modal fade" id="order-details<%= element._id %>" >
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Order Details </h5>
+              <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pb-0">
+              <% element.items.forEach(items=> {%>
+
+                <!-- Item-->
+                <div class="d-sm-flex justify-content-between mb-4 pb-3 pb-sm-2 border-bottom">
+                  <div class="d-sm-flex text-center text-sm-start"><a class="d-inline-block flex-shrink-0 mx-auto"
+                      href="/productdetail?id=<%= items.product._id%>" style="width: 10rem;"><img class="rounded"
+                        src="<%= items.product.image[0] %>" alt="Product Image"></a>
+                    <div class="ps-sm-4 pt-2">
+                      <h3 class="product-title fs-base mb-2"><a href="/productdetail?id=<%= items.product._id%>">
+                          <%= items.product.name %>
+                        </a></h3>
+                      <div class="fs-sm"><span class="text-muted me-2">Category:</span>
+                        <%= items.product.category %>
+                      </div>
+
+                      <div class="fs-lg text-accent pt-2">₹ <%= items.product.discount %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pt-2 ps-sm-3 mx-auto mx-sm-0 text-center">
+                    <div class="text-muted mb-2">Quantity:</div>
+                    <%= items.qty %>
+                  </div>
+                  <div class="pt-2 ps-sm-3 mx-auto mx-sm-0 text-center">
+                    <div class="text-muted mb-2">Subtotal</div>₹ <%= items.product.discount * items.qty %>
+                  </div>
+                </div>
+                <!-- Item-->
+                <% }); %>
+
+                  <!-- Footer-->
+                  <div class="modal-footer flex-wrap justify-content-between bg-secondary fs-md">
+
+                    <div class="px-2 py-1"><span class="text-muted">Total:&nbsp;</span><span class="fs-xl"> ₹ <%=
+                          element.totalPrice %> </span></div>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <%}); %>
+  <style>
+    .dataTables_filter {
+      display: flex;
+      justify-content: center;
+    }
+
+    .dataTables_paginate {
+      display: flex;
+      justify-content: center;
+    }
+
+    #userTable_wrapper .row {
+      padding-bottom: 10px;
+    }
+  </style>
+
+  <!-- Google Tag Manager (noscript)-->
+
+  <main class="page-wrapper">
+
+    <!-- Navbar Marketplace-->
+    <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page.-->
+
+    <!-- Dashboard header-->
+    <div class="page-title-overlap bg-accent pt-4">
+      <div
+        class="container d-flex flex-wrap flex-sm-nowrap justify-content-center justify-content-sm-between align-items-center pt-2">
+        <div class="d-flex align-items-center pb-3">
+
+          <div class="ps-3">
+            <h3 class="text-light fs-lg mb-0">Electro⚡| Admin </h3><span
+              class="d-block text-light fs-ms opacity-60 py-1">With Great Power comes Great Responsiblity!
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container mb-5 pb-3">
+      <div class="bg-light shadow-lg rounded-3 overflow-hidden">
+        <div class="row">
+          <!-- Sidebar-->
+          <aside class="col-lg-4 pe-xl-5">
+            <!-- Account menu toggler (hidden on screens larger 992px)-->
+            <div class="d-block d-lg-none p-4"><a class="btn btn-outline-accent d-block" href="#account-menu"
+                data-bs-toggle="collapse"><i class="ci-menu me-2"></i>Account menu</a></div>
+            <!-- Actual menu-->
+            <div class="h-100 border-end mb-2">
+              <div class="d-lg-block collapse" id="account-menu">
+                <div class="bg-secondary p-4">
+                  <h3 class="fs-sm mb-0 text-muted">Account</h3>
+                </div>
+                <ul class="list-unstyled mb-0">
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                      href="/admin/adminhome"><i class="ci-home opacity-60 me-2"></i>Home</a></li>
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3  active "
+                      href="/admin/usermanage"><i class="ci-user-circle opacity-60 me-2"></i>User Management</a></li>
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                      href="/admin/categorymanage"><i class="ci-basket opacity-60 me-2"></i>Category Management</a>
+                  </li>
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                      href="/admin/productmanage"><i class="ci-package opacity-60 me-2"></i>Product management<span
+                        class="fs-sm text-muted ms-auto">5</span></a></li>
+                  <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                      href="dashboard-favorites.html"><i class="ci-heart opacity-60 me-2"></i>Favorites<span
+                        class="fs-sm text-muted ms-auto">4</span></a></li>
+                </ul>
+                <div class="bg-secondary p-4">
+                  <h3 class="fs-sm mb-0 text-muted">Seller Dashboard</h3>
+                </div>
+                <ul class="list-unstyled mb-0">
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 "
+                      href="dashboard-sales.html"><i class="ci-dollar opacity-60 me-2"></i>Sales<span
+                        class="fs-sm text-muted ms-auto">$1,375.00</span></a></li>
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                      href="dashboard-products.html"><i class="ci-package opacity-60 me-2"></i>Products<span
+                        class="fs-sm text-muted ms-auto">5</span></a></li>
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                      href="dashboard-add-new-product.html"><i class="ci-cloud-upload opacity-60 me-2"></i>Add New
+                      Product</a></li>
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 "
+                      href="dashboard-payouts.html"><i class="ci-currency-exchange opacity-60 me-2"></i>Payouts</a></li>
+                  <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="/admin/logout"><i
+                        class="ci-sign-out opacity-60 me-2"></i>Sign out</a></li>
+                </ul>
+                <hr>
+              </div>
+            </div>
+          </aside>
+          <!-- Content-->
+          <section class="col-lg-8 pt-lg-4 pb-4 mb-3">
+            <div class="pt-2 px-4 ps-lg-0 pe-xl-5">
+              <h2 class="h3 py-2 text-center text-sm-start">Order Management</h2>
+
+              <div class="d-flex justify-content-between align-items-center pt-lg-2 pb-4 pb-lg-5 mb-lg-3">
+                <div class="d-flex align-items-center">
+                  <label class="d-none d-lg-block fs-sm text-light text-nowrap opacity-75 me-2" for="order-sort">Sort
+                    orders:</label>
+                  <label class="d-lg-none fs-sm text-nowrap opacity-75 me-2" for="order-sort">Sort orders:</label>
+                  <select class="form-select" id="order-sort">
+                    <option>All</option>
+                    <option>Delivered</option>
+                    <option>In Progress</option>
+                    <option>Delayed</option>
+                    <option>Canceled</option>
+                  </select>
+                </div><a class="btn btn-primary btn-sm d-none d-lg-inline-block" href="account-signin.html"><i
+                    class="ci-sign-out me-2"></i>Sign out</a>
+              </div>
+              <!-- Orders list-->
+              <div class="table-responsive fs-md mb-4">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>Date Purchased</th>
+    
+                      <th>Status</th>
+                      <th>Total</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+    
+                    <% orderData.forEach(element=> { %>
+    
+                      <% if (element.orderStat=='Canceled' ) {%>
+                        <tr id="<%= element._id %>reaload">
+                          <td class="py-3"><a class="nav-link-style fw-medium fs-sm" href="#order-details<%= element._id %>"
+                              data-bs-toggle="modal">
+                              <%= element.createdAt.toLocaleString() %>
+                            </a></td>
+    
+                          <td class="py-3">
+
+                            <span class="badge bg-danger m-1 p-1">
+                              <%= element.orderStat %>
+                            </span>
+                          </td>
+                          <td class="py-3">₹ <%= element.totalPrice %>
+                          </td>
+                          <td class="py-3 align-middle">
+                            <a class="btn bg-faded-info btn-icon  me-2"
+                              href="#order-details<%= element._id %>" data-bs-toggle="modal" title="Quick View"><i
+                                class="ci-eye pe-1"></i>view</a>
+                                <button class="btn bg-danger btn-icon  text-white" disabled
+                                  data-bs-toggle="tooltip" title="Cancel">
+                                  <%= element.orderStat %>
+                                </button>
+                          </td>
+                        </tr>
+    
+                        <%} else if( element.orderStat == 'Delivered'){%>
+    
+                          <tr id="<%= element._id %>reaload">
+                            <td class="py-3"><a class="nav-link-style fw-medium fs-sm" href="#order-details<%= element._id %>"
+                                data-bs-toggle="modal">
+                                <%= element.createdAt.toLocaleString() %>
+                              </a></td>
+      
+                            <td class="py-3">
+  
+                              <span class="badge bg-success m-1 p-1">
+                                <%= element.orderStat %>
+                              </span>
+                            </td>
+                            <td class="py-3">₹ <%= element.totalPrice %>
+                            </td>
+                            <td class="py-3 align-middle">
+                              <a class="btn bg-faded-info btn-icon  me-2"
+                                href="#order-details<%= element._id %>" data-bs-toggle="modal" title="Quick View"><i
+                                  class="ci-eye pe-1"></i>view</a>
+                                  <button class="btn bg-success btn-icon  text-white" disabled
+                                    data-bs-toggle="tooltip" title="Cancel">
+                                    <%= element.orderStat %>
+                                  </button>
+                            </td>
+                          </tr>
+                          
+                        <%} else {%>
+    
+                          <tr id="<%= element._id %>reaload">
+                            <td class="py-3"><a class="nav-link-style fw-medium fs-sm"
+                                href="#order-details<%= element._id %>" data-bs-toggle="modal">
+                                <%= element.createdAt.toLocaleString() %>
+                              </a></td>
+    
+                            <td class="py-3"> 
+                              <select class="form-select bg-dark  text-white"  onchange="changests('<%= element._id%>', this)">
+                              <option value="<%= element.orderStat %>"><%= element.orderStat %> </option>
+                              <option value="Confirmed" >Confirmed</option>
+                              <option value="Pending">Pending</option>
+                              <option value="Delivered">Delivered</option>
+                            </select></td>
+                            <td class="py-3">₹ <%= element.totalPrice %>
+                            </td>
+                            <td class="py-3 align-middle"><button data-bs-target="#order-details<%= element._id %>" class="btn bg-faded-info btn-icon  me-2"
+                                 data-bs-toggle="modal" title="Quick View"><i
+                                  class="ci-eye pe-1"></i>view</button>
+                              <button class="btn bg-faded-danger btn-icon  text-danger" onclick="cancelOrder('<%= element._id%>', 'Canceled')" value="Canceled"
+                                data-bs-toggle="tooltip" title="Cancel">
+                                Cancel <div class="ci-trash"></div>
+                              </button>
+                            </td>
+                          </tr>
+                          <%} %>
+    
+    
+    
+    
+                            <% }); %>
+    
+    
+                  </tbody>
+                </table>
+              </div>
+             
+                  <!-- Pagination-->
+                  <nav class="d-flex justify-content-between pt-2" aria-label="Page navigation">
+                    <ul class="pagination">
+                      <li class="page-item"><a class="page-link" href="#"><i class="ci-arrow-left me-2"></i>Prev</a></li>
+                    </ul>
+                    <ul class="pagination">
+                      <li class="page-item d-sm-none"><span class="page-link page-link-static">1 / 5</span></li>
+                      <li class="page-item active d-none d-sm-block" aria-current="page"><span class="page-link">1<span
+                            class="visually-hidden">(current)</span></span></li>
+                      <li class="page-item d-none d-sm-block"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item d-none d-sm-block"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item d-none d-sm-block"><a class="page-link" href="#">4</a></li>
+                      <li class="page-item d-none d-sm-block"><a class="page-link" href="#">5</a></li>
+                    </ul>
+                    <ul class="pagination">
+                      <li class="page-item"><a class="page-link" href="#" aria-label="Next">Next<i
+                            class="ci-arrow-right ms-2"></i></a></li>
+                    </ul>
+                  </nav>>
+            </div>
+          </section>
+         
+        </div>
+      </div>
+    </div>
+    </div>
+    
+  </main>
+  <!-- Footer-->
+
+  <!-- Toolbar for handheld devices (Marketplace)-->
+
+  <!-- Back To Top Button--><a class="btn-scroll-top" href="#top" data-scroll><span
+      class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span><i class="btn-scroll-top-icon ci-arrow-up">
+    </i></a>
+  <!-- Vendor scrits: js libraries and plugins-->
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+  <script src="https:/cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+  <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/simplebar/dist/simplebar.min.js"></script>
+  <script src="vendor/tiny-slider/dist/min/tiny-slider.js"></script>
+  <script src="vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+  <!-- Main theme script-->
+  <script src="js/theme.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#userTable').DataTable();
+
+    });
+    const changests = async(orderId, status) =>{
+       console.log(`id: ${orderId} status: ${status.value}`);
+
+       $.ajax({
+        url: `/admin/orderStatus?id=${orderId}&status=${status.value}`,
+        method: 'POST',
+        success: (res)=>{
+          location.reload()
+        }
+        
+       })
+    }
+    const cancelOrder = async(orderId, status) =>{
+       console.log(`id: ${orderId} status: ${status}`);
+
+       $.ajax({
+        url: `/admin/cancelOrder?id=${orderId}&status=${status}`,
+        method: 'POST',
+        success: (res)=>{
+          location.reload()
+        }
+        
+       })
+    }
+
+  </script>
+</body>
+
+<!-- Mirrored from cartzilla.createx.studio/dashboard-payouts.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 23 Dec 2022 04:02:23 GMT -->
+
+</html>

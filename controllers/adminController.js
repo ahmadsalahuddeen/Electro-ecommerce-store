@@ -1,6 +1,8 @@
 const User = require('../models/userModel')
 const Category = require('../models/categoryModel')
 const Product = require('../models/poductModel')
+const Order = require('../models/order')
+const helper = require('../helpers/userHelper')
 
 const loadAdminLogin = async (req, res) => {
   res.render('adminlogin')
@@ -13,7 +15,7 @@ const loginValidate = async (req, res) => {
   // console.log(`${passoword}  ${sadmimPassword}`);
   if (email === adminEmail) {
     if (passoword === sadmimPassword) {
-      req.session.user = req.body.email
+      req.session.admin = req.body.email
       res.redirect('/admin/adminhome')
     } else {
       res.render('adminlogin', { message: 'hi passoword' })
@@ -134,7 +136,7 @@ const deleteCategory = async (req, res) => {
   const dltStatus = await Category.findByIdAndDelete(id)
   if (dltStatus) {
     res.redirect('/admin/categorymanage')
-  } else {
+  } else { 
     console.log('delete failed')
   }
 }
@@ -222,8 +224,47 @@ const editProduct = async (req, res) => {
   }
 }
 
+
+const loadOrderManagePage = async(req, res ) =>{
+  try {
+const orderData =  await Order.find().populate('items.product')
+res.render('adminOrderManage', {orderData} )
+
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+const changeOrderStatus = async(req, res ) =>{
+  try {
+const orderData =  await Order.findByIdAndUpdate( req.query.id, {$set: {orderStat: req.query.status}})
+console.log(orderData);
+
+res.redirect('/admin/orderManage')
+
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+const cancelOrder = async(req, res ) =>{
+  try {
+const orderData =  await Order.findByIdAndUpdate( req.query.id, {$set: {orderStat: req.query.status}})
+console.log(orderData);
+redirect('/admin/orderManage')
+
+
+
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+
 module.exports = {
+  cancelOrder,
+  changeOrderStatus,
   loadAdminLogin,
+  loadOrderManagePage,
   loginValidate,
   loadUserManagement,
   loadHome,

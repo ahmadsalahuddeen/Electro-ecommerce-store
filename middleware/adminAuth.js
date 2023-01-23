@@ -1,6 +1,6 @@
 const isLogin = async (req, res, next) => {
   try {
-    if (!req.session.user) {
+    if (!req.session.admin) {
       return res.redirect('/admin')
     }
 
@@ -10,7 +10,7 @@ const isLogin = async (req, res, next) => {
 
 const isLogout = async (req, res, next) => {
   try {
-    if (req.session.user) {
+    if (req.session.admin) {
       return res.redirect('/admin/home')
     }
     next()

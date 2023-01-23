@@ -410,7 +410,7 @@ const editAddress = async (req, res) => {
 const cancelOrder = async (req, res) => {
   try {
     console.log(req.query.id);
-    const status = 'Canceled'
+    const status = 'Cancel+ed'
 await helper.chnageOrderStatus(req.query.id, status )
 res.redirect('/userOrderManage')
 
@@ -448,3 +448,4 @@ module.exports = {
   loadwishlist,
   addToWishlist,
 };
+

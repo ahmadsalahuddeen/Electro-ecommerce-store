@@ -99,10 +99,12 @@ const loginValidate = async (req, res) => {
 };
 
 const loadHome = async (req, res) => {
-  const product = await Product.find();
-  const user = await User.find({ _id: req.session.user._id });
+  const productData = await Product.find();
+  const userData = await User.findOne({ _id: req.session.user._id });
+  console.log(userData);
   if (req.session.isLoggedIn) {
-    res.render("home", { product, user });
+    res.render("home", { product: productData
+      , user: userData });
   } else {
     res.redirect("/login");
   }
@@ -333,8 +335,10 @@ const laoduserOrderManage = async (req, res) => {
 const loadwishlist = async (req, res) => {
   try {
     const useer = await User.findById(req.session.user._id);
+    const wlData = await Wishlist.findOne({userId: req.session.user._id}).populate('products')
+    
 
-    res.render("wishlist", { user: useer });
+    res.render("wishlist", { user: useer, wlData: wlData  });
   } catch (e) {
     console.log(e);
   }
@@ -420,7 +424,25 @@ res.redirect('/userOrderManage')
   }
 };
 
+
+const deleteWishlistItem = async(req, res)  =>{
+  console.log(`product id in ${req.query.id}`);
+  try {
+    await Wishlist.findOneAndUpdate({userId: req.session.user._id}, {$pull: {'products': req.query.id}}).then((doc )=>{
+      const length = doc.products.length
+      res.json({length: length})
+    })
+    
+
+  } catch (error) {
+    console.log('deleting wihslist error');
+  }
+}
+
+
+
 module.exports = {
+  loadwishlist,
   cancelOrder,
   editAddress,
   deleteAddress,
@@ -445,7 +467,7 @@ module.exports = {
   loaduserAddress,
   addAddressProfile,
   laoduserOrderManage,
-  loadwishlist,
+  deleteWishlistItem,
   addToWishlist,
 };
 

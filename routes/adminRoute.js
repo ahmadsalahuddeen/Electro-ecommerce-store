@@ -27,6 +27,7 @@ adminRoute.get('/orderManage', adminController.loadOrderManagePage)
 adminRoute.post('/orderStatus', adminController.changeOrderStatus)
 adminRoute.post('/cancelOrder', adminController.cancelOrder)
 
+
 adminRoute.get('*', function (req, res) {
   res.redirect('/admin')
 })

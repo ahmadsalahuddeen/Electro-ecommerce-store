@@ -356,11 +356,9 @@ const loaduserAddress = async (req, res) => {
 const laoduserOrderManage = async (req, res) => {
   try {
     const useer = await User.findById(req.session.user._id);
-    const orderData = await Order.find({ user: req.session.user._id }).populate(
-      "items.product"
-    );
+    const orderData = await Order.find({ user: req.session.user._id }).populate("items.product");
 
-    console.log(orderData);
+    
     res.render("userOrderManage", { orderData: orderData, user: useer });
   } catch (e) {
     console.log(e);
@@ -476,6 +474,7 @@ const deleteWishlistItem = async(req, res)  =>{
 const verifyPayement = async(req, res)  =>{
  
   try {
+    
     const userId = req.session.user._id;
     const user = await User.findById(userId);
     

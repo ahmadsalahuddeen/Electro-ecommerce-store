@@ -38,59 +38,7 @@
 <!-- Body-->
 
 <body class="handheld-toolbar-enabled">
-  <% orderData.forEach(element=> {%>
-  
-  
-      <div class="modal fade" id="order-details<%= element._id %>" >
-        <div class="modal-dialog modal-lg modal-dialog-scrollable">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Order Details </h5>
-              <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body pb-0">
-              <% element.items.forEach(orderD=> {%>
-<p><%= orderD %> </p>
-                <!-- Item-->
-                <div class="d-sm-flex justify-content-between mb-4 pb-3 pb-sm-2 border-bottom">
-                  <div class="d-sm-flex text-center text-sm-start"><a class="d-inline-block flex-shrink-0 mx-auto"
-                      href="/productdetail?id=<%= orderD.product._id%>" style="width: 10rem;"><img class="rounded"
-                        src="<%= orderD.product.image[0] %>" alt="Product Image"></a>
-                    <div class="ps-sm-4 pt-2">
-                      <h3 class="product-title fs-base mb-2"><a href="/productdetail?id=<%= orderD.product._id%>">
-                          <%= orderD.product.name %>
-                        </a></h3>
-                      <div class="fs-sm"><span class="text-muted me-2">Category:</span>
-                        <%= orderD.product.category %>
-                      </div>
-
-                      <div class="fs-lg text-accent pt-2">₹ <%= orderD.product.discount %>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="pt-2 ps-sm-3 mx-auto mx-sm-0 text-center">
-                    <div class="text-muted mb-2">Quantity:</div>
-                    <%= orderD.qty %>
-                  </div>
-                  <div class="pt-2 ps-sm-3 mx-auto mx-sm-0 text-center">
-                    <div class="text-muted mb-2">Subtotal</div>₹ <%= orderD.product.discount * orderD.qty %>
-                  </div>
-                </div>
-                <!-- Item-->
-                <% }); %>
-
-                  <!-- Footer-->
-                  <div class="modal-footer flex-wrap justify-content-between bg-secondary fs-md">
-
-                    <div class="px-2 py-1"><span class="text-muted">Total:&nbsp;</span><span class="fs-xl"> ₹ <%=
-                          element.totalPrice %> </span></div>
-                  </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <%}); %>
+ 
   <style>
     .dataTables_filter {
       display: flex;

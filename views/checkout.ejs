@@ -27,7 +27,10 @@
   <link rel="stylesheet" media="screen" href="vendor/simplebar/dist/simplebar.min.css" />
   <link rel="stylesheet" media="screen" href="vendor/tiny-slider/dist/tiny-slider.css" />
   <!-- Main Theme Styles + Bootstrap-->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <link rel="stylesheet" media="screen" href="/css/theme.min.css">
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"> </script>
   <!-- Google Tag Manager-->
   <script>
     (function (w, d, s, l, i) {
@@ -725,8 +728,8 @@
             </a></div>
           <!-- Autor info-->
 
-          <!-- Shipping address-->
-<form method="post" action="/newOrder">
+          <!-- Shipping address--> 
+<form id="newOrderForm">
           <h2 class="h6 pb-3 mb-2">Choose shipping Address</h2>
           <div class="table-responsive">
             <table class="table table-hover fs-sm newwidth ">
@@ -802,7 +805,7 @@
                 <tr>
                   <td style="border: none;" class="adrs-border-ri">
                     <div class="form-check mb-4">
-                      <input class="form-check-input" type="radio" id="payement" value="po" name="paymentMethod" required>
+                      <input class="form-check-input" type="radio" id="payement" value="online" name="paymentMethod" required>
                       <label class="form-check-label" for="payement"></label>
                     </div>
                   </td>
@@ -827,7 +830,7 @@
             <div class="w-50 pe-3"><a class="btn btn-secondary d-block w-100" href="/cartmanage"><i
                   class="ci-arrow-left mt-sm-0 me-1"></i><span class="d-none d-sm-inline">Back to Cart</span><span
                   class="d-inline d-sm-none">Back</span></a></div>
-            <div class="w-50 ps-2"><button type="submit" class="btn btn-primary d-block w-100" ><span
+            <div class="w-50 ps-2"><button type="submit" class="btn btn-primary d-block w-100" value='submit' ><span
                   class="d-none d-sm-inline">Confirm Order </span><span class="d-inline d-sm-none">Next</span><i
                   class="ci-check-circle mt-sm-0 ms-1"></i></button></div>
           </div>
@@ -996,6 +999,54 @@
   <script src="vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
   <!-- Main theme script-->
   <script src="js/theme.min.js"></script>
+  <script>
+$('#newOrderForm').submit((e )=>{
+  e.preventDefault()
+  $.ajax({
+    url: '/newOrder',
+    method: 'post',
+    data: $('#newOrderForm').serialize(),
+    success: (res)=>{
+      console.log("response: ", res);
+      if (res.codDelivery) {
+        location.href = '/ordersuccess'
+      } else {
+        razorpayPayement(res)
+      }
+    }
+  })
+})
+
+function razorpayPayement(res){
+  var options = {
+      "key": "rzp_test_9WGL800ffhbOhn", // Enter the Key ID generated from the Dashboard
+      "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "Acme Corp",
+      "description": "Test Transaction",
+      "image": "https://example.com/your_logo",
+      "order_id": "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+      "prefill": {
+          "name": "Gaurav Kumar",
+          "email": "gaurav.kumar@example.com",
+          "contact": "9000090000"
+      },
+      "notes": {
+          "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+          "color": "#3399cc"
+      }
+  };
+  var rzp1 = new Razorpay(options);
+  rzp1.open();
+  // e.preventDefault();
+  // document.getElementById('rzp-button1').onclick = function(e){
+  // }
+
+}
+    </script>
 </body>
 
 <!-- Mirrored from cartzilla.createx.studio/checkout-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 23 Dec 2022 04:00:53 GMT -->

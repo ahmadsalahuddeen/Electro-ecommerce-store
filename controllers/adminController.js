@@ -92,7 +92,7 @@ const blockUser = async (req, res) => {
   res.redirect('/admin/usermanage')
 }
 const unBlockUser = async (req, res) => {
-  const { id } = req.params
+  const { id } = req.paramsff
 
   await User.findByIdAndUpdate(id, { access: true })
   res.redirect('/admin/usermanage')

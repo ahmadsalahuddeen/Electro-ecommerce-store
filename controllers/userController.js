@@ -253,31 +253,60 @@ const newOrder = async (req, res) => {
     const userId = req.session.user._id;
     const user = await User.findById(userId);
 
-    const newOrderData = Order({
-      user: userId,
-      items: user.cart.items,
-      totalPrice: user.cart.totalPrice,
-      orderStat: "placed",
-      address: req.body.address._id,
-      paymentMethod: req.body.paymentMethod,
-    });
-    const orderAdded = await newOrderData.save();
+    console.log('reqbody datata:', req.body);
+if (req.body.paymentMethod === 'cod') {
+  
+  const newOrderData = Order({
+    user: userId,
+    items: user.cart.items,
+    totalPrice: user.cart.totalPrice,
+    orderStat: "placed",
+    address: req.body.address._id,
+    paymentMethod: req.body.paymentMethod,
+  });
+  const orderAdded = await newOrderData.save();
 
-    if (orderAdded) {
-      user.cart.items.forEach(async (eachItems) => {
-        const proId = eachItems.product._id;
-        await Product.findByIdAndUpdate(proId, {
-          $inc: { stock: -eachItems.qty },
-        });
+  if (orderAdded) {
+    user.cart.items.forEach(async (eachItems) => {
+      const proId = eachItems.product._id;
+      await Product.findByIdAndUpdate(proId, {
+        $inc: { stock: -eachItems.qty },
       });
-    } else {
-      console.log("order add failed succefully");
-    }
-    user.cart.items = [];
-    user.cart.totalPrice = null;
-    await user.save();
+    });
+    
+  } else {
+    console.log("order add failed succefully");
+  }
+  user.cart.items = [];
+  user.cart.totalPrice = null;
+  await user.save();
 
-    res.redirect("/ordersuccess");
+  res.json({codDelivery: true})
+} else {
+  const newOrderData = Order({
+    user: userId,
+    items: user.cart.items,
+    totalPrice: user.cart.totalPrice,
+    orderStat: "Pending",
+    address: req.body.address._id,
+    paymentMethod: req.body.paymentMethod,
+  });
+  const orderAdded = await newOrderData.save().then((doc )=>{
+
+    var instance = new Razorpay({ key_id: 'rzp_test_9WGL800ffhbOhn', key_secret: '3R22EvoWAjxRxqwRxrTF168N' })
+  
+  instance.orders.create({
+    amount: doc.totalPrice,
+    currency: "INR",
+    receipt: ""+doc._id
+    
+  }).then((response)=>{
+
+    res.json({orderData: doc, user: req.session.user, order: response})
+  })
+  });
+  
+}
   } catch (e) {
     console.log(e.message);
   }
@@ -414,7 +443,7 @@ const editAddress = async (req, res) => {
 const cancelOrder = async (req, res) => {
   try {
     console.log(req.query.id);
-    const status = 'Cancel+ed'
+    const status = 'Canceled'
 await helper.chnageOrderStatus(req.query.id, status )
 res.redirect('/userOrderManage')
 

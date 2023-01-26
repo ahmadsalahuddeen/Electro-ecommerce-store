@@ -266,7 +266,6 @@ if (req.body.paymentMethod === 'cod') {
   });
   const orderAdded = await newOrderData.save();
 
-  if (orderAdded) {
     user.cart.items.forEach(async (eachItems) => {
       const proId = eachItems.product._id;
       await Product.findByIdAndUpdate(proId, {
@@ -274,15 +273,18 @@ if (req.body.paymentMethod === 'cod') {
       });
     });
     
-  } else {
-    console.log("order add failed succefully");
-  }
+ 
   user.cart.items = [];
   user.cart.totalPrice = null;
   await user.save();
 
   res.json({codDelivery: true})
 } else {
+
+
+
+
+  //online payment
   const newOrderData = Order({
     user: userId,
     items: user.cart.items,
@@ -291,12 +293,13 @@ if (req.body.paymentMethod === 'cod') {
     address: req.body.address._id,
     paymentMethod: req.body.paymentMethod,
   });
+  
   const orderAdded = await newOrderData.save().then((doc )=>{
-
+    const Razorpay = require('razorpay');
     var instance = new Razorpay({ key_id: 'rzp_test_9WGL800ffhbOhn', key_secret: '3R22EvoWAjxRxqwRxrTF168N' })
   
   instance.orders.create({
-    amount: doc.totalPrice,
+    amount: doc.totalPrice * 100,
     currency: "INR",
     receipt: ""+doc._id
     
@@ -311,6 +314,8 @@ if (req.body.paymentMethod === 'cod') {
     console.log(e.message);
   }
 };
+
+
 
 const loadOrderSuccess = async (req, res) => {
   try {
@@ -468,9 +473,35 @@ const deleteWishlistItem = async(req, res)  =>{
   }
 }
 
+const verifyPayement = async(req, res)  =>{
+ 
+  try {
+    const userId = req.session.user._id;
+    const user = await User.findById(userId);
+    
+    user.cart.items.forEach(async (eachItems) => {
+      const proId = eachItems.product._id;
+      await Product.findByIdAndUpdate(proId, {
+        $inc: { stock: -eachItems.qty },
+      });
+    });
+    
+ 
+  user.cart.items = [];
+  user.cart.totalPrice = null;
+  await user.save();
+  
+    await Order.findOneAndUpdate({_id: req.body.orderData._id}, {$set: {orderStat: 'Placed'}})
+    
+
+  } catch (error) {
+    console.log('deleting wihslist error');
+  }
+}
 
 
 module.exports = {
+  verifyPayement,
   loadwishlist,
   cancelOrder,
   editAddress,

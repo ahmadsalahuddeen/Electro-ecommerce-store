@@ -1020,21 +1020,24 @@ $('#newOrderForm').submit((e )=>{
 function razorpayPayement(res){
   var options = {
       "key": "rzp_test_9WGL800ffhbOhn", // Enter the Key ID generated from the Dashboard
-      "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "amount": res.orderData.totalPrice * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
       "currency": "INR",
-      "name": "Acme Corp",
+      "name": "Swalah codes corporation",
       "description": "Test Transaction",
       "image": "https://example.com/your_logo",
-      "order_id": "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-      "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+      "order_id": res.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "handler": function (response){
+  
+        paymentVerification(response, res.order, res.orderData)
+        location.href = '/ordersuccess'
+        
+    },
       "prefill": {
-          "name": "Gaurav Kumar",
-          "email": "gaurav.kumar@example.com",
-          "contact": "9000090000"
+          "name": res.user.name,
+          "email": res.user.email,
+          "contact": res.user.mobile
       },
-      "notes": {
-          "address": "Razorpay Corporate Office"
-      },
+     
       "theme": {
           "color": "#3399cc"
       }
@@ -1045,6 +1048,20 @@ function razorpayPayement(res){
   // document.getElementById('rzp-button1').onclick = function(e){
   // }
 
+}
+
+function paymentVerification(payment, order, orderData){
+  $.ajax({
+    url: '/verifyPayement',
+    method: 'post',
+    data: {
+      payment, order, orderData
+    },
+    success: (response)=>{
+      location.href = '/ordersuccess'
+    }
+
+  })
 }
     </script>
 </body>

@@ -49,31 +49,31 @@
               <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body pb-0">
-              <% element.items.forEach(items=> {%>
-
+              <% element.items.forEach(orderD=> {%>
+<p><%= orderD %> </p>
                 <!-- Item-->
                 <div class="d-sm-flex justify-content-between mb-4 pb-3 pb-sm-2 border-bottom">
                   <div class="d-sm-flex text-center text-sm-start"><a class="d-inline-block flex-shrink-0 mx-auto"
-                      href="/productdetail?id=<%= items.product._id%>" style="width: 10rem;"><img class="rounded"
-                        src="<%= items.product.image[0] %>" alt="Product Image"></a>
+                      href="/productdetail?id=<%= orderD.product._id%>" style="width: 10rem;"><img class="rounded"
+                        src="<%= orderD.product.image[0] %>" alt="Product Image"></a>
                     <div class="ps-sm-4 pt-2">
-                      <h3 class="product-title fs-base mb-2"><a href="/productdetail?id=<%= items.product._id%>">
-                          <%= items.product.name %>
+                      <h3 class="product-title fs-base mb-2"><a href="/productdetail?id=<%= orderD.product._id%>">
+                          <%= orderD.product.name %>
                         </a></h3>
                       <div class="fs-sm"><span class="text-muted me-2">Category:</span>
-                        <%= items.product.category %>
+                        <%= orderD.product.category %>
                       </div>
 
-                      <div class="fs-lg text-accent pt-2">₹ <%= items.product.discount %>
+                      <div class="fs-lg text-accent pt-2">₹ <%= orderD.product.discount %>
                       </div>
                     </div>
                   </div>
                   <div class="pt-2 ps-sm-3 mx-auto mx-sm-0 text-center">
                     <div class="text-muted mb-2">Quantity:</div>
-                    <%= items.qty %>
+                    <%= orderD.qty %>
                   </div>
                   <div class="pt-2 ps-sm-3 mx-auto mx-sm-0 text-center">
-                    <div class="text-muted mb-2">Subtotal</div>₹ <%= items.product.discount * items.qty %>
+                    <div class="text-muted mb-2">Subtotal</div>₹ <%= orderD.product.discount * orderD.qty %>
                   </div>
                 </div>
                 <!-- Item-->

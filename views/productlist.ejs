@@ -226,6 +226,7 @@
 
                     <div class="navbar-tool dropdown ms-3"><a class="navbar-tool-icon-box bg-secondary dropdown-toggle"
                         href="/cartmanage"><span class="navbar-tool-label" id="cartLength">
+                          
                           <%= user.cart.items.length %>
                         </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
                         href="/cartmanage"><small>My
@@ -248,159 +249,23 @@
               
               <!-- Primary menu-->
               <ul class="navbar-nav">
-                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="/home"
-                    data-bs-toggle="dropdown">Home</a>
+                <li class="nav-item "><a class="nav-link" href="/home"
+                    >Home</a>
                   
                 </li>
-                <li class="nav-item dropdown active"><a class="nav-link dropdown-toggle" href="/productlist"
-                    data-bs-toggle="dropdown">Shop</a>
+                <li class="nav-item dropdown active"><a class="nav-link " href="/productlist"
+                    >Shop</a>
                   , 
                 </li>
-                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="/userProfile" data-bs-toggle="dropdown"
+                <li class="nav-item dropdown"><a class="nav-link " href="/userProfile" 
                     data-bs-auto-close="outside">Account</a>
-                  <ul class="dropdown-menu">
-                    <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#"
-                        data-bs-toggle="dropdown">Shop User Account</a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/userOrderManage">Orders History</a></li>
-                        <li><a class="dropdown-item" href="account-profile.html">Profile Settings</a></li>
-                        <li><a class="dropdown-item" href="account-address.html">Account Addresses</a></li>
-                        <li><a class="dropdown-item" href="account-payment.html">Payment Methods</a></li>
-                        <li><a class="dropdown-item" href="account-wishlist.html">Wishlist</a></li>
-                        <li><a class="dropdown-item" href="account-tickets.html">My Tickets</a></li>
-                        <li><a class="dropdown-item" href="account-single-ticket.html">Single Ticket</a></li>
-                      </ul>
-                    </li>
-                    <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#"
-                        data-bs-toggle="dropdown">Vendor Dashboard</a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="dashboard-settings.html">Settings</a></li>
-                        <li><a class="dropdown-item" href="dashboard-purchases.html">Purchases</a></li>
-                        <li><a class="dropdown-item" href="dashboard-favorites.html">Favorites</a></li>
-                        <li><a class="dropdown-item" href="dashboard-sales.html">Sales</a></li>
-                        <li><a class="dropdown-item" href="dashboard-products.html">Products</a></li>
-                        <li><a class="dropdown-item" href="dashboard-add-new-product.html">Add New Product</a></li>
-                        <li><a class="dropdown-item" href="dashboard-payouts.html">Payouts</a></li>
-                      </ul>
-                    </li>
-                    <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown">NFT
-                        Marketplace<span class="badge bg-danger ms-1">NEW</span></a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="nft-account-settings.html">Profile Settings</a></li>
-                        <li><a class="dropdown-item" href="nft-account-payouts.html">Wallet &amp; Payouts</a></li>
-                        <li><a class="dropdown-item" href="nft-account-my-items.html">My Items</a></li>
-                        <li><a class="dropdown-item" href="nft-account-my-collections.html">My Collections</a></li>
-                        <li><a class="dropdown-item" href="nft-account-favorites.html">Favorites</a></li>
-                        <li><a class="dropdown-item" href="nft-account-notifications.html">Notifications</a></li>
-                      </ul>
-                    </li>
-                    <li><a class="dropdown-item" href="account-signin.html">Sign In / Sign Up</a></li>
-                    <li><a class="dropdown-item" href="account-password-recovery.html">Password Recovery</a></li>
-                  </ul>
+                  
                 </li>
-                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside">Pages</a>
-                  <ul class="dropdown-menu">
-                    <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#"
-                        data-bs-toggle="dropdown">Navbar Variants</a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="navbar-1-level-light.html">1 Level Light</a></li>
-                        <li><a class="dropdown-item" href="navbar-1-level-dark.html">1 Level Dark</a></li>
-                        <li><a class="dropdown-item" href="navbar-2-level-light.html">2 Level Light</a></li>
-                        <li><a class="dropdown-item" href="navbar-2-level-dark.html">2 Level Dark</a></li>
-                        <li><a class="dropdown-item" href="navbar-3-level-light.html">3 Level Light</a></li>
-                        <li><a class="dropdown-item" href="navbar-3-level-dark.html">3 Level Dark</a></li>
-                        <li><a class="dropdown-item" href="home-electronics-store.html">Electronics Store</a></li>
-                        <li><a class="dropdown-item" href="home-marketplace.html">Marketplace</a></li>
-                        <li><a class="dropdown-item" href="home-grocery-store.html">Side Menu (Grocery)</a></li>
-                      </ul>
-                    </li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="about.html">About Us</a></li>
-                    <li><a class="dropdown-item" href="contacts.html">Contacts</a></li>
-                    <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#"
-                        data-bs-toggle="dropdown">Help Center</a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="help-topics.html">Help Topics</a></li>
-                        <li><a class="dropdown-item" href="help-single-topic.html">Single Topic</a></li>
-                        <li><a class="dropdown-item" href="help-submit-request.html">Submit a Request</a></li>
-                      </ul>
-                    </li>
-                    <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown">404
-                        Not Found</a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="404-simple.html">404 - Simple Text</a></li>
-                        <li><a class="dropdown-item" href="404-illustration.html">404 - Illustration</a></li>
-                      </ul>
-                    </li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="sticky-footer.html">Sticky Footer Demo</a></li>
-                  </ul>
+                <li class="nav-item dropdown"><a class="nav-link " href="/wishlist" 
+                    data-bs-auto-close="outside">Wishlist</a>
+                  
                 </li>
-                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside">Blog</a>
-                  <ul class="dropdown-menu">
-                    <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#"
-                        data-bs-toggle="dropdown">Blog List Layouts</a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="blog-list-sidebar.html">List with Sidebar</a></li>
-                        <li><a class="dropdown-item" href="blog-list.html">List no Sidebar</a></li>
-                      </ul>
-                    </li>
-                    <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#"
-                        data-bs-toggle="dropdown">Blog Grid Layouts</a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="blog-grid-sidebar.html">Grid with Sidebar</a></li>
-                        <li><a class="dropdown-item" href="blog-grid.html">Grid no Sidebar</a></li>
-                      </ul>
-                    </li>
-                    <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#"
-                        data-bs-toggle="dropdown">Single Post Layouts</a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="blog-single-sidebar.html">Article with Sidebar</a></li>
-                        <li><a class="dropdown-item" href="blog-single.html">Article no Sidebar</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
-                    data-bs-toggle="dropdown">Docs / Components</a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="docs/dev-setup.html">
-                        <div class="d-flex">
-                          <div class="lead text-muted pt-1"><i class="ci-book"></i></div>
-                          <div class="ms-2"><span class="d-block text-heading">Documentation</span><small
-                              class="d-block text-muted">Kick-start customization</small></div>
-                        </div>
-                      </a></li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="components/typography.html">
-                        <div class="d-flex">
-                          <div class="lead text-muted pt-1"><i class="ci-server"></i></div>
-                          <div class="ms-2"><span class="d-block text-heading">Components<span
-                                class="badge bg-info ms-2">40+</span></span><small class="d-block text-muted">Faster
-                              page building</small></div>
-                        </div>
-                      </a></li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="docs/changelog.html">
-                        <div class="d-flex">
-                          <div class="lead text-muted pt-1"><i class="ci-edit"></i></div>
-                          <div class="ms-2"><span class="d-block text-heading">Changelog<span
-                                class="badge bg-success ms-2">v2.5.0</span></span><small
-                              class="d-block text-muted">Regular updates</small></div>
-                        </div>
-                      </a></li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="mailto:support@createx.studio">
-                        <div class="d-flex">
-                          <div class="lead text-muted pt-1"><i class="ci-help"></i></div>
-                          <div class="ms-2"><span class="d-block text-heading">Support</span><small
-                              class="d-block text-muted">support@createx.studio</small></div>
-                        </div>
-                      </a></li>
-                  </ul>
-                </li>
+                
               </ul>
             </div>
           </div>

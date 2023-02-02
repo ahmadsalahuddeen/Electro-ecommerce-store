@@ -41,6 +41,7 @@ userRoute.post('/addToWishlist', userController.addToWishlist)
 userRoute.post('/editAddress', userController.editAddress)
 userRoute.get('/deleteAddress', userController.deleteAddress)
 userRoute.get('/cancelOrder', userController.cancelOrder)
+userRoute.get('/orderFailed', userController.loadOrderFailed)
 userRoute.post('/deleteWishlistItem', userController.deleteWishlistItem)
 userRoute.post('/verifyPayement', userController.verifyPayement)
 

@@ -474,6 +474,18 @@ const deleteWishlistItem = async(req, res)  =>{
 const verifyPayement = async(req, res)  =>{
  
   try {
+    let body=req.body.response.razorpay_order_id + "|" + req.body.response.razorpay_payment_id;
+
+  var crypto = require("crypto");
+  var expectedSignature = crypto.createHmac('sha256', '3R22EvoWAjxRxqwRxrTF168N')
+                                  .update(body.toString())
+                                  .digest('hex');
+                                  console.log("sig received " ,req.body.response.razorpay_signature);
+                                  console.log("sig generated " ,expectedSignature);
+  var response = {"signatureIsValid":"false"}
+
+  if (expectedSignature === req.body.response.razorpay_signature) {
+    response = {'signatureIsValid': "true"}
     
     const userId = req.session.user._id;
     const user = await User.findById(userId);
@@ -491,6 +503,8 @@ const verifyPayement = async(req, res)  =>{
   await user.save();
   
     await Order.findOneAndUpdate({_id: req.body.orderData._id}, {$set: {orderStat: 'Placed'}})
+  }
+    res.json({response: response})
     
 
   } catch (error) {
@@ -498,8 +512,19 @@ const verifyPayement = async(req, res)  =>{
   }
 }
 
+const loadOrderFailed = (req, res) =>{
+  try {
+    res.render('orderFailed')
+
+
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
 
 module.exports = {
+  loadOrderFailed,
   verifyPayement,
   loadwishlist,
   cancelOrder,

@@ -1047,14 +1047,8 @@ function razorpayPayement(res){
   rzp1.open();
   
   rzp1.on('payment.failed', function (response){
-    alert('payment failed')
-    alert(response.error.code);
-    alert(response.error.description);
-    alert(response.error.source);
-    alert(response.error.step);
-    alert(response.error.reason);
-    alert(response.error.metadata.order_id);
-    alert(response.error.metadata.payment_id);
+    location.href = '/orderFailed'
+   
 })
   // e.preventDefault();
   // document.getElementById('rzp-button1').onclick = function(e){
@@ -1062,15 +1056,19 @@ function razorpayPayement(res){
 
 }
 
-function paymentVerification(payment, order, orderData){
+function paymentVerification(response, order, orderData){
   $.ajax({
     url: '/verifyPayement',
     method: 'post',
     data: {
-      payment, order, orderData
+      response, order, orderData
     },
     success: (response)=>{
+     if (response.signatureIsValid === "true") {
       location.href = '/ordersuccess'
+     } else {
+      location.href = '/orderFailed'
+     }
     }
 
   })

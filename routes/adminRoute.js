@@ -24,6 +24,7 @@ adminRoute.get('/editproduct', adminController.loadEditProductPage)
 adminRoute.get('/deleteproduct', adminController.deleteProduct)
 adminRoute.post('/editproduct', adminController.editProduct)
 adminRoute.get('/orderManage', adminController.loadOrderManagePage)
+adminRoute.get('/dashboard', adminController.loadDashboard)
 adminRoute.post('/orderStatus', adminController.changeOrderStatus)
 adminRoute.post('/cancelOrder', adminController.cancelOrder)
 

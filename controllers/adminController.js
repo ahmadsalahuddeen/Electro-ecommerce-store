@@ -259,8 +259,13 @@ redirect('/admin/orderManage')
   }
 }
 
+const loadDashboard = async(req, res) =>{
+helper.dashboard()
+
+}
 
 module.exports = {
+  loadDashboard,
   cancelOrder,
   changeOrderStatus,
   loadAdminLogin,

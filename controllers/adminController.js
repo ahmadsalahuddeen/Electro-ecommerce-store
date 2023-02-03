@@ -260,7 +260,7 @@ redirect('/admin/orderManage')
 }
 
 const loadDashboard = async(req, res) =>{
-helper.dashboard()
+helper.dashboard(req, res)
 
 }
 

@@ -6,7 +6,7 @@ const auth = require('../middleware/adminAuth')
 
 adminRoute.get('/', auth.isLogout, adminController.loadAdminLogin)
 adminRoute.post('/', adminController.loginValidate)
-adminRoute.get('/home', adminController.loadHome)
+adminRoute.get('/home', adminController.loadDashboard)
 adminRoute.get('/usermanage', adminController.loadUserManagement)
 adminRoute.get('/logout', auth.isLogout, adminController.adminLogout)
 adminRoute.get('/blockuser/:id', adminController.blockUser)
@@ -24,7 +24,7 @@ adminRoute.get('/editproduct', adminController.loadEditProductPage)
 adminRoute.get('/deleteproduct', adminController.deleteProduct)
 adminRoute.post('/editproduct', adminController.editProduct)
 adminRoute.get('/orderManage', adminController.loadOrderManagePage)
-adminRoute.get('/dashboard', adminController.loadDashboard)
+
 adminRoute.post('/orderStatus', adminController.changeOrderStatus)
 adminRoute.post('/cancelOrder', adminController.cancelOrder)
 

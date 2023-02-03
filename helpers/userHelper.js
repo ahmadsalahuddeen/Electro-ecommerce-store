@@ -15,7 +15,7 @@ const dashboard = async (req, res) => {
   let todaySarting = new Date(today.setUTCHours(0, 0, 0, 0));
   let todayEnding = new Date(today.setUTCHours(23, 59, 59, 999));
 
-  let todaysales = await Order.countDocuments({
+  let todaySales = await Order.countDocuments({
     createdAt: { $gt: todaySarting, $lt: todayEnding },
     orderStat: { $eq: "Delivered" },
   });
@@ -92,9 +92,80 @@ startOfYear.setDate(1)
   endOfYear.setHours(23,59,59,999) 
 
 
+let yearlySales = await Order.aggregate([
+  {$match:{
+    $and:[
+      {
+        orderStat: "Delivered"
+      },
+      {
+        createdAt:  {$gt: startOfYear, $lt: endOfYear}
+      }
+    ]
+  }},
+  {$group: {
+    _id: {year: {$year: '$createdAt'}, month: {$month: '$createdAt'}},
+    total: {$sum: 1}
+  }},
 
-  console.log(startOfMonth);
+  {
+    $sort:{"_id.month": 1}
+  }
+])
+let monthlyRevenue = await Order.aggregate([
+  {$match:{
+    $and:[
+      {
+        orderStat: "Delivered"
+      },
+      {
+        createdAt:  {$gt: startOfYear, $lt: endOfYear}
+      }
+    ]
+  }},
+  {$group: {
+    _id: {year: {$year: '$createdAt'}, month: {$month: '$createdAt'}},
+    total: {$sum: "$totalPrice"}
+  }},
 
+  {
+    $sort:{"_id.month": 1}
+  }
+])
+let monthlySales = await Order.aggregate([
+  {$match:{
+    $and:[
+      {
+        orderStat: "Delivered"
+      },
+      {
+        createdAt:  {$gt: startOfMonth, $lt: endOfMonth}
+      }
+    ]
+  }},
+  {$group: {
+    _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+    count: { $sum: 1 }
+  }},
+  
+  {
+    $sort:{_id: 1}
+  }
+])
+
+console.log("monthlyyyyyyyyyyyyyyyy", monthlySales);
+res.render('adminhome', {
+  admin: true,
+  todaySales,
+  monthlyRevenue,
+  totalSales,
+  todayTotalRevenue,
+  totalRevenue,
+  monthlySales,
+  yearlySales
+
+})
+ 
 //monthly sales
 
 

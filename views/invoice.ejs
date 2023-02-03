@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from cartzilla.createx.studio/dashboard-payouts.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 23 Dec 2022 04:02:23 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+
+<head>
+  <meta charset="utf-8">
+  <title>Electro⚡| Admin Home</title>
+  <!-- SEO Meta Tags-->
+  <meta name="description" content="Cartzilla - Bootstrap E-commerce Template">
+  <meta name="keywords"
+    content="bootstrap, shop, e-commerce, market, modern, responsive,  business, mobile, bootstrap, html5, css3, js, gallery, slider, touch, creative, clean">
+  <meta name="author" content="swalahCodes">
+  <!-- Viewport-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Favicon and Touch Icons-->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="mask-icon" color="#fe6a6a" href="safari-pinned-tab.svg">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Vendor Styles including: Font Icons, Plugins, etc.-->
+  <link rel="stylesheet" media="screen" href="vendor/simplebar/dist/simplebar.min.css" />
+  <link rel="stylesheet" media="screen" href="vendor/tiny-slider/dist/tiny-slider.css" />
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+  <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+  <!-- Main Theme Styles + Bootstrap-->
+  <link rel="stylesheet" media="screen" href="/css/theme.min.css">
+  <!-- Google Tag Manager-->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          '../www.googletagmanager.com/gtm5445.html?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-WKV3GT5');
+  </script>
+</head>
+<!-- Body-->
+
+<body class="handheld-toolbar-enabled">
+  <!-- Google Tag Manager (noscript)-->
+
+  <main class="page-wrapper">
+    <!-- Navbar Marketplace-->
+    <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page.-->
+
+    <!-- Dashboard header-->
+
+    <div class="container mb-5 pb-3">
+      <div class="bg-light shadow-lg rounded-3 overflow-hidden">
+        <div class="row">
+          <!-- Sidebar-->
+          <div class="card">
+            <div class="card-body">
+              <div class="container mb-5 mt-3">
+                <div class="row d-flex align-items-baseline">
+                  <div class="col-xl-9">
+                    <p style="color: #7e8d9f;font-size: 20px;">Invoice <strong>ID: #<%= orderData._id %> </strong></p>
+                  </div>
+                  <div class="col-xl-3 float-end">
+                    <a class="btn btn-light text-capitalize border-0" data-mdb-ripple-color="dark"><i
+                        class="fas fa-print text-primary"></i> Print</a>
+                    <a class="btn btn-light text-capitalize" data-mdb-ripple-color="dark"><i
+                        class="far fa-file-pdf text-danger"></i> Export</a>
+                  </div>
+                  <hr>
+                </div>
+          
+                <div class="container">
+                  <div class="col-md-12">
+                    
+          
+                  </div>
+          
+          
+                  <div class="row">
+                    <disv class="col-xl-8">
+                      <ul class="list-unstyled">
+                        <li class="text-muted">To: <span style="color:#5d9fc5 ;">John Lorem</span></li>
+                        <li class="text-muted">Street, City</li>
+                        <li class="text-muted">State, Country</li>
+                        <li class="text-muted"><i class="fas fa-phone"></i> 123-456-789</li>
+                      </ul>
+                    </disv>
+                    <div class="col-xl-4">
+                      <p class="text-muted">Invoice</p>
+                      <ul class="list-unstyled">
+                        <li class="text-muted"><i class="fas fa-circle" style="color:#84B0CA ;"></i> <span
+                            class="fw-bold">ID:</span>#<%= orderData._id %> </li>
+                        <li class="text-muted"><i class="fas fa-circle" style="color:#84B0CA ;"></i> <span
+                            class="fw-bold">Creation Date: </span><%= orderData.createdAt.toLocaleDateString() %> </li>
+                        <li class="text-muted"><i class="fas fa-circle" style="color:#84B0CA ;"></i> <span
+                            class="me-1 fw-bold">Status:</span><span class="badge bg-warning text-black fw-bold">
+                              <%= orderData.orderStat %> </span></li>
+                      </ul>
+                    </div>
+                  </div>
+          
+                  <div class="row my-2 mx-1 justify-content-center">
+                    <table class="table table-striped table-borderless">
+                      <thead style="background-color:#84B0CA ;" class="text-white">
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Description</th>
+                          <th scope="col">Qty</th>
+                          <th scope="col">Unit Price</th>
+                          <th scope="col">Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        <% orderData.items.forEach(itemsEl => {%>
+                          
+                          <tr>
+                            <th scope="row">1</th>
+                            <td><%= itemsEl.product.name %> </td>
+                            <td><%= itemsEl.qty %></td>
+                            <td>₹<%= itemsEl.product.discount %></td>
+                            <td>₹<%= itemsEl.product.discount * itemsEl.qty %> </td>
+                          </tr>
+                          <%  }); %> 
+                       
+                      </tbody>
+          
+                    </table>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-8">
+                      <p class="ms-3">Add additional notes and payment information</p>
+          
+                    </div>
+                    <div class="col-xl-3">
+                      <ul class="list-unstyled">
+                        <li class="text-muted ms-3"><span class="text-black me-4"></span>₹<%= orderData.totalPrice %> </li>
+                       
+                      </ul>
+                      <p class="text-black float-start"><span class="text-black me-3"> Total Amount</span><span
+                          style="font-size: 25px;">₹<%= orderData.totalPrice %></span></p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-xl-10">
+                      <p>Thank you for your purchase</p>
+                    </div>
+                    <div class="col-xl-2">
+                      <a href="/admin/orderManage" class="btn btn-primary text-capitalize"
+                        style="background-color:#60bdf3 ;">Go Back</a>
+                    </div>
+                  </div>
+          
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- Footer-->
+  
+  <!-- Toolbar for handheld devices (Marketplace)-->
+  <div class="handheld-toolbar">
+    <div class="d-table table-layout-fixed w-100"><a class="d-table-cell handheld-toolbar-item"
+        href="dashboard-favorites.html"><span class="handheld-toolbar-icon"><i class="ci-heart"></i></span><span
+          class="handheld-toolbar-label">Favorites</span></a><a class="d-table-cell handheld-toolbar-item"
+        href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+        onclick="window.scrollTo(0, 0)"><span class="handheld-toolbar-icon"><i class="ci-menu"></i></span><span
+          class="handheld-toolbar-label">Menu</span></a><a class="d-table-cell handheld-toolbar-item"
+        href="marketplace-cart.html"><span class="handheld-toolbar-icon"><i class="ci-cart"></i><span
+            class="badge bg-primary rounded-pill ms-1">3</span></span><span
+          class="handheld-toolbar-label">$56.00</span></a></div>
+  </div>
+  <!-- Back To Top Button--><a class="btn-scroll-top" href="#top" data-scroll><span
+      class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span><i class="btn-scroll-top-icon ci-arrow-up">
+    </i></a>
+  <!-- Vendor scrits: js libraries and plugins-->
+  <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/simplebar/dist/simplebar.min.js"></script>
+  <script src="vendor/tiny-slider/dist/min/tiny-slider.js"></script>
+  <script src="vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+  <!-- Main theme script-->
+  <script src="js/theme.min.js"></script>
+ 
+</body>
+
+<!-- Mirrored from cartzilla.createx.studio/dashboard-payouts.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 23 Dec 2022 04:02:23 GMT -->
+
+</html>

@@ -170,7 +170,9 @@ res.render('adminhome', {
 
 
 
-};
+}
+
+
 
 
 

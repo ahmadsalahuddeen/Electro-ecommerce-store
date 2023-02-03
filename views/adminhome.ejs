@@ -169,8 +169,8 @@
                   </div>
                   <div class="card mb-4">
                     <div class="card-body">
-                      <h3 class="fs-sm pb-3 mb-3 border-bottom">Sales value, USD <span
-                          class="fw-normal fs-xs text-muted">(Past 2 weeks)</span></h3>
+                      <h3 class="fs-sm pb-3 mb-3 border-bottom">Monthly Revenue <span
+                          class="fw-normal fs-xs text-muted"></span></h3>
                           <div class="ct-chart ct-golden-section" id="chart2"></div>
                     </div>
                   </div>
@@ -341,6 +341,17 @@
   // Our series array that contains series objects or in this case series data arrays
   series: [[<%=montlyRev%>]]
 });
+
+const data = {
+  labels: ['placed','Canceled', 'Delivered', 'Canceled'],
+  datasets: [
+    {
+      label: 'Dataset 1',
+      data: Utils.numbers(NUMBER_CFG),
+      backgroundColor: Object.values(Utils.CHART_COLORS),
+    }
+  ]
+};
 
 // Create a new line chart object where as first parameter we pass in a selector
 // that is resolving to our chart container element. The Second parameter

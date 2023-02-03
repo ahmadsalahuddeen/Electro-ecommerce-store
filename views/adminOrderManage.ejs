@@ -194,7 +194,7 @@
                         <%} else if( element.orderStat == 'Delivered'){%>
     
                           <tr id="<%= element._id %>reaload">
-                            <td class="py-3"><a class="nav-link-style fw-medium fs-sm" href="#order-details<%= element._id %>"
+                            <td class="py-3"><a class="nav-link-style fw-medium fs-sm" href="/admin/invoice?id=<%= element._id%>"
                                 data-bs-toggle="modal">
                                 <%= element.createdAt.toLocaleString() %>
                               </a></td>
@@ -209,7 +209,7 @@
                             </td>
                             <td class="py-3 align-middle">
                               <a class="btn bg-faded-info btn-icon  me-2"
-                                href="#order-details<%= element._id %>" data-bs-toggle="modal" title="Quick View"><i
+                                href="/admin/invoice?id=<%= element._id %>" data-bs-toggle="modal" title="Quick View"><i
                                   class="ci-eye pe-1"></i>view</a>
                                   <button class="btn bg-success btn-icon  text-white" disabled
                                     data-bs-toggle="tooltip" title="Cancel">

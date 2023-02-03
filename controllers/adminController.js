@@ -3,6 +3,8 @@ const Category = require('../models/categoryModel')
 const Product = require('../models/poductModel')
 const Order = require('../models/order')
 const helper = require('../helpers/userHelper')
+const Banner = require('../models/banner')
+const Coupon = require('../models/coupon')
 
 const loadAdminLogin = async (req, res) => {
   res.render('adminlogin')
@@ -84,6 +86,14 @@ const adminLogout = async (req, res) => {
   req.session.destroy()
   res.redirect('/admin')
 }
+const getInvoice = async(req, res)=>{
+  console.log(req.query.id);
+
+  let orderData = await Order.findById(req.query.id).populate('items.product')
+  
+  
+  res.render('invoice', {orderData})
+  }
 
 const blockUser = async (req, res) => {
   const { id } = req.params
@@ -263,8 +273,118 @@ const loadDashboard = async(req, res) =>{
 helper.dashboard(req, res)
 
 }
+const laodBannerManage = async(req, res) =>{
+try {
+  let bannerData = await Banner.find({})
+  res.render('bannermanage', {bannerData})
+} catch (error) {
+  
+}
+
+}
+const laodCouponManage = async(req, res) =>{
+try {
+  let couponData = await Coupon.find({})
+  res.render('couponmanage', {couponData})
+} catch (error) {
+  
+}
+
+}
+
+const loadaddCoupon = async(req, res) =>{
+try {
+  
+  res.render('addcoupon')
+} catch (error) {
+  
+}
+
+}
+const loadEditCoupon = async(req, res) =>{
+try {
+  let id = req.query.id
+let couponData = await Coupon.findById(id)
+
+  res.render('editcoupon', {couponData})
+} catch (error) {
+  
+}
+
+}
+const addCoupon = async(req, res) =>{
+try {
+  let newCoupon = new Coupon({
+    name: req.body.name,
+    description: req.body.description,
+    minCartAmount: req.body.minCartAmount,
+    discountAmount: req.body.discountAmount,
+    expiryDate: req.body.expiryDate,
+    startDate: req.body.startDate,
+    stock: req.body.stock
+  }) 
+  let result = await newCoupon.save()
+  if (result) {
+    res.redirect('/admin/couponManage')
+  } else {
+    res.send("something went wrong while adding")
+  }
+} catch (error) {
+  console.log(error.message);
+}
+
+}
+
+const editCoupon = async (req, res) => {
+  try {
+
+
+    const editCat = await Coupon.findByIdAndUpdate(
+      req.body.id,
+      { $set: {
+        name: req.body.name,
+    description: req.body.description,
+    minCartAmount: req.body.minCartAmount,
+    discountAmount: req.body.discountAmount,
+    expiryDate: req.body.expiryDate,
+    startDate: req.body.startDate,
+    stock: req.body.stock
+      }}
+    ).then((doc)=>{
+      console.log(doc);
+      if (doc) {
+        res.redirect('/admin/couponManage')
+      } else {
+        res.render('editcoupon', { message: 'something wrong' })
+      }
+    })
+    
+  } catch (e) {
+    console.log(e.message)
+  }
+}
+
+const deleteCoupon = async (req, res) => {
+  const id = req.query.id
+
+   await Coupon.findByIdAndDelete(id).then((doc)=>{
+
+     if (doc) {
+       res.redirect('/admin/couponManage')
+     } else { 
+       console.log('delete failed')
+     }
+   })
+}
 
 module.exports = {
+  deleteCoupon,
+  editCoupon,
+  loadEditCoupon,
+  loadaddCoupon,
+  addCoupon,
+  laodCouponManage,
+  laodBannerManage,
   loadDashboard,
   cancelOrder,
   changeOrderStatus,
@@ -287,5 +407,6 @@ module.exports = {
   loadEditProductPage,
   deleteProduct,
   addProduct,
-  editProduct
+  editProduct,
+  getInvoice
 }

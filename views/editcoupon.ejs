@@ -153,6 +153,21 @@
                   <input class="form-control" type="text" name="stock" id="category-name" value="<%= couponData.stock %>">
                   <div class="form-text"></div>
                 </div>
+                <div class="mb-3 pb-2">
+                  <label class="form-label" for="unp-product-name">Stock</label>
+                 <select name="status"  id="" required class="form-select me-2"  >
+                  <% if (couponData.status == 'true') {%>
+                    
+                    <option ><%= couponData.status %> </option>
+                    <option value="false">false</option>
+                  <%} else if(couponData.status == 'false'){%>
+                    <option ><%= couponData.status %> </option>
+                    <option value="true">true</option>
+                  <%} %> 
+                  
+                 </select>
+                  <div class="form-text"></div>
+                </div>
                 <input hidden type="text" name="id" value="<%= couponData._id %>">
                 <!-- <div class="file-drop-area mb-3">
                   <div class="file-drop-icon ci-cloud-upload"></div><span class="file-drop-message">Drag and drop here to upload product screenshot</span>

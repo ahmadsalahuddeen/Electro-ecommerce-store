@@ -28,8 +28,8 @@ ref: 'User'
     } ,
     startDate: Date,
     status: {
-        type: Boolean,
-        default: true
+        type: String,
+        default: 'true'
     },
     stock: {
         type: String,

@@ -348,7 +348,8 @@ const editCoupon = async (req, res) => {
     discountAmount: req.body.discountAmount,
     expiryDate: req.body.expiryDate,
     startDate: req.body.startDate,
-    stock: req.body.stock
+    stock: req.body.stock,
+    status: req.body.status
       }}
     ).then((doc)=>{
       console.log(doc);

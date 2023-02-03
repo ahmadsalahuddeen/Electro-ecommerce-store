@@ -29,6 +29,7 @@ adminRoute.get('/bannerManage', adminController.laodBannerManage)
 adminRoute.get('/couponManage', adminController.laodCouponManage)
 adminRoute.get('/addCoupon', adminController.loadaddCoupon)
 adminRoute.get('/editCoupon', adminController.loadEditCoupon)
+adminRoute.get('/deleteCoupon', adminController.deleteCoupon)
 adminRoute.post('/editCoupon', adminController.editCoupon)
 adminRoute.post('/addCoupon', adminController.addCoupon)
 

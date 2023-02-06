@@ -428,75 +428,11 @@
                 <h3 id="totalPrice3" class="fw-normal">₹<%= user.cart.totalPrice %>
                 </h3>
               </div>
-              <div class="mb-3 mb-4">
-                <label class="form-label mb-3" for="order-comments"><span
-                    class="badge bg-info fs-xs me-2">Note</span><span class="fw-medium">Additional
-                    comments</span></label>
-                <textarea class="form-control" rows="6" id="order-comments"></textarea>
-              </div>
-              <div class="accordion" id="order-options">
-                <div class="accordion-item">
-                  <h3 class="accordion-header"><a class="accordion-button" href="#promo-code" role="button"
-                      data-bs-toggle="collapse" aria-expanded="true" aria-controls="promo-code">Apply promo code</a>
-                  </h3>
-                  <div class="accordion-collapse collapse show" id="promo-code" data-bs-parent="#order-options">
-                    <form class="accordion-body needs-validation" method="post" novalidate>
-                      <div class="mb-3">
-                        <input class="form-control" type="text" placeholder="Promo code" required>
-                        <div class="invalid-feedback">Please provide promo code.</div>
-                      </div>
-                      <button class="btn btn-outline-primary d-block w-100" type="submit">Apply promo code</button>
-                    </form>
-                  </div>
-                </div>
-                <div class="accordion-item">
-                  <h3 class="accordion-header"><a class="accordion-button collapsed" href="#shipping-estimates"
-                      role="button" data-bs-toggle="collapse" aria-expanded="true"
-                      aria-controls="shipping-estimates">Shipping estimates</a></h3>
-                  <div class="accordion-collapse collapse" id="shipping-estimates" data-bs-parent="#order-options">
-                    <div class="accordion-body">
-                      <form class="needs-validation" novalidate>
-                        <div class="mb-3">
-                          <select class="form-select" required>
-                            <option value="">Choose your country</option>
-                            <option value="Australia">Australia</option>
-                            <option value="Belgium">Belgium</option>
-                            <option value="Canada">Canada</option>
-                            <option value="Finland">Finland</option>
-                            <option value="Mexico">Mexico</option>
-                            <option value="New Zealand">New Zealand</option>
-                            <option value="Switzerland">Switzerland</option>
-                            <option value="United States">United States</option>
-                          </select>
-                          <div class="invalid-feedback">Please choose your country!</div>
-                        </div>
-                        <div class="mb-3">
-                          <select class="form-select" required>
-                            <option value="">Choose your city</option>
-                            <option value="Bern">Bern</option>
-                            <option value="Brussels">Brussels</option>
-                            <option value="Canberra">Canberra</option>
-                            <option value="Helsinki">Helsinki</option>
-                            <option value="Mexico City">Mexico City</option>
-                            <option value="Ottawa">Ottawa</option>
-                            <option value="Washington D.C.">Washington D.C.</option>
-                            <option value="Wellington">Wellington</option>
-                          </select>
-                          <div class="invalid-feedback">Please choose your city!</div>
-                        </div>
-                        <div class="mb-3">
-                          <input class="form-control" type="text" placeholder="ZIP / Postal code" required>
-                          <div class="invalid-feedback">Please provide a valid zip!</div>
-                        </div>
-                        <button class="btn btn-outline-primary d-block w-100" type="submit">Calculate shipping</button>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            
+              
               <form action="/checkout">
 
-                <% if (user.cart.totalPrice == 0) { %>
+                <% if (user.cart.items.length == 0) { %>
                   
                   <button class="btn btn-primary btn-shadow d-block w-100 mt-4 " disabled style="cursor: not-allowed;"   ><i
                     class="ci-card fs-lg me-2"></i>Proceed to Checkout</button>

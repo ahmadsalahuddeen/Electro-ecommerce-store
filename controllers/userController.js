@@ -8,6 +8,8 @@ const Order = require("../models/order");
 const Wishlist = require("../models/wishlist");
 const { findByIdAndUpdate } = require("../models/address");
 const helper = require('../helpers/userHelper')
+const Coupon = require('../models/coupon');
+const { ObjectId } = require("mongodb");
 
 const loadRegister = async (req, res) => {
   if (req.session.isLoggedIn === true) {
@@ -252,18 +254,21 @@ const newOrder = async (req, res) => {
   try {
     const userId = req.session.user._id;
     const user = await User.findById(userId);
-
+let finalTotalPrice = user.cart.totalPrice - req.body.couponAmount
     console.log('reqbody datata:', req.body);
 if (req.body.paymentMethod === 'cod') {
   
   const newOrderData = Order({
     user: userId,
     items: user.cart.items,
-    totalPrice: user.cart.totalPrice,
+    
+    totalPrice: finalTotalPrice,
     orderStat: "placed",
     address: req.body.address._id,
     paymentMethod: req.body.paymentMethod,
   });
+
+ 
   const orderAdded = await newOrderData.save();
 
     user.cart.items.forEach(async (eachItems) => {
@@ -288,7 +293,7 @@ if (req.body.paymentMethod === 'cod') {
   const newOrderData = Order({
     user: userId,
     items: user.cart.items,
-    totalPrice: user.cart.totalPrice,
+    totalPrice: finalTotalPrice,
     orderStat: "Pending",
     address: req.body.address._id,
     paymentMethod: req.body.paymentMethod,
@@ -310,6 +315,7 @@ if (req.body.paymentMethod === 'cod') {
   });
   
 }
+await Coupon.findOneAndUpdate({name: req.body.couponRedeme}, {$addToSet:{usedUsers: userId}})
   } catch (e) {
     console.log(e.message);
   }
@@ -521,9 +527,57 @@ const loadOrderFailed = (req, res) =>{
     console.log(error.message);
   }
 }
+const checkCoupon = async(req, res) =>{
+  try {
+console.log("getting here");
+
+
+let couponData = await Coupon.findOne({name: req.body.promo})
+    console.log(couponData);
+    if (couponData) {
+      let currentDate =  new Date().toLocaleString()
+      let expiryDate = couponData.expiryDate.toLocaleString()
+     if (expiryDate > currentDate || currentDate > couponData.startDate) {
+
+       if (req.body.cartAmount > couponData.minCartAmount) {
+        
+let userId = req.session.user._id
+console.log("getting here 111111");
+if (couponData.usedUsers.length <= 0) {
+  console.log("getting here222222s");
+  let couponAmount = couponData.discountAmount
+  let couponName = couponData.name
+  res.json({couponAvailable: true, couponAmount, couponName})
+} else {
+  
+  let isClaimed = couponData.usedUsers.findIndex((element) =>  element.toString()  ===  userId )
+
+if (isClaimed === -1) {
+let couponAmount = couponData.discountAmount
+res.json({couponAvailable: true, couponAmount})
+} else {
+res.json({erro: true, errorMessage: "Promo Code is already Claimed"})
+}
+}
+
+        } else {
+      res.json({erro: true, errorMessage: "Min Cart Amount"})
+     }
+     } else {
+      res.json({erro: true, errorMessage: "Coupon Expired"})
+     }
+    } else {
+      res.json({erro: true, errorMessage: "Enter a valid Promo Code"})
+    }
+
+  } catch (error) {
+    console.log(error.message);
+  }
+}
 
 
 module.exports = {
+  checkCoupon,
   loadOrderFailed,
   verifyPayement,
   loadwishlist,

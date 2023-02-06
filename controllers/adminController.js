@@ -152,7 +152,7 @@ const deleteCategory = async (req, res) => {
 }
 
 const addProduct = async (req, res) => {
-  try {
+  try { 
     const image = req.files.images
     console.log(image)
     const img = []

@@ -5,6 +5,8 @@ const Order = require('../models/order')
 const helper = require('../helpers/userHelper')
 const Banner = require('../models/banner')
 const Coupon = require('../models/coupon')
+const path  = require('path')
+const { findOne } = require('../models/banner')
 
 const loadAdminLogin = async (req, res) => {
   res.render('adminlogin')
@@ -378,7 +380,53 @@ const deleteCoupon = async (req, res) => {
    })
 }
 
+const loadBannerManage = async(req, res)=>{
+  let bannerData = await Banner.find({})
+  res.render('bannerManage', {bannerData})
+}
+
+
+
+const addBanner = async(req, res)=>{
+  const sharp = require('sharp');
+  let ima = req.files.bannerImage[0].path.substring(6)
+let result = await Banner.create({
+  title: req.body.title,
+  description: req.body.description,
+  image: ima
+})
+if (result) {
+  console.log(result);
+  res.redirect('/admin/bannerManage')
+  
+} else {
+  console.log("something went wrong didn't add banner");
+  res.redirect('/admin/bannerManage')
+}
+ 
+}
+
+
+
+const loadAddBanner = async(req, res)=>{
+
+  res.render('addBanner')
+}
+const deleteBanner = async(req, res)=>{
+try {
+
+await Banner.findByIdAndDelete(req.query.id)
+res.redirect('/admin/bannerManage')
+} catch (error) {
+  console.log(error.message);
+}
+  
+}
 module.exports = {
+  deleteBanner,
+  loadAddBanner,
+  addBanner,
+  loadBannerManage,
   deleteCoupon,
   editCoupon,
   loadEditCoupon,

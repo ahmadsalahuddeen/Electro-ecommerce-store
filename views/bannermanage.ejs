@@ -38,6 +38,22 @@
 <!-- Body-->
 
 <body class="handheld-toolbar-enabled">
+  <style>
+    .dataTables_filter {
+      display: flex;
+      justify-content: center;
+    }
+
+    .dataTables_paginate {
+      display: flex;
+      justify-content: center;
+    }
+
+    #userTable_wrapper .row {
+      padding-bottom: 10px;
+    }
+  </style>
+
   <!-- Google Tag Manager (noscript)-->
 
   <main class="page-wrapper">
@@ -75,12 +91,12 @@
                 <ul class="list-unstyled mb-0">
                   <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                       href="/admin/adminhome"><i class="ci-home opacity-60 me-2"></i>Home</a></li>
-                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3  "
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3   "
                       href="/admin/usermanage"><i class="ci-user-circle opacity-60 me-2"></i>User Management</a></li>
-                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 active"
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                       href="/admin/categorymanage"><i class="ci-basket opacity-60 me-2"></i>Category Management</a>
                   </li>
-                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 active"
                       href="/admin/productmanage"><i class="ci-package opacity-60 me-2"></i>Product management</a></li>
                   <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                       href="dashboard-favorites.html"><i class="ci-heart opacity-60 me-2"></i>Favorites<span
@@ -111,94 +127,104 @@
           <!-- Content-->
           <section class="col-lg-8 pt-lg-4 pb-4 mb-3">
             <div class="pt-2 px-4 ps-lg-0 pe-xl-5">
-              <!-- Title-->
               <div class="d-sm-flex flex-wrap justify-content-between align-items-center border-bottom">
-                <h2 class="h3 py-2 me-2 text-center text-sm-start">Category Management<span
-                    class="badge bg-faded-accent fs-sm text-body align-middle ms-2"> count: <%= category.length %>
+                <h2 class="h3 py-2 me-2 text-center text-sm-start">Banner Management<span
+                    class="badge bg-faded-accent fs-sm text-body align-middle ms-2"> count: <%= bannerData.length %>
                   </span></h2>
 
                 <div class="py-2">
                   <h2> </h2>
                   <div class="d-flex flex-nowrap align-items-center pb-3">
-                    <a class="btn btn-primary btn-sm" href="/admin/addcategory">Add Category</a>
+                    <a class="btn btn-primary btn-sm" href="/admin/addBanner">Add Banner</a>
 
                   </div>
                 </div>
               </div>
-              <!-- Product-->
+
+
               <div class="table-responsive">
-                <table class="table table-layout-fixed fs-sm mb-0">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
+                <table id="userTable" class="table table-layout-fixed fs-sm mb-0
+                
+                ">
+                  <% if(bannerData.length> 0){ %>
 
-                      <th>
-                        Actions
-                      </th>
+                    <thead>
+                      <tr>
+                        <th>Title</th>
+                        <th>Description</th>
 
-                    </tr>
-                  </thead>
+                        <th>Image</th>
+                        <th>Actions</th>
+                       
 
-
-
-
-                  <tbody>
-
-
-
-                    <% if(category.length> 0 ){ %>
-                      <% for (let i=0; i < category.length; i++) { %>
-                        <tr>
-                          <td>
-                            <h4 class="h6 product-title mb-2 ">
-                              <%= category[i].name %>
-                            </h4>
-                          </td>
-                          <td>
-
-                            <a href="/admin/editcategory?id=<%= category[i]._id %>"> <button
-                                class="btn bg-faded-info btn-icon me-2" type="button" data-bs-toggle="tooltip"
-                                title="Edit"> <i class="ci-edit text-info"></i></button></a> 
-                                <button  onclick="deleteAlert('<%=category[i]._id %>')"
-                                  class="mt-2 btn bg-faded-danger btn-icon me-2" type="button" data-bs-toggle="tooltip"
-                                  title="Edit"><i class="ci-trash text-danger"></i></button>
+                      </tr>
+                    </thead>
 
 
 
 
-                          </td>
+                    <tbody>
 
-                        </tr>
 
-                        <% } %>
-                          <% }else{ %>
-                            <h3 class="text-danger py-4">i can show you category if i have one, So add one! 👆 </h3>
+
+                      <% for (let i=0; i < bannerData.length; i++) { %>
+                        <% bannerData._id %>
+                          <tr>
+                            <td>
+                              <%= bannerData[i].title %>
+                            </td>
+                            <td>
+                              <%= bannerData[i].description %>
+                            </td>
+                            <td>
+                              <img style="border-radius: 10px; object-fit: contain; padding-bottom: 2px;"
+                              src="<%= bannerData[i].image %> " alt="">
+                            </td>
+                            
+                            <td>
+                           
+
+                              <button  onclick="deleteAlert('<%=bannerData[i]._id %>')"
+                                class="mt-2 btn bg-faded-danger btn-icon me-2" type="button" data-bs-toggle="tooltip"
+                                title="Edit"><i class="ci-trash text-danger"></i></button>
+                            </td>
+
+                          </tr>
+ 
+
+
+
+
+                          <% }}else{ %>
+                            <h3 class="text-danger py-4">No Banner as of now,       so why not add one👆 </h3>
                             <% } %>
 
 
 
 
 
+                    </tbody>
 
 
-
-
-
-
-
-
-
-
-                  </tbody>
                 </table>
               </div>
-
+              <hr class="mb-grid-gutter">
+              <!-- Pagination-->
+              <!-- <nav class="d-md-flex justify-content-between align-items-center text-center text-md-start" aria-label="Page navigation">
+                  <div class="d-md-flex align-items-center w-100"><span class="fs-sm text-muted me-md-3">Showing 10 of 52 records</span>
+                    <div class="progress w-100 my-3 mx-auto mx-md-0" style="max-width: 10rem; height: 4px;">
+                      <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                  <button class="btn btn-outline-primary btn-sm" type="button">More records</button>
+                </nav> -->
             </div>
           </section>
         </div>
       </div>
     </div>
   </main>
+
   <!-- Footer-->
 
   <!-- Toolbar for handheld devices (Marketplace)-->
@@ -207,6 +233,10 @@
       class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span><i class="btn-scroll-top-icon ci-arrow-up">
     </i></a>
   <!-- Vendor scrits: js libraries and plugins-->
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+  <script src="https:/cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
   <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="vendor/simplebar/dist/simplebar.min.js"></script>
   <script src="vendor/tiny-slider/dist/min/tiny-slider.js"></script>
@@ -215,7 +245,7 @@
   <!-- Main theme script-->
   <script src="js/theme.min.js"></script>
   <script>
-     function deleteAlert(id) {
+    function deleteAlert(id) {
       Swal.fire({
         title: ' <h4>Delete Product? </h4>',
         icon: 'warning',
@@ -224,7 +254,7 @@
         showCancelButton: true,
         focusConfirm: false,
         confirmButtonText:
-          '<a class="text-light " href="/admin/deletecategory?id=' + id + '">Delete</a>',
+          '<a class="text-light " href="/admin/deleteBanner?id=' + id + '">Delete</a>',
 
         cancelButtonText:
           'Cancel',
@@ -232,6 +262,12 @@
 
       })
     }
+    $(document).ready(function () {
+      $('#userTable').DataTable();
+
+    });
+
+
   </script>
 </body>
 

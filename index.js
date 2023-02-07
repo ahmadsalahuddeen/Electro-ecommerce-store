@@ -13,6 +13,7 @@ const cookieParser = require('cookie-parser')
 const flash = require('connect-flash')
 const morgan = require('morgan');
 const session = require('express-session')
+const sharp = require('sharp');
 const Razorpay = require('razorpay');
 app.use(session({
   secret: 'heyboi',
@@ -41,7 +42,7 @@ const fileFilter = (req, file, cb) => {
   }
 }
 
-app.use(multer({ storage: fileStorage, fileFilter }).fields([{ name: 'image' }, { name: 'images', maxCount: 5 }]))
+app.use(multer({ storage: fileStorage, fileFilter }).fields([{ name: 'image' }, { name: 'images', maxCount: 5 }, {name: 'bannerImage'}]))
 app.use(flash())
 app.use(cookieParser())
 app.use(bodyParser.json())

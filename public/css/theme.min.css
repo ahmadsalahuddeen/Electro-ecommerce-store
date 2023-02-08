@@ -1933,7 +1933,7 @@ progress {
   border-color: var(--cz-table-border-color);
 }
 .table-responsive {
-  overflow-x: auto;
+  /* overflow-x: auto; */
   -webkit-overflow-scrolling: touch;
 }
 @media (max-width: 499.98px) {

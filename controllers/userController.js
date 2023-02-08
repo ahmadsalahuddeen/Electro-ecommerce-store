@@ -10,6 +10,7 @@ const { findByIdAndUpdate } = require("../models/address");
 const helper = require('../helpers/userHelper')
 const Coupon = require('../models/coupon');
 const { ObjectId } = require("mongodb");
+const Banner = require("../models/banner");
 
 const loadRegister = async (req, res) => {
   if (req.session.isLoggedIn === true) {
@@ -103,10 +104,14 @@ const loginValidate = async (req, res) => {
 const loadHome = async (req, res) => {
   const productData = await Product.find();
   const userData = await User.findOne({ _id: req.session.user._id });
+  const BannerData = await Banner.find({})
   console.log(userData);
   if (req.session.isLoggedIn) {
-    res.render("home", { product: productData
-      , user: userData });
+    res.render("home", {
+       product: productData,
+       user: userData ,
+       BannerData
+    });
   } else {
     res.redirect("/login");
   }

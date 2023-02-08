@@ -422,7 +422,36 @@ res.redirect('/admin/bannerManage')
 }
   
 }
+
+
+const loadDailySales = async(req, res) =>{
+  try {
+    
+    helper.dailyReport(req, res)
+  } catch (error) {
+  console.log(error.message);  
+  }
+}
+const loadWeeklySales = async(req, res) =>{
+  try {
+    
+    helper.weeklyReport(req, res)
+  } catch (error) {
+  console.log(error.message);  
+  }
+}
+const loadYearlySales = async(req, res) =>{
+  try {
+    
+    helper.yearlyReport(req, res)
+  } catch (error) {
+  console.log(error.message);  
+  }
+}
 module.exports = {
+  loadYearlySales,
+  loadWeeklySales,
+  loadDailySales,
   deleteBanner,
   loadAddBanner,
   addBanner,

@@ -33,11 +33,25 @@
   <!-- Main Theme Styles + Bootstrap-->
   <link rel="stylesheet" media="screen" href="/css/theme.min.css">
   <!-- Google Tag Manager-->
-
+  
 </head>
 <!-- Body-->
 
 <body class="handheld-toolbar-enabled">
+  <style>
+    .dataTables_filter{
+      display: flex;
+  justify-content: center;
+    } 
+    .dataTables_paginate{
+      display: flex;
+  justify-content: center;
+    }
+    #userTable_wrapper .row{
+      padding-bottom: 10px;
+    }
+  </style>
+  
   <!-- Google Tag Manager (noscript)-->
 
   <main class="page-wrapper">
@@ -75,13 +89,14 @@
                 <ul class="list-unstyled mb-0">
                   <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                       href="/admin/adminhome"><i class="ci-home opacity-60 me-2"></i>Home</a></li>
-                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3  "
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3  active "
                       href="/admin/usermanage"><i class="ci-user-circle opacity-60 me-2"></i>User Management</a></li>
-                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 "
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                       href="/admin/categorymanage"><i class="ci-basket opacity-60 me-2"></i>Category Management</a>
                   </li>
-                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 active"
-                      href="/admin/productmanage"><i class="ci-package opacity-60 me-2"></i>Product management</a></li>
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                      href="/admin/productmanage"><i class="ci-package opacity-60 me-2"></i>Product management<span
+                        class="fs-sm text-muted ms-auto">5</span></a></li>
                   <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                       href="dashboard-favorites.html"><i class="ci-heart opacity-60 me-2"></i>Favorites<span
                         class="fs-sm text-muted ms-auto">4</span></a></li>
@@ -101,8 +116,8 @@
                       Product</a></li>
                   <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 "
                       href="dashboard-payouts.html"><i class="ci-currency-exchange opacity-60 me-2"></i>Payouts</a></li>
-                  <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="/admin/logout"><i
-                        class="ci-sign-out opacity-60 me-2"></i>Sign out</a></li>
+                  <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                      href="/admin/logout"><i class="ci-sign-out opacity-60 me-2"></i>Sign out</a></li>
                 </ul>
                 <hr>
               </div>
@@ -111,39 +126,90 @@
           <!-- Content-->
           <section class="col-lg-8 pt-lg-4 pb-4 mb-3">
             <div class="pt-2 px-4 ps-lg-0 pe-xl-5">
-              <!-- Title-->
-              <div class="d-sm-flex flex-wrap justify-content-between align-items-center pb-2">
-                <h2 class="h3 py-2 me-2 text-center text-sm-start">Add New Product</h2>
-
+              <div class="d-none d-lg-flex pt-1 mt-2 pb-4">
+                
+                      <div class="w-50 ps-2"><a href="/admin/weeklySales" class="btn btn-primary d-block w-100"  ><span
+                        class="d-none d-sm-inline">Weekly Report</span><span class="d-inline d-sm-none">Weekly Report</span></a></div>
+                      <div class="w-50 ps-2"><a href="/admin/yearlySales" class="btn btn-primary d-block w-100"  ><span
+                        class="d-none d-sm-inline">Yearly Report </span><span class="d-inline d-sm-none">yearly Report</span></a></div>
+                     
+                
               </div>
-              <form action="" method="post" enctype="multipart/form-data">
-                <div class="mb-3 pb-2">
-                  <label class="form-label" for="unp-product-name">Title</label>
-                  <input class="form-control" name="title" type="text" id="unp-product-name" required>
+              <div class="d-sm-flex flex-wrap justify-content-between align-items-center border-bottom">
+                <h2 class="h3 py-2 me-2 text-center text-sm-start">Daily Report</h2>
 
-                </div>
-                <div class="mb-3 pb-2">
-                  <label class="form-label" for="unp-product-name">Description</label>
-                  <input class="form-control" name="description" type="text" id="unp-product-name" >
-
-                </div>
-
-               
-              
-               
+                <div class="py-2">
+                  <h2> </h2>
+                  <div class="d-flex flex-nowrap align-items-center pb-3">
+                    <button type="button" id="pdfDownload" class="btn btn-info btn-sm me-2" >PDF</button>
+                    <a id="excelDownload" class="btn btn-success btn-sm" >EXCEL</a>
 
                   </div>
-              
-               
-                <div class="mb-3 pb-2">
-                  <label class="form-label" for="unp-product-files">banner Image</label>
-                  <input class="form-control" name="bannerImage" type="file" id="unp-product-files"
-                    accept="image/*" >
-                  <div class="form-text">image would be cropped to 420*430 with auto cropping <br> should be png image with removed background</div>
                 </div>
-                <button class="btn btn-primary d-block w-100" type="submit"><i
-                    class="ci-cloud-upload fs-lg me-2"></i>add Banner</button>
-              </form>
+              </div>
+              <div class="table-responsive" id="invoice">
+                <table id="userTable" class="table table-layout-fixed fs-sm mb-0
+                
+                ">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Revenue</th>
+                      <th>Poduct count</th>
+                      <th>no of Orders</th>
+                      <th>Profit</th>
+
+                    </tr>
+                  </thead>
+
+
+
+
+                  <tbody>
+                   
+                    <%  if(salesReport.length> 0){ %>
+                     <%   for (let i = 0; i < salesReport.length; i++) { %>
+                    
+
+                        <tr>
+                          <td>
+                            <%= salesReport[i]._id.day %> / <%= salesReport[i]._id.month %> / <%= salesReport[i]._id.year %>   
+                          </td>
+                          <td> <%= salesReport[i].totalPrice%></td>
+                          <td>
+                            <%= salesReport[i].items %>
+                          </td>
+                          <td>
+                            <%= salesReport[i].count %>
+                          </td>
+                          <td>
+                            <%= salesReport[i].totalPrice * 10/100 %>
+                          </td>
+                        </tr>
+
+                        
+                    <%  } }else{%>
+                         
+
+
+                          <h1>Empty</h1>
+
+                          <% } %>
+
+
+                  </tbody>
+                </table>
+              </div>
+              <hr class="mb-grid-gutter">
+              <!-- Pagination-->
+              <!-- <nav class="d-md-flex justify-content-between align-items-center text-center text-md-start" aria-label="Page navigation">
+                  <div class="d-md-flex align-items-center w-100"><span class="fs-sm text-muted me-md-3">Showing 10 of 52 records</span>
+                    <div class="progress w-100 my-3 mx-auto mx-md-0" style="max-width: 10rem; height: 4px;">
+                      <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                  <button class="btn btn-outline-primary btn-sm" type="button">More records</button>
+                </nav> -->
             </div>
           </section>
         </div>
@@ -158,12 +224,38 @@
       class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span><i class="btn-scroll-top-icon ci-arrow-up">
     </i></a>
   <!-- Vendor scrits: js libraries and plugins-->
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+  <script src="https:/cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
   <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="vendor/simplebar/dist/simplebar.min.js"></script>
   <script src="vendor/tiny-slider/dist/min/tiny-slider.js"></script>
   <script src="vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- Main theme script-->
   <script src="js/theme.min.js"></script>
+  <script>
+ const button = document.getElementById('pdfDownload');
+
+function generatePDF() {
+    // Choose the element that your content will be rendered to.
+    const element = document.getElementsByClassName('dt-row');
+    // Choose the element and save the PDF for your user.
+    html2pdf().from(element[0]).save();
+}
+
+button.addEventListener('click', generatePDF);
+
+    $(document).ready(function () {
+    $('#userTable').DataTable({searching: false, "oLanguage": {
+      "sLengthMenu": "Show Entries _MENU_",
+    }});
+    
+});
+
+ 
+  </script>
 </body>
 
 <!-- Mirrored from cartzilla.createx.studio/dashboard-payouts.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 23 Dec 2022 04:02:23 GMT -->

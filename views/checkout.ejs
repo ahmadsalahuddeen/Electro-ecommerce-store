@@ -832,13 +832,24 @@
        
 
           <!-- Navigation (desktop)-->
+         
           <div class="d-none d-lg-flex pt-4 mt-3">
-            <div class="w-50 pe-3"><a class="btn btn-secondary d-block w-100" href="/cartmanage"><i
+            <div class="w-50 pe-3"><button class="btn btn-secondary d-block w-100" href="/cartmanage"><i
                   class="ci-arrow-left mt-sm-0 me-1"></i><span class="d-none d-sm-inline">Back to Cart</span><span
-                  class="d-inline d-sm-none">Back</span></a></div>
-            <div class="w-50 ps-2"><button type="submit" class="btn btn-primary d-block w-100" value='submit' ><span
-                  class="d-none d-sm-inline">Confirm Order </span><span class="d-inline d-sm-none">Next</span><i
-                  class="ci-check-circle mt-sm-0 ms-1"></i></button></div>
+                  class="d-inline d-sm-none">Back</span></button></div>
+                  <% if (address.length == 0) { %>
+                  
+                    <div class="w-50 ps-2"><button disabled type="submit" class="btn btn-primary d-block w-100" value='submit' ><span
+                      class="d-none d-sm-inline">Confirm Order </span><span class="d-inline d-sm-none">Next</span><i
+                      class="ci-check-circle mt-sm-0 ms-1"></i></button><label class="form-label mb-3 mt-4" ><span
+                        class="badge bg-info fs-xs me-2">Note</span><span class="fw-medium">Can't proceed without address❗</span></label></div>
+                      <%} else {%>
+                        <div class="w-50 ps-2"><button type="submit" class="btn btn-primary d-block w-100" value='submit' ><span
+                          class="d-none d-sm-inline">Confirm Order </span><span class="d-inline d-sm-none">Next</span><i
+                          class="ci-check-circle mt-sm-0 ms-1"></i></button></div>
+                          
+                          <%} %> 
+            
           </div>
         </form>
         </section>

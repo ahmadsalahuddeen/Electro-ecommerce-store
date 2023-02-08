@@ -153,6 +153,7 @@ let monthlySales = await Order.aggregate([
   }
 ])
 
+
 console.log("monthlyyyyyyyyyyyyyyyy", monthlySales);
 res.render('adminhome', {
   admin: true,
@@ -165,11 +166,88 @@ res.render('adminhome', {
   yearlySales
 
 })
- 
-//monthly sales
 
 
+}
 
+
+const dailyReport = async(req, res )=>{
+  let salesReport = await Order.aggregate([
+    {
+      $match:{ orderStat: 'Delivered'}
+  },
+  {
+    $group: {
+      _id: {
+        year: {$year: '$createdAt'},
+        month: {$month: '$createdAt'},
+        day: {$dayOfMonth: '$createdAt'}
+      },
+
+      totalPrice : {$sum: '$totalPrice'} ,
+      items: {$sum: {$size: '$items'}},
+      count: {$sum: 1}
+    }
+  },
+  {$sort: {createdAt: -1}}
+  ])
+  res.render('dailyReport', {salesReport})
+}
+const weeklyReport = async(req, res )=>{
+  let startOfYear = new Date()
+startOfYear.setMonth(0)
+startOfYear.setDate(1)
+
+
+  let endOfYear =  new Date()
+  endOfYear.setDate(31)
+  endOfYear.setMonth(11);
+  endOfYear.setHours(23,59,59,999) 
+  
+  let salesReport = await Order.aggregate([
+    {
+      $match:{
+
+        $and:[
+          {orderStat: "Delivered"},
+          {createdAt: {$gt: startOfYear, $lt: endOfYear}}
+        ]
+    }
+  },
+  {
+    $group: {
+      _id: {$week: '$createdAt'},
+
+      totalPrice : {$sum: '$totalPrice'} ,
+      items: {$sum: {$size: '$items'}},
+      count: {$sum: 1}
+    }
+  },
+  {$sort: {createdAt: -1}}
+  ])
+  res.render('weeklyReport', {salesReport})
+}
+const yearlyReport = async(req, res )=>{
+  let salesReport = await Order.aggregate([
+    {
+      $match:{
+
+       orderStat: 'Delivered'
+    }
+  },
+  {
+    $group: {
+      _id: {$year: '$createdAt'},
+
+      totalPrice : {$sum: '$totalPrice'} ,
+      items: {$sum: {$size: '$items'}},
+      count: {$sum: 1}
+    }
+  },
+  {$sort: {createdAt: -1}}
+  ])
+
+  res.render('yearlyReport', {salesReport})
 }
 
 
@@ -178,6 +256,10 @@ res.render('adminhome', {
 
 
 module.exports = {
+
+  yearlyReport,
+  weeklyReport, 
+  dailyReport,
   dashboard,
   chnageOrderStatus,
 };

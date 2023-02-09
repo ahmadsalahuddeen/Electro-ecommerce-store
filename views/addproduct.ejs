@@ -30,6 +30,7 @@
   <!-- Vendor Styles including: Font Icons, Plugins, etc.-->
   <link rel="stylesheet" media="screen" href="vendor/simplebar/dist/simplebar.min.css" />
   <link rel="stylesheet" media="screen" href="vendor/tiny-slider/dist/tiny-slider.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"> </script>
   <!-- Main Theme Styles + Bootstrap-->
   <link rel="stylesheet" media="screen" href="/css/theme.min.css">
   <!-- Google Tag Manager-->
@@ -41,6 +42,28 @@
   <!-- Google Tag Manager (noscript)-->
 
   <main class="page-wrapper">
+    <div class="alert" role="alert"></div>
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel">Crop the image</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="img-container">
+              <img id="image" src="https://avatars0.githubusercontent.com/u/3456749">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="crop">Crop</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Navbar Marketplace-->
     <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page.-->
 
@@ -58,6 +81,7 @@
 
       </div>
     </div>
+   
     <div class="container mb-5 pb-3">
       <div class="bg-light shadow-lg rounded-3 overflow-hidden">
         <div class="row">
@@ -177,7 +201,7 @@
                
                 <div class="mb-3 pb-2">
                   <label class="form-label" for="unp-product-files">Product Images</label>
-                  <input class="form-control" name="images" type="file" id="unp-product-files"
+                  <input class="form-control" name="images" type="file" id="input"
                     accept="image/*" multiple>
                   <div class="form-text">Maximum no of images: 3</div>
                 </div>
@@ -198,12 +222,131 @@
       class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span><i class="btn-scroll-top-icon ci-arrow-up">
     </i></a>
   <!-- Vendor scrits: js libraries and plugins-->
+ 
   <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="vendor/simplebar/dist/simplebar.min.js"></script>
   <script src="vendor/tiny-slider/dist/min/tiny-slider.js"></script>
   <script src="vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js" integrity="sha512-6lplKUSl86rUVprDIjiW8DuOniNX8UDoRATqZSds/7t6zCQZfaCe3e5zcGaQwxa8Kpn5RTM9Fvl3X2lLV4grPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ 
+  
+  
   <!-- Main theme script-->
   <script src="js/theme.min.js"></script>
+  <!-- <script>
+    jQuery.noConflict();
+    window.addEventListener('DOMContentLoaded', function () {
+      console.log("hi");
+      var avatar = document.getElementById('avatar');
+      var image = document.getElementById('image');
+      var input = document.getElementById('input');
+      console.log(image);
+      var $progress = $('.progress');
+      var $progressBar = $('.progress-bar');
+      var $alert = $('.alert');
+      var modaal = document.getElementById('modal')
+      var cropper;
+
+      // $('[data-toggle="tooltip"]').tooltip();
+console.log('againnnn');
+      input.addEventListener('change', function (e) {
+        var files = e.target.files;
+        var done = function (url) {
+          input.value = '';
+          image.src = url;
+          $alert.hide();
+          modaal.showModal()
+        };
+        var reader;
+        var file;
+        var url;
+        
+        if (files && files.length > 0) {
+          file = files[0];
+          
+          if (URL) {
+            done(URL.createObjectURL(file));
+          } else if (FileReader) {
+            reader = new FileReader();
+            reader.onload = function (e) {
+              done(reader.result);
+            };
+            reader.readAsDataURL(file);
+          }
+        }
+      });
+      
+    modaal.on('shown.bs.modal', function () {
+        console.log("modal");
+        cropper = new Cropper(image, {
+          aspectRatio: 1,
+          viewMode: 3,
+        });
+      }).on('hidden.bs.modal', function () {
+        cropper.destroy();
+        cropper = null;
+      });
+
+      document.getElementById('crop').addEventListener('click', function () {
+        var initialAvatarURL;
+        var canvas;
+
+       modaal.modal('hide')
+
+        if (cropper) {
+          canvas = cropper.getCroppedCanvas({
+            width: 160,
+            height: 160,
+          });
+          initialAvatarURL = avatar.src;
+          avatar.src = canvas.toDataURL();
+          $progress.show();
+          $alert.removeClass('alert-success alert-warning');
+          canvas.toBlob(function (blob) {
+            var formData = new FormData();
+
+            formData.append('avatar', blob, 'avatar.jpg');
+            $.ajax('https://jsonplaceholder.typicode.com/posts', {
+              method: 'POST',
+              data: formData,
+              processData: false,
+              contentType: false,
+
+              xhr: function () {
+                var xhr = new XMLHttpRequest();
+
+                xhr.upload.onprogress = function (e) {
+                  var percent = '0';
+                  var percentage = '0%';
+
+                  if (e.lengthComputable) {
+                    percent = Math.round((e.loaded / e.total) * 100);
+                    percentage = percent + '%';
+                    $progressBar.width(percentage).attr('aria-valuenow', percent).text(percentage);
+                  }
+                };
+
+                return xhr;
+              },
+
+              success: function () {
+                $alert.show().addClass('alert-success').text('Upload success');
+              },
+
+              error: function () {
+                avatar.src = initialAvatarURL;
+                $alert.show().addClass('alert-warning').text('Upload error');
+              },
+
+              complete: function () {
+                $progress.hide();
+              },
+            });
+          });
+        }
+      });
+    });
+  </script> -->
 </body>
 
 <!-- Mirrored from cartzilla.createx.studio/dashboard-payouts.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 23 Dec 2022 04:02:23 GMT -->

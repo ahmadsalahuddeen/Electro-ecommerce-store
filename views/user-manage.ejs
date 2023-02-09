@@ -87,37 +87,30 @@
                   <h3 class="fs-sm mb-0 text-muted">Account</h3>
                 </div>
                 <ul class="list-unstyled mb-0">
-                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
-                      href="/admin/adminhome"><i class="ci-home opacity-60 me-2"></i>Home</a></li>
-                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3  active "
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 "
+                      href="/admin/adminhome"><i class="ci-home opacity-60 me-2"></i>Home Dashboard</a></li>
+                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 active "
                       href="/admin/usermanage"><i class="ci-user-circle opacity-60 me-2"></i>User Management</a></li>
                   <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
-                      href="/admin/categorymanage"><i class="ci-basket opacity-60 me-2"></i>Category Management</a>
-                  </li>
+                      href="/admin/categorymanage"><i class="ci-basket opacity-60 me-2"></i>Category Management</a></li>
                   <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                       href="/admin/productmanage"><i class="ci-package opacity-60 me-2"></i>Product management<span
-                        class="fs-sm text-muted ms-auto">5</span></a></li>
+                        class="fs-sm text-muted ms-auto"></span></a></li>
                   <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
-                      href="dashboard-favorites.html"><i class="ci-heart opacity-60 me-2"></i>Favorites<span
-                        class="fs-sm text-muted ms-auto">4</span></a></li>
+                      href="/admin/orderManage"><i class="ci-delivery opacity-60 me-2"></i>Order Management<span
+                        class="fs-sm text-muted ms-auto"></span></a></li>
+                        <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 "
+                          href="/admin/dailySales"><i class="ci-dollar opacity-60 me-2"></i>Sales Report<span
+                            class="fs-sm text-muted ms-auto"></span></a></li>
                 </ul>
                 <div class="bg-secondary p-4">
-                  <h3 class="fs-sm mb-0 text-muted">Seller Dashboard</h3>
+                  <h3 class="fs-sm mb-0 text-muted">Other</h3>
                 </div>
                 <ul class="list-unstyled mb-0">
-                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 "
-                      href="dashboard-sales.html"><i class="ci-dollar opacity-60 me-2"></i>Sales<span
-                        class="fs-sm text-muted ms-auto">$1,375.00</span></a></li>
-                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
-                      href="dashboard-products.html"><i class="ci-package opacity-60 me-2"></i>Products<span
-                        class="fs-sm text-muted ms-auto">5</span></a></li>
-                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
-                      href="dashboard-add-new-product.html"><i class="ci-cloud-upload opacity-60 me-2"></i>Add New
-                      Product</a></li>
-                  <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 "
-                      href="dashboard-payouts.html"><i class="ci-currency-exchange opacity-60 me-2"></i>Payouts</a></li>
-                  <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
-                      href="/admin/logout"><i class="ci-sign-out opacity-60 me-2"></i>Sign out</a></li>
+                 
+                  
+                  <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 active" href="/admin/logout"><i
+                        class="ci-sign-out opacity-60 me-2"></i>Sign out</a></li>
                 </ul>
                 <hr>
               </div>
@@ -213,10 +206,15 @@
   <!-- Main theme script-->
   <script src="js/theme.min.js"></script>
   <script>
-    $(document).ready(function () {
-    $('#userTable').DataTable();
-    
+
+$(document).ready(function () {
+  $('#userTable').DataTable({
+    "oLanguage": {
+    "sLengthMenu": "Show Entries _MENU_",
+  }});
+  
 });
+
 
  
   </script>

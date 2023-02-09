@@ -8,7 +8,7 @@ adminRoute.get('/', auth.isLogout, adminController.loadAdminLogin)
 adminRoute.post('/', adminController.loginValidate)
 adminRoute.get('/home', adminController.loadDashboard)
 adminRoute.get('/usermanage', adminController.loadUserManagement)
-adminRoute.get('/logout', auth.isLogout, adminController.adminLogout)
+adminRoute.get('/logout',  adminController.adminLogout)
 adminRoute.get('/blockuser/:id', adminController.blockUser)
 adminRoute.get('/unblockuser/:id', adminController.unBlockUser)
 adminRoute.get('/categorymanage', adminController.loadCategory)
@@ -44,8 +44,8 @@ adminRoute.post('/orderStatus', adminController.changeOrderStatus)
 adminRoute.post('/cancelOrder', adminController.cancelOrder)
 
 
-adminRoute.get('*', function (req, res) {
-  res.redirect('/admin')
-})
+// adminRoute.get('*', function (req, res) {
+//   res.redirect('/admin')
+// })
 
 module.exports = adminRoute

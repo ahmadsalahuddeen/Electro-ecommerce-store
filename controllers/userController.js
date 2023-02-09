@@ -11,13 +11,21 @@ const helper = require('../helpers/userHelper')
 const Coupon = require('../models/coupon');
 const { ObjectId } = require("mongodb");
 const Banner = require("../models/banner");
+const session = require("express-session");
 
-const loadRegister = async (req, res) => {
-  if (req.session.isLoggedIn === true) {
-    res.redirect("/home");
-  } else {
-    res.render("userRegister");
+const loadRegister = async (req, res, next) => {
+  try {
+    
+    if (req.session.isLoggedIn === true) {
+      res.redirect("/home");
+    } else {
+      res.render("userRegister");
+    }
+  } catch (error) {
+    console.log(error.message);
+    next(error)
   }
+ 
 };
 
 const secretPassword = async (password) => {
@@ -26,18 +34,25 @@ const secretPassword = async (password) => {
     return secretpassword;
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
-const loadLogin = async (req, res) => {
-  if (!req.session.isLoggedIn) {
-    res.render("login");
-  } else {
-    res.redirect("/productlist");
+const loadLogin = async (req, res, next) => {
+  try {
+    if (!req.session.isLoggedIn) {
+      res.render("login");
+    } else {
+      res.redirect("/productlist");
+    }
+    
+  } catch (error) {
+    console.log(error.message);
+    next(error)
   }
 };
 
-const addUser = async (req, res) => {
+const addUser = async (req, res, next) => {
   try {
     if (req.body.password === req.body.confirmpassword) {
       const sPassword = await secretPassword(req.body.password);
@@ -63,15 +78,22 @@ const addUser = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
-const logOut = async (req, res) => {
-  req.session.destroy();
-  res.redirect("/");
+const logOut = async (req, res, next) => {
+  try {
+    
+    req.session.destroy();
+    res.redirect("/");
+  } catch (error) {
+    console.log(error.message);
+    next(error)
+  }
 };
 
-const loginValidate = async (req, res) => {
+const loginValidate = async (req, res, next) => {
   try {
     const email = req.body.email;
     const password = req.body.password;
@@ -98,88 +120,121 @@ const loginValidate = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
-const loadHome = async (req, res) => {
-  const productData = await Product.find();
-  const userData = await User.findOne({ _id: req.session.user._id });
-  const BannerData = await Banner.find({})
-  console.log(userData);
-  if (req.session.isLoggedIn) {
-    res.render("home", {
-       product: productData,
-       user: userData ,
-       BannerData
-    });
-  } else {
-    res.redirect("/login");
-  }
-};
-const loadProductList = async (req, res) => {
-  const user = await User.findById(req.session.user).populate(
-    "cart.items.product"
-  );
-
-  const product = await Product.find();
-  res.render("productlist", { product, user });
-};
-
-const addToCart = async (req, res) => {
-  const useer = await User.findById(req.session.user._id);
-
-  const productId = req.query.id;
-
-  Product.findById(req.body.productid)
-    .then((product) => {
-      useer.addToCart(product, (response) => {
-        res.json(response);
+const loadHome = async (req, res, next) => {
+  try {
+    
+    const productData = await Product.find();
+    const userData = await User.findOne({ _id: req.session.user._id });
+    const BannerData = await Banner.find({})
+    console.log(userData);
+    if (req.session.isLoggedIn) {
+      res.render("home", {
+         product: productData,
+         user: userData ,
+         BannerData
       });
-    })
-    .catch((err) => console.log(err));
+    } else {
+      res.redirect("/login");
+    }
+  } catch (error) {
+    console.log(error.message);
+    next(error)
+  }
 };
 
-const loadCartManage = async (req, res) => {
+
+const loadProductList = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.session.user).populate(
+      "cart.items.product"
+    );
+  
+    const product = await Product.find();
+    res.render("productlist", { product, user });
+    
+  } catch (error) {
+    console.log(error.message);
+    next(error)
+  }
+};
+
+
+
+const addToCart = async (req, res, next) => {
+  try {
+    const useer = await User.findById(req.session.user._id);
+  
+    const productId = req.query.id;
+  
+    Product.findById(req.body.productid)
+      .then((product) => {
+        useer.addToCart(product, (response) => {
+          res.json(response);
+        });
+      })
+      .catch((err) => console.log(err));
+    
+  } catch (error) {
+    console.log(error.message);
+    next(error)
+  }
+};
+
+const loadCartManage = async (req, res, next) => {
+
+
   try {
     const user = await User.findById(req.session.user).populate(
       "cart.items.product"
     );
     res.render("cartmanage", { user });
   } catch (e) {
-    console.log(e.message);
+    console.log(error.message);
+    next(error)
   }
 };
 
-const removeCartItem = async (req, res) => {
-  const productId = req.query.id;
-  const userId = req.session.user._id;
-  const user = await User.findById(userId);
+const removeCartItem = async (req, res, next) => {
 
-  const product = await Product.findById(productId);
-  const itemId = user.cart.items.findIndex(
-    (itemsproduct) =>
-      new String(itemsproduct.product).trim() === new String(productId).trim()
-  );
-
-  const itemPrice = product.discount * user.cart.items[itemId].qty;
-
-  const newTotalPrice = user.cart.totalPrice - itemPrice;
-
-  User.findByIdAndUpdate(
-    { _id: userId },
-    { $pull: { "cart.items": { product: productId } } },
-    { new: true }
-  ).then(
-    User.updateOne(
+  try {
+    
+    const productId = req.query.id;
+    const userId = req.session.user._id;
+    const user = await User.findById(userId);
+  
+    const product = await Product.findById(productId);
+    const itemId = user.cart.items.findIndex(
+      (itemsproduct) =>
+        new String(itemsproduct.product).trim() === new String(productId).trim()
+    );
+  
+    const itemPrice = product.discount * user.cart.items[itemId].qty;
+  
+    const newTotalPrice = user.cart.totalPrice - itemPrice;
+  
+    User.findByIdAndUpdate(
       { _id: userId },
-      { $set: { "cart.totalPrice": newTotalPrice } }
-    ).then(() => {
-      res.json({ remove: true, totalPrice: newTotalPrice });
-    })
-  );
+      { $pull: { "cart.items": { product: productId } } },
+      { new: true }
+    ).then(
+      User.updateOne(
+        { _id: userId },
+        { $set: { "cart.totalPrice": newTotalPrice } }
+      ).then(() => {
+        res.json({ remove: true, totalPrice: newTotalPrice });
+      })
+    );
+  } catch (error) {
+    console.log(error.message);
+    next(error)
+  }
 };
 
-const qtyChange = async (req, res) => {
+const qtyChange = async (req, res, next) => {
   try {
     const product = await Product.findById(req.query.id);
 
@@ -193,17 +248,21 @@ const qtyChange = async (req, res) => {
     });
   } catch (error) {
     console.log(error.message);
+    next(error)
   }
 };
 
-const loadProductDetail = async (req, res) => {
+const loadProductDetail = async (req, res, next) => {
   try {
     const user = await User.findById(req.session.user._id);
     const product = await Product.findById(req.query.id);
     res.render("productdetail", { product: product, user: user });
-  } catch (e) {}
+  } catch (e) {
+    console.log(error.message);
+    next(error)
+  }
 };
-const loadCheckout = async (req, res) => {
+const loadCheckout = async (req, res, next) => {
   try {
     const address = await Address.find({ user: req.session.user._id });
 
@@ -214,10 +273,12 @@ const loadCheckout = async (req, res) => {
     res.render("checkout", { product, user, address });
   } catch (e) {
     console.log(`product detail load page: ${e.message}`);
+    console.log(error.message);
+    next(error)
   }
 };
 
-const addAddress = async (req, res) => {
+const addAddress = async (req, res, next) => {
   try {
     const reqaddress = req.body;
     const adrsData = Address({
@@ -233,10 +294,12 @@ const addAddress = async (req, res) => {
     }
   } catch (e) {
     console.log(`product detail load page: ${e.message}`);
+    console.log(error.message);
+    next(error)
   }
 };
 
-const addAddressProfile = async (req, res) => {
+const addAddressProfile = async (req, res, next) => {
   try {
     const reqaddress = req.body;
     const adrsData = Address({
@@ -252,10 +315,12 @@ const addAddressProfile = async (req, res) => {
     }
   } catch (e) {
     console.log(`product detail load page: ${e.message}`);
+    console.log(error.message);
+    next(error)
   }
 };
 
-const newOrder = async (req, res) => {
+const newOrder = async (req, res, next) => {
   try {
     const userId = req.session.user._id;
     const user = await User.findById(userId);
@@ -322,49 +387,64 @@ if (req.body.paymentMethod === 'cod') {
 }
 await Coupon.findOneAndUpdate({name: req.body.couponRedeme}, {$addToSet:{usedUsers: userId}})
   } catch (e) {
-    console.log(e.message);
+    console.log(error.message);
+    next(error)
   }
 };
 
 
 
-const loadOrderSuccess = async (req, res) => {
+const loadOrderSuccess = async (req, res, next) => {
   try {
     res.render("ordersuccess");
   } catch (e) {
     console.log(e);
+    console.log(error.message);
+    next(error)
   }
 };
-const loadUserProfile = async (req, res) => {
+const loadUserProfile = async (req, res, next) => {
   try {
     const useer = await User.findOne({ _id: req.session.user._id });
     console.log(useer);
     res.render("userprofile", { user: useer });
   } catch (e) {
-    console.log(e);
+    console.log(error.message);
+    next(error)
   }
 };
-const updateProfile = async (req, res) => {
+const updateProfile = async (req, res, next) => {
   try {
     await User.findByIdAndUpdate(req.session.user._id, {
       name: req.body.name,
       mobile: req.body.mobile,
     }).then(res.redirect("/userProfile"));
   } catch (e) {
-    console.log(e);
+    console.log(error.message);
+    next(error)
   }
 };
-const loaduserAddress = async (req, res) => {
+const loaduserAddress = async (req, res, next) => {
   try {
     const useer = await User.findById(req.session.user._id);
     Address.find({ user: req.session.user._id }).then((data) => {
       res.render("userAddress", { adrsdata: data, user: useer });
     });
   } catch (e) {
-    console.log(e);
+    console.log(error.message);
+    next(error)
   }
 };
-const laoduserOrderManage = async (req, res) => {
+const signout = async (req, res, next) => {
+  try {
+   req.user.session.destroy()
+
+  } catch (e) {
+    console.log(error.message);
+    next(error)
+  }
+};
+const laoduserOrderManage = async (req, res, next) => {
   try {
     const useer = await User.findById(req.session.user._id);
     const orderData = await Order.find({ user: req.session.user._id }).populate("items.product");
@@ -372,10 +452,11 @@ const laoduserOrderManage = async (req, res) => {
     
     res.render("userOrderManage", { orderData: orderData, user: useer });
   } catch (e) {
-    console.log(e);
+    console.log(error.message);
+    next(error)
   }
 };
-const loadwishlist = async (req, res) => {
+const loadwishlist = async (req, res, next) => {
   try {
     const useer = await User.findById(req.session.user._id);
     const wlData = await Wishlist.findOne({userId: req.session.user._id}).populate('products')
@@ -383,47 +464,54 @@ const loadwishlist = async (req, res) => {
 
     res.render("wishlist", { user: useer, wlData: wlData  });
   } catch (e) {
-    console.log(e);
+    console.log(error.message);
+    next(error)
   }
 };
-const addToWishlist = async (req, res) => {
-  const userId = req.session.user._id;
-  const proId = req.query.id;
-  const wListData = await Wishlist.findOne({ userId });
-  console.log(`wishlist Data
-${wListData}`);
-
-  if (wListData) {
-    const isProductExist = wListData.products.findIndex(
-      (el) => new String(el).trim() === new String(proId).trim()
-    );
-    console.log(`product exist: ${isProductExist}`);
-    if (isProductExist === -1) {
-      await Wishlist.updateOne(
-        { userId: userId },
-        { $push: { products: proId } }
-      ).then((doc) => {
-        console.log(`update Data:
-      ${doc}`);
-
+const addToWishlist = async (req, res, next) => {
+  try {
+    
+    const userId = req.session.user._id;
+    const proId = req.query.id;
+    const wListData = await Wishlist.findOne({ userId });
+    console.log(`wishlist Data
+  ${wListData}`);
+  
+    if (wListData) {
+      const isProductExist = wListData.products.findIndex(
+        (el) => new String(el).trim() === new String(proId).trim()
+      );
+      console.log(`product exist: ${isProductExist}`);
+      if (isProductExist === -1) {
+        await Wishlist.updateOne(
+          { userId: userId },
+          { $push: { products: proId } }
+        ).then((doc) => {
+          console.log(`update Data:
+        ${doc}`);
+  
+          const wListLength = doc.length;
+          res.json({ count: wListLength, exists: false });
+        });
+      } else {
+        res.json({ exists: true });
+      }
+    } else {
+      const newItem = new Wishlist({
+        userId,
+        products: proId,
+      });
+      await newItem.save().then((doc) => {
         const wListLength = doc.length;
         res.json({ count: wListLength, exists: false });
       });
-    } else {
-      res.json({ exists: true });
     }
-  } else {
-    const newItem = new Wishlist({
-      userId,
-      products: proId,
-    });
-    await newItem.save().then((doc) => {
-      const wListLength = doc.length;
-      res.json({ count: wListLength, exists: false });
-    });
+  } catch (error) {
+    console.log(error.message);
+    next(error)
   }
 };
-const deleteAddress = async (req, res) => {
+const deleteAddress = async (req, res, next) => {
   try {
     console.log(req.query.id);
 
@@ -431,10 +519,12 @@ const deleteAddress = async (req, res) => {
     res.redirect("/userAddress");
   } catch (error) {
     console.log(error.message);
+    console.log(error.message);
+    next(error)
   }
 };
 
-const editAddress = async (req, res) => {
+const editAddress = async (req, res, next) => {
   try {
     console.log(req.query.id);
     await Address.findByIdAndUpdate(req.query.id, {
@@ -452,9 +542,11 @@ const editAddress = async (req, res) => {
     res.redirect('/userAddress')
   } catch (error) {
     console.log(error.message);
+    console.log(error.message);
+    next(error)
   }
 };
-const cancelOrder = async (req, res) => {
+const cancelOrder = async (req, res, next) => {
   try {
     console.log(req.query.id);
     const status = 'Canceled'
@@ -464,11 +556,13 @@ res.redirect('/userOrderManage')
 
   } catch (error) {
     console.log(error.message);
+    console.log(error.message);
+    next(error)
   }
 };
 
 
-const deleteWishlistItem = async(req, res)  =>{
+const deleteWishlistItem = async(req, res, next)  =>{
   console.log(`product id in ${req.query.id}`);
   try {
     await Wishlist.findOneAndUpdate({userId: req.session.user._id}, {$pull: {'products': req.query.id}}).then((doc )=>{
@@ -479,10 +573,12 @@ const deleteWishlistItem = async(req, res)  =>{
 
   } catch (error) {
     console.log('deleting wihslist error');
+    console.log(error.message);
+    next(error)
   }
 }
 
-const verifyPayement = async(req, res)  =>{
+const verifyPayement = async(req, res, next)  =>{
  
   try {
     let body=req.body.response.razorpay_order_id + "|" + req.body.response.razorpay_payment_id;
@@ -520,19 +616,23 @@ const verifyPayement = async(req, res)  =>{
 
   } catch (error) {
     console.log('deleting wihslist error');
+    console.log(error.message);
+    next(error)
   }
 }
 
-const loadOrderFailed = (req, res) =>{
+const loadOrderFailed = (req, res, next) =>{
   try {
     res.render('orderFailed')
 
 
   } catch (error) {
     console.log(error.message);
+    console.log(error.message);
+    next(error)
   }
 }
-const checkCoupon = async(req, res) =>{
+const checkCoupon = async(req, res, next) =>{
   try {
 console.log("getting here");
 
@@ -577,6 +677,8 @@ res.json({erro: true, errorMessage: "Promo Code is already Claimed"})
 
   } catch (error) {
     console.log(error.message);
+    console.log(error.message);
+    next(error)
   }
 }
 

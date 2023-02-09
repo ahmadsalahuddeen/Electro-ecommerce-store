@@ -192,7 +192,7 @@ const loadCartManage = async (req, res, next) => {
       "cart.items.product"
     );
     res.render("cartmanage", { user });
-  } catch (e) {
+  } catch (error) {
     console.log(error.message);
     next(error)
   }
@@ -257,7 +257,7 @@ const loadProductDetail = async (req, res, next) => {
     const user = await User.findById(req.session.user._id);
     const product = await Product.findById(req.query.id);
     res.render("productdetail", { product: product, user: user });
-  } catch (e) {
+  } catch (error) {
     console.log(error.message);
     next(error)
   }
@@ -271,7 +271,7 @@ const loadCheckout = async (req, res, next) => {
     );
     const product = await Product.findById(req.query.id);
     res.render("checkout", { product, user, address });
-  } catch (e) {
+  } catch (error) {
     console.log(`product detail load page: ${e.message}`);
     console.log(error.message);
     next(error)
@@ -292,7 +292,7 @@ const addAddress = async (req, res, next) => {
     } else {
       res.send("something wrong while addin address");
     }
-  } catch (e) {
+  } catch (error) {
     console.log(`product detail load page: ${e.message}`);
     console.log(error.message);
     next(error)
@@ -313,7 +313,7 @@ const addAddressProfile = async (req, res, next) => {
     } else {
       res.send("something wrong while addin address");
     }
-  } catch (e) {
+  } catch (error) {
     console.log(`product detail load page: ${e.message}`);
     console.log(error.message);
     next(error)
@@ -386,7 +386,7 @@ if (req.body.paymentMethod === 'cod') {
   
 }
 await Coupon.findOneAndUpdate({name: req.body.couponRedeme}, {$addToSet:{usedUsers: userId}})
-  } catch (e) {
+  } catch (error) {
     console.log(error.message);
     next(error)
   }
@@ -397,8 +397,8 @@ await Coupon.findOneAndUpdate({name: req.body.couponRedeme}, {$addToSet:{usedUse
 const loadOrderSuccess = async (req, res, next) => {
   try {
     res.render("ordersuccess");
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log(error);
     console.log(error.message);
     next(error)
   }
@@ -408,7 +408,7 @@ const loadUserProfile = async (req, res, next) => {
     const useer = await User.findOne({ _id: req.session.user._id });
     console.log(useer);
     res.render("userprofile", { user: useer });
-  } catch (e) {
+  } catch (error) {
     console.log(error.message);
     next(error)
   }
@@ -419,7 +419,7 @@ const updateProfile = async (req, res, next) => {
       name: req.body.name,
       mobile: req.body.mobile,
     }).then(res.redirect("/userProfile"));
-  } catch (e) {
+  } catch (error) {
     console.log(error.message);
     next(error)
   }
@@ -430,7 +430,7 @@ const loaduserAddress = async (req, res, next) => {
     Address.find({ user: req.session.user._id }).then((data) => {
       res.render("userAddress", { adrsdata: data, user: useer });
     });
-  } catch (e) {
+  } catch (error) {
     console.log(error.message);
     next(error)
   }
@@ -439,7 +439,7 @@ const signout = async (req, res, next) => {
   try {
    req.user.session.destroy()
 
-  } catch (e) {
+  } catch (error) {
     console.log(error.message);
     next(error)
   }
@@ -451,7 +451,7 @@ const laoduserOrderManage = async (req, res, next) => {
 
     
     res.render("userOrderManage", { orderData: orderData, user: useer });
-  } catch (e) {
+  } catch (error) {
     console.log(error.message);
     next(error)
   }
@@ -463,7 +463,7 @@ const loadwishlist = async (req, res, next) => {
     
 
     res.render("wishlist", { user: useer, wlData: wlData  });
-  } catch (e) {
+  } catch (error) {
     console.log(error.message);
     next(error)
   }

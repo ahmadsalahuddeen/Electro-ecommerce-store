@@ -147,9 +147,8 @@ const getInvoice = async (req, res, next) => {
   try {
     console.log(req.query.id);
 
-    let orderData = await Order.findById(req.query.id).populate(
-      "items.product"
-    );
+    let orderData = await Order.findById(req.query.id).populate("items.product");
+    console.log(orderData);
 
     res.render("invoice", { orderData });
   } catch (error) {

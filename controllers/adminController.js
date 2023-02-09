@@ -27,7 +27,7 @@ const loginValidate = async (req, res, next) => {
     if (email === adminEmail) {
       if (passoword === sadmimPassword) {
         req.session.admin = req.body.email;
-        res.redirect("/admin/adminhome");
+        res.redirect("/admin/home");
       } else {
         res.render("adminlogin", { message: "hi passoword" });
       }

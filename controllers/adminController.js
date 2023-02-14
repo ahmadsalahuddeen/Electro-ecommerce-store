@@ -264,7 +264,7 @@ const addProduct = async (req, res, next) => {
     if (productData) {
       res.redirect("/admin/productmanage");
     } else {
-      res.render("addproduct", { message: "something wrong wrong" });
+      res.render("addproduct", { message: "something wrongg wrong" });
     }
   } catch (error) {
     console.log(error.message);

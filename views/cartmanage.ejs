@@ -281,30 +281,7 @@
                
 
 
-                    <% if (user.cart.items.length=== 0) {%>
-                <div class="navbar-tool dropdown ms-3"><a class="navbar-tool-icon-box bg-secondary dropdown-toggle"
-                    href="/cartmanage"><span class="navbar-tool-label" id="cartLength">
-
-                      0
-                    </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
-                    href="/cartmanage"><small>My
-                      Cart</small> <span id="totalPrice"> ₹0</span> </a>
-                  <!-- Cart dropdown-->
-
-                </div>
-                <% } else {%>
-                  <div class="navbar-tool dropdown ms-3"><a class="navbar-tool-icon-box bg-secondary dropdown-toggle"
-                      href="/cartmanage"><span class="navbar-tool-label" id="cartLength">
-
-                        <%= user.cart.items.length %>
-                      </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
-                      href="/cartmanage"><small>My
-                        Cart</small> <span id="totalPrice"> ₹<%= user.cart.totalPrice %></span> </a>
-                    <!-- Cart dropdown-->
-
-                  </div>
-                  <%} %>
-
+                     
             </div>
           </div>
         </div>
@@ -316,14 +293,14 @@
                   class="ci-search position-absolute top-50 start-0 translate-middle-y text-muted fs-base ms-3"></i>
                 <input class="form-control rounded-start" type="text" placeholder="Search for products">
               </div>
-              <!-- Departments menu-->
+              <!-- Departments menu--> 
               
               <!-- Primary menu-->
               <ul class="navbar-nav">
                 <li class="nav-item active"><a class="nav-link" href="/home"
                     >Home</a>
                   
-                </li>
+                </li> 
                 <li class="nav-item "><a class="nav-link " href="/productlist"
                   
                     >Shop</a>

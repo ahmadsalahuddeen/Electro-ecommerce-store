@@ -310,8 +310,10 @@ const newOrder = async (req, res, next) => {
   try {
     const userId = req.session.user._id;
     const user = await User.findById(userId);
+
+
     let finalTotalPrice = user.cart.totalPrice - req.body.couponAmount;
-    console.log("reqbody datata:", req.body);
+
     if (req.body.paymentMethod === "cod") {
       const newOrderData = Order({
         user: userId,

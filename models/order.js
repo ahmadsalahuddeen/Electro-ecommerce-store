@@ -26,7 +26,7 @@ const orderSchema = new mongoose.Schema(
 
     address: {
       type: mongoose.Schema.Types.ObjectId,
-      refer: "Address",
+      ref: "Address",
     },
    
 

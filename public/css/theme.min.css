@@ -1936,6 +1936,15 @@ progress {
   /* overflow-x: auto; */
   -webkit-overflow-scrolling: touch;
 }
+.message-login{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-radius: 10px;
+  background: blanchedalmond;
+  padding: 1em 1em;
+  margin: 1em 0;
+}
 @media (max-width: 499.98px) {
   .table-responsive-sm {
     overflow-x: auto;

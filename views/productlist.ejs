@@ -247,7 +247,7 @@
               href="/productdetail?id=<%= product._id%>"><img style="width: 200px; object-fit: fill;" class="rounded"
                 src="<%= product.image[1] %>" alt="Product"></a>
             <div class="card-body py-2"><a class="product-meta d-block fs-xs pb-1" href="#">
-                <%= product.category %>
+                <%= product.category.name %>
               </a>
               <h3 class="product-title fs-sm"><a href="/productdetail?id=<%= product._id%>">
                   <%= product.name %>
@@ -299,107 +299,62 @@
     </div>
   </main>
   <!-- Footer--> 
-  <footer class="footer bg-dark pt-5">
-
-    <div class="pt-5 bg-darker">
-      <div class="container">
-        <div class="row pb-3">
-          <div class="col-md-3 col-sm-6 mb-4">
-            <div class="d-flex"><i class="ci-rocket text-primary" style="font-size: 2.25rem;"></i>
-              <div class="ps-3">
-                <h6 class="fs-base text-light mb-1">Fast and free delivery</h6>
-                <p class="mb-0 fs-ms text-light opacity-50">Free delivery for all orders over $200</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6 mb-4">
-            <div class="d-flex"><i class="ci-currency-exchange text-primary" style="font-size: 2.25rem;"></i>
-              <div class="ps-3">
-                <h6 class="fs-base text-light mb-1">Money back guarantee</h6>
-                <p class="mb-0 fs-ms text-light opacity-50">We return money within 30 days</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6 mb-4">
-            <div class="d-flex"><i class="ci-support text-primary" style="font-size: 2.25rem;"></i>
-              <div class="ps-3">
-                <h6 class="fs-base text-light mb-1">24/7 customer support</h6>
-                <p class="mb-0 fs-ms text-light opacity-50">Friendly 24/7 customer support</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6 mb-4">
-            <div class="d-flex"><i class="ci-card text-primary" style="font-size: 2.25rem;"></i>
-              <div class="ps-3">
-                <h6 class="fs-base text-light mb-1">Secure online payment</h6>
-                <p class="mb-0 fs-ms text-light opacity-50">We possess SSL / Secure сertificate</p>
-              </div>
+    
+    <footer class="footer bg-dark ">
+  
+  <div class="pt-5 bg-darker">
+    <div class="container">
+      <div class="row pb-3">
+        <div class="col-md-12 col-sm-12 mb-4">
+          <div class="d-flex justify-content-center"><i class="ci-lightning text-primary" style="font-size: 2.25rem;"></i>
+            <div class="ps-3">
+              <h6 class="fs-base text-light mb-1">Electro by <span class="text-primary">  <a href="https://github.com/ahmadsalahuddeen">@salahCodes</a> </span> </h6>
+              <h6  class="mb-0 fs-ms  font-monospace text-white   opacity-50">This project is build to practice and learn Backend in my journey of becoming a Full-stack developer (Mern (thinking about switching to svelt :-)), practiced Nodejs, Express, Mongodb, MVC pattern, RestAPI and many more. {note: 65% of userInterface(html, css, bootstrap) is obtained from a template. as my primary objective was to learn amd improve my Backend Skills (You can visit my <a href="https://github.com/ahmadsalahuddeen"><span class="text-success text-opacity-100">github</span></a>  to see my other Projects) } </h6>
             </div>
           </div>
         </div>
-        <hr class="hr-light mb-5">
-        <div class="row pb-2">
-          <div class="col-md-6 text-center text-md-start mb-4">
-            <div class="text-nowrap mb-4"><a class="d-inline-block align-middle mt-n1 me-3" href="#"><img
-                  class="d-block" src="../public/img/footer-logo-light.png" width="117" alt="Cartzilla"></a>
-              <div class="btn-group dropdown disable-autohide">
-                <button class="btn btn-outline-light border-light btn-sm dropdown-toggle px-2" type="button"
-                  data-bs-toggle="dropdown"><img class="me-2" src="../public/img/flags/en.png" width="20"
-                    alt="English">Eng / $</button>
-                <ul class="dropdown-menu my-1">
-                  <li class="dropdown-item">
-                    <select class="form-select form-select-sm">
-                      <option value="usd">$ USD</option>
-                      <option value="eur">€ EUR</option>
-                      <option value="ukp">£ UKP</option>
-                      <option value="jpy">¥ JPY</option>
-                    </select>
-                  </li>
-                  <li><a class="dropdown-item pb-1" href="#"><img class="me-2" src="../public/img/flags/fr.png"
-                        width="20" alt="Français">Français</a></li>
-                  <li><a class="dropdown-item pb-1" href="#"><img class="me-2" src="../public/img/flags/de.png"
-                        width="20" alt="Deutsch">Deutsch</a></li>
-                  <li><a class="dropdown-item" href="#"><img class="me-2" src="../public/img/flags/it.png" width="20"
-                        alt="Italiano">Italiano</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="widget widget-links widget-light">
-              <ul class="widget-list d-flex flex-wrap justify-content-center justify-content-md-start">
-                <li class="widget-list-item me-4"><a class="widget-list-link" href="#">Outlets</a></li>
-                <li class="widget-list-item me-4"><a class="widget-list-link" href="#">Affiliates</a></li>
-                <li class="widget-list-item me-4"><a class="widget-list-link" href="#">Support</a></li>
-                <li class="widget-list-item me-4"><a class="widget-list-link" href="#">Privacy</a></li>
-                <li class="widget-list-item me-4"><a class="widget-list-link" href="#">Terms of use</a></li>
-              </ul>
-            </div>
+        
+      <hr class="hr-light mb-5">
+      <div class="row pb-2">
+        <div class="col-md-6 text-center text-md-start mb-4">
+          <div class="text-nowrap rounded p-3 bg-white mb-4"><a class="d-inline-block align-middle mt-n1 me-3" href="#"><img class="d-block"
+                src="/img/electro-logo.png" width="117" alt="Cartzilla"></a>
+           
           </div>
-          <div class="col-md-6 text-center text-md-end mb-4">
-            <div class="mb-3"><a class="btn-social bs-light bs-twitter ms-2 mb-2" href="#"><i
-                  class="ci-twitter"></i></a><a class="btn-social bs-light bs-facebook ms-2 mb-2" href="#"><i
-                  class="ci-facebook"></i></a><a class="btn-social bs-light bs-instagram ms-2 mb-2" href="#"><i
-                  class="ci-instagram"></i></a><a class="btn-social bs-light bs-pinterest ms-2 mb-2" href="#"><i
-                  class="ci-pinterest"></i></a><a class="btn-social bs-light bs-youtube ms-2 mb-2" href="#"><i
-                  class="ci-youtube"></i></a></div><img class="d-inline-block" src="../public/img/cards-alt.png"
-              width="187" alt="Payment methods">
-          </div>
+          
         </div>
-        <div class="pb-4 fs-xs text-light opacity-50 text-center text-md-start">© All rights reserved. Made by <a
-            class="text-light" href="https://createx.studio/" target="_blank" rel="noopener">swalahCodes</a></div>
+        <div class="col-md-6 text-center text-md-end mb-4">
+          <div class="mb-3"><a class="btn-social bs-light bs-twitter ms-2 mb-2" href="https://twitter.com/salahuddeen6017"><i
+                class="ci-twitter"></i></a>
+                <a class="btn-social bs-light bs-instagram ms-2 mb-2" href="https://www.instagram.com/salahcodes/"><i
+                class="ci-instagram"></i></a>
+                <a class="btn-social bs-light bs-instagram ms-2 mb-2" href="https://github.com/ahmadsalahuddeen"><i
+                ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                </svg></i></a>
+                <a class="btn-social bs-light bs-youtube ms-2 mb-2" href="https://www.youtube.com/channel/UCOyK9QcS9N_Fn_2OVbuH7qQ"><i
+                class="ci-youtube"></i></a></div>
+               </div>
+        </div>
       </div>
+      <div class="pb-4 fs-xs text-light opacity-50 text-center text-md-start">© openSourced by <a
+          class="text-light" href="https://github.com/ahmadsalahuddeen" target="_blank" rel="noopener">ahmad salahuddeen (salahCodes)</a></div>
     </div>
-  </footer>
+  </div>
+ </footer>
   <!-- Toolbar for handheld devices (Default)-->
   <div class="handheld-toolbar">
     <div class="d-table table-layout-fixed w-100"><a class="d-table-cell handheld-toolbar-item"
-        href="account-wishlist.html"><span class="handheld-toolbar-icon"><i class="ci-heart"></i></span><span
-          class="handheld-toolbar-label">Wishlist</span></a><a class="d-table-cell handheld-toolbar-item"
+        href="/wishlist"><span class="handheld-toolbar-icon"><i class="ci-heart"></i></span><span
+          class="handheld-toolbar-label">Wishlist</span></a>
+          <a class="d-table-cell handheld-toolbar-item"
         href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
         onclick="window.scrollTo(0, 0)"><span class="handheld-toolbar-icon"><i class="ci-menu"></i></span><span
-          class="handheld-toolbar-label">Menu</span></a><a class="d-table-cell handheld-toolbar-item"
+          class="handheld-toolbar-label">Menu</span></a>
+          <a class="d-table-cell handheld-toolbar-item"
         href="/cartmanage"><span class="handheld-toolbar-icon"><i class="ci-cart"></i><span
             class="badge bg-primary rounded-pill ms-1">4</span></span><span
-          class="handheld-toolbar-label">$265.00</span></a></div>
+          class="handheld-toolbar-label"></span></a></div>
   </div>
   <!-- Back To Top Button--><a class="btn-scroll-top" href="#top" data-scroll><span
       class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span><i class="btn-scroll-top-icon ci-arrow-up">

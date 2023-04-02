@@ -124,7 +124,7 @@ const loginValidate = async (req, res, next) => {
 const loadHome = async (req, res, next) => {
   try {
     const BannerData = await Banner.find({});
-    const productData = await Product.find();
+    const productData = await Product.find().populate('category');
     const categoryData = await Category.find();
     if (req.session.isLoggedIn) {
       
@@ -172,11 +172,11 @@ const loadProductList = async (req, res, next) => {
     
 
 if (sort === '2') {
-  product = await Product.find().sort({'discount': -1}).skip(page * limit)
+  product = await Product.find().sort({'discount': -1}).skip(page * limit).populate('category')
   
 } else if(sort === '1') {
   
-  product = await Product.find().sort({'discount': 1}).skip(page * limit)
+  product = await Product.find().sort({'discount': 1}).skip(page * limit).populate('category')
 }else if (req.query.search) {
 
   let skey = req.query.search
@@ -189,17 +189,17 @@ if (sort === '2') {
         access: { $ne: false },
       },
     },
-  ]).skip(page * limit)
+  ]).skip(page * limit).populate('category')
 }else if (req.query.cat) {
   
 
 
 let catt = String(req.query.cat)
 
-  product = await Product.find({"category": catt}).skip(page * limit)
+  product = await Product.find({"category": catt}).skip(page * limit).populate('category')
   
 }else{
-  product = await Product.find().skip(page * limit)
+  product = await Product.find().skip(page * limit).populate('category')
 }
 
 
@@ -311,7 +311,7 @@ const loadProductDetail = async (req, res, next) => {
   try {
     const categoryData = await Category.find();
     const user = await User.findById(req.session.user._id);
-    const product = await Product.findById(req.query.id);
+    const product = await Product.findById(req.query.id).populate('category');
     res.render("productdetail", { product: product, user: user, categoryData });
   } catch (error) {
     console.log(error.message);
@@ -326,7 +326,7 @@ const loadCheckout = async (req, res, next) => {
     const user = await User.findById(req.session.user._id).populate(
       "cart.items.product"
     );
-    const product = await Product.findById(req.query.id);
+    const product = await Product.findById(req.query.id).populate('category');
     res.render("checkout", { product, user, address , categoryData});
   } catch (error) {
     console.log(`product detail load page: ${e.message}`);

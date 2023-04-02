@@ -130,9 +130,9 @@
                 alt="Cartzilla"></a>
 
             <div class="navbar-toolbar d-flex flex-shrink-0 align-items-center">
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              <button class="navbar-toggler " type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarCollapse"><span class="navbar-toggler-icon"></span></button><a
-                class="navbar-tool navbar-stuck-toggler" href="#"><span class="navbar-tool-tooltip">Expand menu</span>
+                class="navbar-tool  navbar-stuck-toggler" href="#"><span class="navbar-tool-tooltip">Expand menu</span>
                 <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-menu"></i></div>
               </a>
               <div class="input-group d-none d-lg-flex flex-nowrap mx-4"><i class="ci-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
@@ -306,7 +306,7 @@
       <!-- Heading-->
       <div class="d-flex flex-wrap justify-content-between align-items-center pt-1 border-bottom pb-4 mb-4">
         <h2 class="h3 mb-0 pt-3 me-2">Trending products</h2>
-        <div class="pt-3"><a class="btn btn-outline-accent btn-sm" href="shop-grid-ls.html">More products<i
+        <div class="pt-3"><a class="btn btn-outline-accent btn-sm" href="shop-grid-ls.html">View All Products<i
               class="ci-arrow-right ms-1 me-n1"></i></a></div>
       </div>
       <!-- Grid-->
@@ -321,7 +321,7 @@
                 href="/productdetail?id=<%= product._id%>"><img style="width: 200px; object-fit: fill;" class="rounded"
                   src="<%= product.image[1] %>" alt="Product"></a>
               <div class="card-body py-2"><a class="product-meta d-block fs-xs pb-1" href="#">
-                  <%= product.category %>
+                  <%= product.category.name %>
                 </a>
                 <h3 class="product-title fs-sm"><a href="/productdetail?id=<%= product._id%>">
                     <%= product.name %>
@@ -348,28 +348,23 @@
 
       </div>
     </section>
+
     <!-- Promo banner-->
+    <% if (BannerData.length >= 4) {
+      
+    } %>
     <section class="container mt-4 mb-grid-gutter">
       <div class="bg-faded-info rounded-3 py-4">
         <div class="row align-items-center">
           <div class="col-md-5">
             <div class="px-4 pe-sm-0 ps-sm-5"><span class="badge bg-danger">Limited Offer</span>
               <h3 class="mt-4 mb-1 text-body fw-light">All new</h3>
-              <h2 class="mb-1">Last Gen iPad Pro</h2>
+              <h2 class="mb-1"><%= BannerData[3].title %></h2>
               <p class="h5 text-body fw-light">at discounted price. Hurry up!</p>
-              <div class="countdown py-2 h4" data-countdown="07/01/2023 07:00:00 PM">
-                <div class="countdown-days"><span class="countdown-value"></span><span
-                    class="countdown-label text-muted">d</span></div>
-                <div class="countdown-hours"><span class="countdown-value"></span><span
-                    class="countdown-label text-muted">h</span></div>
-                <div class="countdown-minutes"><span class="countdown-value"></span><span
-                    class="countdown-label text-muted">m</span></div>
-                <div class="countdown-seconds"><span class="countdown-value"></span><span
-                    class="countdown-label text-muted">s</span></div>
-              </div><a class="btn btn-accent" href="#">View offers<i class="ci-arrow-right fs-ms ms-1"></i></a>
+              <a class="btn btn-accent" href="/productlist">See more<i class="ci-arrow-right fs-ms ms-1"></i></a>
             </div>
           </div>
-          <div class="col-md-7"><img src="img/home/banners/offer.jpg" alt="iPad Pro Offer"></div>
+          <div class="col-md-7 pe-5 "><img class="rounded-5" src="<%= BannerData[3].image %>" alt="iPad Pro Offer"></div>
         </div>
       </div>
     </section>
@@ -397,64 +392,13 @@
         </div>
       </div>
     </section>
-    <!-- Product widgets-->
 
-    <!-- YouTube feed-->
-    <section class="container pb-5 mb-md-3">
-      <div class="border rounded-3 p-3">
-        <div class="row">
-          <div class="col-md-4 mb-3 mb-md-0">
-            <div class="bg-secondary p-5 text-center"><img class="d-block mb-4 mx-auto" src="img/home/yt-logo.png"
-                width="120" alt="YouTube">
-              <div class="d-flex justify-content-center align-items-center mb-4"><img class="me-2"
-                  src="img/home/yt-subscribers.png" width="126" alt="YouTube Subscribers"><span
-                  class="fs-sm">250k+</span></div><a class="btn btn-primary border-0 btn-sm mb-3" href="#"
-                style="background-color: #ff0000;"><i class="ci-add-user me-2"></i>Subscribe*</a>
-              <p class="fs-sm mb-0">*View latest gadgets reviews available for purchase in our store.</p>
-            </div>
-          </div>
-          <div class="col-md-8">
-            <div class="d-flex flex-wrap justify-content-between align-items-center pt-3 pb-2">
-              <h2 class="h4 mb-3">Latest videos from Cartzilla channel</h2><a class="btn btn-outline-accent btn-sm mb-3"
-                href="#">More videos<i class="ci-arrow-right fs-xs ms-1 me-n1"></i></a>
-            </div>
-            <div class="row g-0">
-              <div class="col-lg-4 col-6 mb-3"><a class="d-block text-decoration-0 px-2"
-                  href="https://www.youtube.com/embed/vS93u75NnPo" data-bs-toggle="video">
-                  <div class="position-relative mb-2"><span
-                      class="badge bg-dark position-absolute bottom-0 end-0 mb-2 me-2">6:16</span><img class="w-100"
-                      src="img/home/video/cover01.jpg" alt="Video cover"></div>
-                  <h6 class="fs-sm pt-1">5 New Cool Gadgets You Must See on Cartzilla - Cheap Budget</h6>
-                </a></div>
-              <div class="col-lg-4 col-6 mb-3"><a class="d-block text-decoration-0 px-2"
-                  href="https://www.youtube.com/embed/B6LaYgGogf0" data-bs-toggle="video">
-                  <div class="position-relative mb-2"><span
-                      class="badge bg-dark position-absolute bottom-0 end-0 mb-2 me-2">7:27</span><img class="w-100"
-                      src="img/home/video/cover02.jpg" alt="Video cover"></div>
-                  <h6 class="fs-sm pt-1">5 Super Useful Gadgets on Cartzilla You Must Have in 2020</h6>
-                </a></div>
-              <div class="col-lg-4 col-6 mb-3"><a class="d-block text-decoration-0 px-2"
-                  href="https://www.youtube.com/embed/kB-ROfRS9V4" data-bs-toggle="video">
-                  <div class="position-relative mb-2"><span
-                      class="badge bg-dark position-absolute bottom-0 end-0 mb-2 me-2">6:20</span><img class="w-100"
-                      src="img/home/video/cover03.jpg" alt="Video cover"></div>
-                  <h6 class="fs-sm pt-1">Top 5 New Amazing Gadgets on Cartzilla You Must See</h6>
-                </a></div>
-              <div class="col-lg-4 col-6 mb-3 d-lg-none"><a class="d-block text-decoration-0 px-2"
-                  href="https://www.youtube.com/embed/sJK67XXE_Rg" data-bs-toggle="video">
-                  <div class="position-relative mb-2"><span
-                      class="badge bg-dark position-absolute bottom-0 end-0 mb-2 me-2">6:11</span><img class="w-100"
-                      src="img/home/video/cover04.jpg" alt="Video cover"></div>
-                  <h6 class="fs-sm fw-bold pt-1">5 Amazing Construction Inventions and Working Tools Available...</h6>
-                </a></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+
+    
  
     <!-- Footer-->
   </main>
+    
     <footer class="footer bg-dark ">
   
   <div class="pt-5 bg-darker">
@@ -463,8 +407,8 @@
         <div class="col-md-12 col-sm-12 mb-4">
           <div class="d-flex justify-content-center"><i class="ci-lightning text-primary" style="font-size: 2.25rem;"></i>
             <div class="ps-3">
-              <h6 class="fs-base text-light mb-1">Electro by <span class="text-primary"><a href="">@salahCodes</a> </span> </h6>
-              <h6  class="mb-0 fs-ms  font-monospace text-white   opacity-50">This project is build to practice and learn Backend in my journey of becoming a Full-stack developer (Mern (thinking about switching to svelt :-)), practiced Nodejs, Express, Mongodb, MVC pattern, RestAPI and many more. {note: 65% of userInterface(html, css, bootstrap) is obtained from a template. as my primary objective was to learn amd improve my Backend Skills (You can visit my <a href=""><span class="text-success text-opacity-100">github</span></a>  to see my other Projects) } </h6>
+              <h6 class="fs-base text-light mb-1">Electro by <span class="text-primary">  <a href="https://github.com/ahmadsalahuddeen">@salahCodes</a> </span> </h6>
+              <h6  class="mb-0 fs-ms  font-monospace text-white   opacity-50">This project is build to practice and learn Backend in my journey of becoming a Full-stack developer (Mern (thinking about switching to svelt :-)), practiced Nodejs, Express, Mongodb, MVC pattern, RestAPI and many more. {note: 65% of userInterface(html, css, bootstrap) is obtained from a template. as my primary objective was to learn amd improve my Backend Skills (You can visit my <a href="https://github.com/ahmadsalahuddeen"><span class="text-success text-opacity-100">github</span></a>  to see my other Projects) } </h6>
             </div>
           </div>
         </div>
@@ -483,32 +427,36 @@
                 class="ci-twitter"></i></a>
                 <a class="btn-social bs-light bs-instagram ms-2 mb-2" href="https://www.instagram.com/salahcodes/"><i
                 class="ci-instagram"></i></a>
+                <a class="btn-social bs-light bs-instagram ms-2 mb-2" href="https://github.com/ahmadsalahuddeen"><i
+                ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                </svg></i></a>
                 <a class="btn-social bs-light bs-youtube ms-2 mb-2" href="https://www.youtube.com/channel/UCOyK9QcS9N_Fn_2OVbuH7qQ"><i
                 class="ci-youtube"></i></a></div>
+               </div>
         </div>
       </div>
       <div class="pb-4 fs-xs text-light opacity-50 text-center text-md-start">© openSourced by <a
           class="text-light" href="https://github.com/ahmadsalahuddeen" target="_blank" rel="noopener">ahmad salahuddeen (salahCodes)</a></div>
     </div>
   </div>
-
-
-
-
-
-  </footer>
+ </footer>
   <!-- Toolbar for handheld devices (Default)-->
   <div class="handheld-toolbar">
     <div class="d-table table-layout-fixed w-100"><a class="d-table-cell handheld-toolbar-item"
-        href="account-wishlist.html"><span class="handheld-toolbar-icon"><i class="ci-heart"></i></span><span
-          class="handheld-toolbar-label">Wishlist</span></a><a class="d-table-cell handheld-toolbar-item"
+        href="/wishlist"><span class="handheld-toolbar-icon"><i class="ci-heart"></i></span><span
+          class="handheld-toolbar-label">Wishlist</span></a>
+          <a class="d-table-cell handheld-toolbar-item"
         href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
         onclick="window.scrollTo(0, 0)"><span class="handheld-toolbar-icon"><i class="ci-menu"></i></span><span
-          class="handheld-toolbar-label">Menu</span></a><a class="d-table-cell handheld-toolbar-item"
-        href="shop-cart.html"><span class="handheld-toolbar-icon"><i class="ci-cart"></i><span
+          class="handheld-toolbar-label">Menu</span></a>
+          <a class="d-table-cell handheld-toolbar-item"
+        href="/cartmanage"><span class="handheld-toolbar-icon"><i class="ci-cart"></i><span
             class="badge bg-primary rounded-pill ms-1">4</span></span><span
-          class="handheld-toolbar-label">$265.00</span></a></div>
+          class="handheld-toolbar-label"></span></a></div>
   </div>
+
+
   <!-- Back To Top Button--><a class="btn-scroll-top" href="#top" data-scroll><span
       class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span><i class="btn-scroll-top-icon ci-arrow-up">
     </i></a>

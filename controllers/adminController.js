@@ -87,7 +87,7 @@ const loadProductManage = async (req, res, next) => {
 const loadAddProductPage = async (req, res, next) => {
   try {
     const category = await Category.find();
-    const product = await Product.find();
+    const product = await Product.find().populate('category');
     res.render("addproduct", { product, category });
   } catch (error) {
     console.log(error.message);
@@ -100,7 +100,7 @@ const loadEditProductPage = async (req, res, next) => {
   try {
     const id = req.query.id;
     const category = await Category.find();
-    const product = await Product.findById({ _id: id });
+    const product = await Product.findById({ _id: id }).populate('category');
     console.log(product.name);
 
     res.render("editproduct", { product, category });

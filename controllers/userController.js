@@ -162,27 +162,44 @@ const loadProductList = async (req, res, next) => {
   try {
     const page = parseInt( req.query.page) -1 || 0;
     const limit = parseInt(req.query.limit) || 5;
-    const search = req.query.search || "" ;
-    let sort = req.query.sort || '1';
-    let cat = req.query.cat || 'all';
+
+    let sort = req.query.sort || 'sort'
 
 
-const categoryData = await Category.find()
 
+    const categoryData = await Category.find()
+    let product;
+    
 
-let product;
-
-if (cat === 'all') {
+if (sort === '2') {
+  product = await Product.find().sort({'discount': -1}).skip(page * limit)
   
-  sort === '2'
-  ? product = await Product.find({name: {$regex: search, $options: 'i'}}).sort({"discount": -1}).skip(page * limit)
-  : product = await Product.find({name: {$regex: search, $options: 'i'}}).sort({"discount": 1}).skip(page * limit)
-      
-} else {
-  sort === '1'
-  ? product = await Product.find({name: {$regex: search, $options: 'i'}}).where('category').equals(req.query.cat._id).sort({"discount": 1}).skip(page * limit)
-  : product = await Product.find({name: {$regex: search, $options: 'i'}}).where('category').equals(req.query.cat._id).sort({"discount": -1}).skip(page * limit)
-   
+} else if(sort === '1') {
+  
+  product = await Product.find().sort({'discount': 1}).skip(page * limit)
+}else if (req.query.search) {
+
+  let skey = req.query.search
+  let regex = new RegExp("^" + skey + ".*", "i");
+
+  product = await Product.aggregate([
+    {
+      $match: {
+        $or: [{ name: regex }, { description: regex }, { brand: regex }],
+        access: { $ne: false },
+      },
+    },
+  ]).skip(page * limit)
+}else if (req.query.cat) {
+  
+
+
+let catt = String(req.query.cat)
+
+  product = await Product.find({"category": catt}).skip(page * limit)
+  
+}else{
+  product = await Product.find().skip(page * limit)
 }
 
 
@@ -226,10 +243,12 @@ const addToCart = async (req, res, next) => {
 
 const loadCartManage = async (req, res, next) => {
   try {
+    const categoryData = await Category.find();
+    
     const user = await User.findById(req.session.user).populate(
       "cart.items.product"
     );
-    res.render("cartmanage", { user });
+    res.render("cartmanage", { user, categoryData });
   } catch (error) {
     console.log(error.message);
     next(error);
@@ -290,9 +309,10 @@ const qtyChange = async (req, res, next) => {
 
 const loadProductDetail = async (req, res, next) => {
   try {
+    const categoryData = await Category.find();
     const user = await User.findById(req.session.user._id);
     const product = await Product.findById(req.query.id);
-    res.render("productdetail", { product: product, user: user });
+    res.render("productdetail", { product: product, user: user, categoryData });
   } catch (error) {
     console.log(error.message);
     next(error);
@@ -300,13 +320,14 @@ const loadProductDetail = async (req, res, next) => {
 };
 const loadCheckout = async (req, res, next) => {
   try {
+    const categoryData = await Category.find();
     const address = await Address.find({ user: req.session.user._id });
 
     const user = await User.findById(req.session.user._id).populate(
       "cart.items.product"
     );
     const product = await Product.findById(req.query.id);
-    res.render("checkout", { product, user, address });
+    res.render("checkout", { product, user, address , categoryData});
   } catch (error) {
     console.log(`product detail load page: ${e.message}`);
     console.log(error.message);
@@ -434,7 +455,8 @@ const newOrder = async (req, res, next) => {
 
 const loadOrderSuccess = async (req, res, next) => {
   try {
-    res.render("ordersuccess");
+    const categoryData = await Category.find();
+    res.render("ordersuccess",{categoryData});
   } catch (error) {
     console.log(error);
     console.log(error.message);
@@ -443,9 +465,10 @@ const loadOrderSuccess = async (req, res, next) => {
 };
 const loadUserProfile = async (req, res, next) => {
   try {
+    const categoryData = await Category.find();
     const useer = await User.findOne({ _id: req.session.user._id });
     console.log(useer);
-    res.render("userprofile", { user: useer });
+    res.render("userprofile", { user: useer , categoryData});
   } catch (error) {
     console.log(error.message);
     next(error);
@@ -464,9 +487,10 @@ const updateProfile = async (req, res, next) => {
 };
 const loaduserAddress = async (req, res, next) => {
   try {
+    const categoryData = await Category.find();
     const useer = await User.findById(req.session.user._id);
     Address.find({ user: req.session.user._id }).then((data) => {
-      res.render("userAddress", { adrsdata: data, user: useer });
+      res.render("userAddress", { adrsdata: data, categoryData, user: useer });
     });
   } catch (error) {
     console.log(error.message);
@@ -483,12 +507,13 @@ const signout = async (req, res, next) => {
 };
 const laoduserOrderManage = async (req, res, next) => {
   try {
+    const categoryData = await Category.find();
     const useer = await User.findById(req.session.user._id);
     const orderData = await Order.find({ user: req.session.user._id }).populate(
       "items.product"
     );
 
-    res.render("userOrderManage", { orderData: orderData, user: useer });
+    res.render("userOrderManage", { orderData: orderData, categoryData, user: useer });
   } catch (error) {
     console.log(error.message);
     next(error);
@@ -496,6 +521,7 @@ const laoduserOrderManage = async (req, res, next) => {
 };
 const loadwishlist = async (req, res, next) => {
   try {
+    const categoryData = await Category.find();
     if (req.session.isLoggedIn) {
       
       const useer = await User.findById(req.session.user._id);
@@ -503,7 +529,7 @@ const loadwishlist = async (req, res, next) => {
         userId: req.session.user._id,
       }).populate("products");
   
-      res.render("wishlist", { user: useer, wlData: wlData });
+      res.render("wishlist", { user: useer, wlData: wlData, categoryData });
     } else {
       res.redirect('/register')
     }
@@ -664,11 +690,12 @@ const verifyPayement = async (req, res, next) => {
     console.log(error.message);
     next(error);
   }
-};
+}; 
 
-const loadOrderFailed = (req, res, next) => {
+const loadOrderFailed = async(req, res, next) => {
   try {
-    res.render("orderFailed");
+    const categoryData = await Category.find();
+    res.render("orderFailed",{categoryData});
   } catch (error) {
     console.log(error.message);
     console.log(error.message);

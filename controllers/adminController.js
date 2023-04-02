@@ -75,7 +75,7 @@ const loadEditcategory = async (req, res, next) => {
 };
 const loadProductManage = async (req, res, next) => {
   try {
-    const product = await Product.find({});
+    const product = await Product.find().populate('category');
     res.render("productmanage", { product });
   } catch (error) {
     console.log(error.message);

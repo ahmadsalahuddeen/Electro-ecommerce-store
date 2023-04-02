@@ -50,7 +50,7 @@
 
   <main class="page-wrapper">
     <!-- Quick View Modal-->
-    
+
     <!-- Navbar 3 Level (Light)-->
     <header class="shadow-sm">
       <!-- Topbar-->
@@ -69,105 +69,119 @@
                 class="navbar-tool navbar-stuck-toggler" href="#"><span class="navbar-tool-tooltip">Expand menu</span>
                 <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-menu"></i></div>
               </a>
-              <div class="input-group d-none d-lg-flex flex-nowrap mx-4"><i class="ci-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-                <input class="form-control rounded-start w-100" type="text" placeholder="Search for products">
-                <select onchange="categoryFilter(this.value)" class="form-select flex-shrink-0" style="width: 10.5rem;">
-                  <option value="all">Select Categories</option>
-                  <% categoryData.forEach(element => { %>
-                    <option value="<%= element %>"><%= element.name %></option>
+
+              <form action="/productlist" method="get">
+                <div class="input-group d-none d-lg-flex flex-nowrap mx-4"><i
+                    class="ci-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+
+                  <input name="search" class="form-control rounded-start w-100" type="text"
+                    placeholder="Search for products">
+              </form>
+
+
+              <select onchange="categoryFilter(this.value)" class="form-select flex-shrink-0" style="width: 10.5rem;">
+                <option>Select Categories</option>
+                <% categoryData.forEach(element=> { %>
+                  <option value="<%= element._id %>">
+                    <%= element.name %>
+                  </option>
                   <% }); %>
-                </select>
+              </select>
+            </div>
+
+          </div>
+          <a class="navbar-tool d-none d-lg-flex" href="/wishlist"><span class="navbar-tool-tooltip">Wishlist</span>
+            <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-heart"></i></div>
+          </a>
+          </a>
+
+          </a>
+          <% if (isUserLogged) {%>
+            <a class=" bg-faded-dark rounded-3 navbar-tool px-4 d-none d-lg-flex" href="/userProfile"><span
+                class="navbar-tool-tooltip">Profile</span><span class="">
+                <%= user.name %>
+              </span>
+              <div class="navbar-tool-icon-box">
+                <i class="navbar-tool-icon ci-user "></i>
+
               </div>
-              <a class="navbar-tool d-none d-lg-flex" href="/wishlist"><span class="navbar-tool-tooltip">Wishlist</span>
-                <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-heart"></i></div>
-              </a>
-              </a>
+            </a>
 
-              </a>
-              <% if (isUserLogged) {%>
-              <a class=" bg-faded-dark rounded-3 navbar-tool px-4 d-none d-lg-flex" href="/userProfile"><span
-                  class="navbar-tool-tooltip">Profile</span><span class=""><%= user.name %></span>
-                <div class="navbar-tool-icon-box">
-                  <i class="navbar-tool-icon ci-user "></i>
+            <% if (user.cart.items.length===0) {%>
+              <div class="navbar-tool  ms-3"><a class="navbar-tool-icon-box bg-secondary " href="/cartmanage"><span
+                    class="navbar-tool-label" id="cartLength">
 
-                </div>
-              </a>
-
-                <% if (user.cart.items.length=== 0) {%>
-                  <div class="navbar-tool  ms-3"><a class="navbar-tool-icon-box bg-secondary "
-                      href="/cartmanage"><span class="navbar-tool-label" id="cartLength">
-  
-                        0
-                      </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
-                      href="/cartmanage"><small>My
-                        Cart</small> <span id="totalPrice"> ₹0</span> </a>
-                    <!-- Cart dropdown-->
-  
-                  </div>
-                  <% } else {%>
-                    <div class="navbar-tool  ms-3"><a class="navbar-tool-icon-box bg-secondary "
-                        href="/cartmanage"><span class="navbar-tool-label" id="cartLength">
-  
-                          <%= user.cart.items.length %>
-                        </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
-                        href="/cartmanage"><small>My
-                          Cart</small> <span id="totalPrice"> ₹<%= user.cart.totalPrice %></span> </a>
-                      <!-- Cart dropdown-->
-  
-                    </div>
-                    <%} %>
-                
-               <%} else {%>
-                <a class=" bg-faded-dark rounded-3 navbar-tool px-4 d-none d-lg-flex" href="/userProfile"><span
-                  class="navbar-tool-tooltip">Profile</span><span class="text-dark">Login</span>
-                <div class="navbar-tool-icon-box">
-                  <i class="navbar-tool-icon ci-user "></i>
-
-                </div>
-              </a>
-                <div class="navbar-tool  ms-3"><a class="navbar-tool-icon-box bg-secondary "
-                  href="/register"><span class="navbar-tool-label" id="cartLength">
-  
-                    ∞
+                    0
                   </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
-                  href="/register"> </a>
+                  href="/cartmanage"><small>My
+                    Cart</small> <span id="totalPrice"> ₹0</span> </a>
                 <!-- Cart dropdown-->
-  
+
               </div>
-                 <% } %>
+              <% } else {%>
+                <div class="navbar-tool  ms-3"><a class="navbar-tool-icon-box bg-secondary " href="/cartmanage"><span
+                      class="navbar-tool-label" id="cartLength">
+
+                      <%= user.cart.items.length %>
+                    </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
+                    href="/cartmanage"><small>My
+                      Cart</small> <span id="totalPrice"> ₹<%= user.cart.totalPrice %></span> </a>
+                  <!-- Cart dropdown-->
+
+                </div>
+                <%} %>
+
+                  <%} else {%>
+                    <a class=" bg-faded-dark rounded-3 navbar-tool px-4 d-none d-lg-flex" href="/userProfile"><span
+                        class="navbar-tool-tooltip">Profile</span><span class="text-dark">Login</span>
+                      <div class="navbar-tool-icon-box">
+                        <i class="navbar-tool-icon ci-user "></i>
+
+                      </div>
+                    </a>
+                    <div class="navbar-tool  ms-3"><a class="navbar-tool-icon-box bg-secondary " href="/register"><span
+                          class="navbar-tool-label" id="cartLength">
+
+                          ∞
+                        </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text" href="/register">
+                      </a>
+                      <!-- Cart dropdown-->
+
+                    </div>
+                    <% } %>
 
 
-            </div>
+        </div>
+      </div>
+      </div>
+      <div class="navbar navbar-expand-lg navbar-light navbar-stuck-menu mt-n2 pt-0 pb-2">
+        <div class="container">
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <!-- Search-->
+
+            <!-- Departments menu-->
+
+            <!-- Primary menu-->
+            <ul class="navbar-nav">
+              <li class="nav-item active"><a class="nav-link" href="/home">Home</a>
+
+              </li>
+              <li class="nav-item "><a class="nav-link " href="/productlist">Shop</a>
+                ,
+              </li>
+              <li class="nav-item dropdown"><a class="nav-link " href="/userProfile"
+                  data-bs-auto-close="outside">Account</a>
+
+              </li>
+              <li class="nav-item dropdown"><a class="nav-link " href="/wishlist"
+                  data-bs-auto-close="outside">Wishlist</a>
+
+              </li>
+
+            </ul>
           </div>
         </div>
-        <div class="navbar navbar-expand-lg navbar-light navbar-stuck-menu mt-n2 pt-0 pb-2">
-          <div class="container">
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-              <!-- Search-->
-               
-              <!-- Departments menu-->
-
-              <!-- Primary menu-->
-              <ul class="navbar-nav">
-                <li class="nav-item active"><a class="nav-link" href="/home">Home</a>
-
-                </li>
-                <li class="nav-item "><a class="nav-link " href="/productlist">Shop</a>
-                  ,
-                </li>
-                <li class="nav-item dropdown"><a class="nav-link " href="/userProfile"
-                    data-bs-auto-close="outside">Account</a>
-
-                </li>
-                <li class="nav-item dropdown"><a class="nav-link " href="/wishlist"
-                    data-bs-auto-close="outside">Wishlist</a>
-
-                </li>
-
-              </ul>
-            </div>
-          </div>
-        </div>
+      </div>
       </div>
     </header>
     <!-- Page Title (Shop Alt)-->
@@ -182,7 +196,7 @@
                 </li>
                 <li class="breadcrumb-item text-nowrap"><a href="#">Shop</a>
                 </li>
-                
+
               </ol>
             </nav>
           </div>
@@ -199,7 +213,7 @@
           <div class="dropdown me-2">
             <div class="input-group">
 
-           
+
               <select onchange="sortFilter(this.value)" name="sort" class="form-select">
                 <option value="1">Sort Price </option>
                 <option value="1">Low to high</option>
@@ -207,13 +221,13 @@
 
               </select>
             </div>
-            </div>
-         
-          
-         
+          </div>
+
+
+
         </div>
         <!-- Toolbar with expandable filters-->
-       
+
       </div>
     </div>
     <!-- Products grid-->
@@ -227,9 +241,9 @@
       <% product.forEach((product, i)=> { %>
         <div class="col-lg-3 col-md-4 col-sm-6 px-2 mb-4">
           <div class="card product-card">
-            <button onclick="addToWishlist('<%= product._id %>')" class="btn-wishlist btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="left"
-              title="Add to wishlist"><i class="ci-heart"></i></button><a
-              class="d-flex justify-content-center card-img-topoverflow-hidden"
+            <button onclick="addToWishlist('<%= product._id %>')" class="btn-wishlist btn-sm" type="button"
+              data-bs-toggle="tooltip" data-bs-placement="left" title="Add to wishlist"><i
+                class="ci-heart"></i></button><a class="d-flex justify-content-center card-img-topoverflow-hidden"
               href="/productdetail?id=<%= product._id%>"><img style="width: 200px; object-fit: fill;" class="rounded"
                 src="<%= product.image[1] %>" alt="Product"></a>
             <div class="card-body py-2"><a class="product-meta d-block fs-xs pb-1" href="#">
@@ -250,7 +264,7 @@
               <button onclick="addToCart('<%=product._id %>')" class="btn btn-primary btn-sm d-block w-100 mb-2"
                 type="submit"><i class="ci-cart fs-sm me-1"></i>Add to Cart</button>
 
-             
+
             </div>
           </div>
           <hr class="d-sm-none">
@@ -284,7 +298,7 @@
     </nav>
     </div>
   </main>
-  <!-- Footer-->
+  <!-- Footer--> 
   <footer class="footer bg-dark pt-5">
 
     <div class="pt-5 bg-darker">
@@ -399,21 +413,12 @@
   <script src="vendor/drift-zoom/dist/Drift.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-  
+
   <!-- Main theme script-->
   <script src="js/theme.min.js"></script>
   <script>
 
-const sortFilter = (value)=>{
-  console.log(value);
-
-window.location.href = `/productlist?sort=${value}`
-}
-const categoryFilter = (value)=>{
-  console.log(value);
-
-window.location.href = `/productlist?cat=${value}`
-}
+ 
     const addToCart = (productId) => {
       console.log("kdfhsdkfhsldfhskdj", productId);
       $.ajax({
@@ -440,56 +445,56 @@ window.location.href = `/productlist?cat=${value}`
 
       })
     }
-    const  toastMixin = Swal.mixin({
-    toast: true,
-    icon: 'success',
-    title: 'General Title',
-    animation: false,
-    position: 'top-right',
-    showConfirmButton: false,
-    timer: 1500,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-  });
-
-
-const addToWishlist = (productId)=>{
-  
-$.ajax(
-  {
-    url: `/addToWishlist?id=${productId}`,
-    method: 'POST',
-    success:(res)=>{
-     
-      if (res.exists) {
-        toastMixin.fire({
-    title: 'Product is Already in Wishlist',
-    icon: 'warning',
-    iconColor:'#fff',
-    color:'#fff',
-    background: '#cc3300',
-  });
-      } else {
-        toastMixin.fire({
-          title: "product added to Wishlist🌟",
-          icon: 'success',
-    iconColor:'#fff',
-    color:'#fff',
-    
-          background: '#228B22',
-        })
+    const toastMixin = Swal.mixin({
+      toast: true,
+      icon: 'success',
+      title: 'General Title',
+      animation: false,
+      position: 'top-right',
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
       }
-      
-    }
-  }
-)
-}
-      
+    });
 
-    </script>
+
+    const addToWishlist = (productId) => {
+
+      $.ajax(
+        {
+          url: `/addToWishlist?id=${productId}`,
+          method: 'POST',
+          success: (res) => {
+
+            if (res.exists) {
+              toastMixin.fire({
+                title: 'Product is Already in Wishlist',
+                icon: 'warning',
+                iconColor: '#fff',
+                color: '#fff',
+                background: '#cc3300',
+              });
+            } else {
+              toastMixin.fire({
+                title: "product added to Wishlist🌟",
+                icon: 'success',
+                iconColor: '#fff',
+                color: '#fff',
+
+                background: '#228B22',
+              })
+            }
+
+          }
+        }
+      )
+    }
+
+
+  </script>
   <script src="js/search.js"></script>
 </body>
 

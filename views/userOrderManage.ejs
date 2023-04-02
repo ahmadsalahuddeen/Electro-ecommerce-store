@@ -135,106 +135,111 @@
         <div class="navbar navbar-expand-lg navbar-light">
           <div class="container"><a class="navbar-brand d-none d-sm-block flex-shrink-0" href="/home"><img
                 src="/img/electro-logo.png" width="142" alt="/img/electro-logo.png"></a><a
-              class="navbar-brand d-sm-none flex-shrink-0 me-2" href="/home"><img src="/img/electro-logo.png"
-                width="74" alt="Cartzilla"></a>
-            
+              class="navbar-brand d-sm-none flex-shrink-0 me-2" href="/home"><img src="/img/electro-logo.png" width="74"
+                alt="Cartzilla"></a>
+
             <div class="navbar-toolbar d-flex flex-shrink-0 align-items-center">
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarCollapse"><span class="navbar-toggler-icon"></span></button><a
                 class="navbar-tool navbar-stuck-toggler" href="#"><span class="navbar-tool-tooltip">Expand menu</span>
                 <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-menu"></i></div>
               </a>
-              <div class="input-group d-none d-lg-flex flex-nowrap mx-4"><i class="ci-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-                <input class="form-control rounded-start w-100" type="text" placeholder="Search for products">
-              </div>
-            <a class="navbar-tool d-none d-lg-flex" href="/wishlist"><span
-                  class="navbar-tool-tooltip">Wishlist</span>
-                <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-heart"></i></div>
-              </a>
-              </a>
-              
-            </a><a class="navbar-tool d-none d-lg-flex" href="/userProfile"><span
-              class="navbar-tool-tooltip">Profile</span>
-            <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-user"></i></div>
+
+              <form action="/productlist" method="get">
+                <div class="input-group d-none d-lg-flex flex-nowrap mx-4"><i
+                    class="ci-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+
+                  <input name="search" class="form-control rounded-start w-100" type="text"
+                    placeholder="Search for products">
+              </form>
+
+
+              <select onchange="categoryFilter(this.value)" class="form-select flex-shrink-0" style="width: 10.5rem;">
+                <option>Select Categories</option>
+                <% categoryData.forEach(element=> { %>
+                  <option value="<%= element._id %>">
+                    <%= element.name %>
+                  </option>
+                  <% }); %>
+              </select>
+            </div>
+
+          </div>
+          <a class="navbar-tool d-none d-lg-flex" href="/wishlist"><span class="navbar-tool-tooltip">Wishlist</span>
+            <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-heart"></i></div>
           </a>
-              
-               
+          </a>
 
+          </a>
 
-                    <% if (isUserLogged) {%>
-                <% if (user.cart.items.length=== 0) {%>
-                  <div class="navbar-tool  ms-3"><a class="navbar-tool-icon-box bg-secondary "
-                      href="/cartmanage"><span class="navbar-tool-label" id="cartLength">
-  
-                        0
-                      </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
-                      href="/cartmanage"><small>My
-                        Cart</small> <span id="totalPrice"> ₹0</span> </a>
-                    <!-- Cart dropdown-->
-  
-                  </div>
-                  <% } else {%>
-                    <div class="navbar-tool  ms-3"><a class="navbar-tool-icon-box bg-secondary "
-                        href="/cartmanage"><span class="navbar-tool-label" id="cartLength">
-  
-                          <%= user.cart.items.length %>
-                        </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
-                        href="/cartmanage"><small>My
-                          Cart</small> <span id="totalPrice"> ₹<%= user.cart.totalPrice %></span> </a>
-                      <!-- Cart dropdown-->
-  
-                    </div>
-                    <%} %>
-                
-               <%} else {%>
-                <div class="navbar-tool  ms-3"><a class="navbar-tool-icon-box bg-secondary "
-                  href="/register"><span class="navbar-tool-label" id="cartLength">
-  
-                    ∞
+            <a class=" bg-faded-dark rounded-3 navbar-tool px-4 d-none d-lg-flex" href="/userProfile"><span
+                class="navbar-tool-tooltip">Profile</span><span class="">
+                <%= user.name %>
+              </span>
+              <div class="navbar-tool-icon-box">
+                <i class="navbar-tool-icon ci-user "></i>
+
+              </div>
+            </a>
+
+            <% if (user.cart.items.length===0) {%>
+              <div class="navbar-tool  ms-3"><a class="navbar-tool-icon-box bg-secondary " href="/cartmanage"><span
+                    class="navbar-tool-label" id="cartLength">
+
+                    0
                   </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
-                  href="/register"> </a>
+                  href="/cartmanage"><small>My
+                    Cart</small> <span id="totalPrice"> ₹0</span> </a>
                 <!-- Cart dropdown-->
-  
-              </div>
-                 <% } %>
 
-            </div>
-          </div>
-        </div>
-        <div class="navbar navbar-expand-lg navbar-light navbar-stuck-menu mt-n2 pt-0 pb-2">
-          <div class="container">
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-              <!-- Search-->
-              <div class="input-group d-lg-none my-3"><i
-                  class="ci-search position-absolute top-50 start-0 translate-middle-y text-muted fs-base ms-3"></i>
-                <input class="form-control rounded-start" type="text" placeholder="Search for products">
               </div>
-              <!-- Departments menu-->
-              
-              <!-- Primary menu-->
-              <ul class="navbar-nav">
-                <li class="nav-item active"><a class="nav-link" href="/home"
-                    >Home</a>
-                  
-                </li>
-                <li class="nav-item "><a class="nav-link " href="/productlist"
-                  
-                    >Shop</a>
-                  , 
-                </li>
-                <li class="nav-item dropdown"><a class="nav-link " href="/userProfile" 
-                    data-bs-auto-close="outside">Account</a>
-                  
-                </li>
-                <li class="nav-item dropdown"><a class="nav-link " href="/wishlist" 
-                    data-bs-auto-close="outside">Wishlist</a>
-                  
-                </li>
+              <% } else {%>
+                <div class="navbar-tool  ms-3"><a class="navbar-tool-icon-box bg-secondary " href="/cartmanage"><span
+                      class="navbar-tool-label" id="cartLength">
+
+                      <%= user.cart.items.length %>
+                    </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
+                    href="/cartmanage"><small>My
+                      Cart</small> <span id="totalPrice"> ₹<%= user.cart.totalPrice %></span> </a>
+                  <!-- Cart dropdown-->
+
+                </div>
+                <%} %>
+
                 
-              </ul>
-            </div>
+
+
+        </div>
+      </div>
+      </div>
+      <div class="navbar navbar-expand-lg navbar-light navbar-stuck-menu mt-n2 pt-0 pb-2">
+        <div class="container">
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <!-- Search-->
+
+            <!-- Departments menu-->
+
+            <!-- Primary menu-->
+            <ul class="navbar-nav">
+              <li class="nav-item active"><a class="nav-link" href="/home">Home</a>
+
+              </li>
+              <li class="nav-item "><a class="nav-link " href="/productlist">Shop</a>
+                ,
+              </li>
+              <li class="nav-item dropdown"><a class="nav-link " href="/userProfile"
+                  data-bs-auto-close="outside">Account</a>
+
+              </li>
+              <li class="nav-item dropdown"><a class="nav-link " href="/wishlist"
+                  data-bs-auto-close="outside">Wishlist</a>
+
+              </li>
+
+            </ul>
           </div>
         </div>
+      </div>
       </div>
     </header>
     <!-- Page Title-->

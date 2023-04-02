@@ -135,44 +135,72 @@
                 class="navbar-tool navbar-stuck-toggler" href="#"><span class="navbar-tool-tooltip">Expand menu</span>
                 <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-menu"></i></div>
               </a>
-              <div class="input-group d-none d-lg-flex flex-nowrap mx-4"><i
-                  class="ci-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+              <div class="input-group d-none d-lg-flex flex-nowrap mx-4"><i class="ci-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
                 <input class="form-control rounded-start w-100" type="text" placeholder="Search for products">
+                <select onchange="categoryFilter(this.value)" class="form-select flex-shrink-0" style="width: 10.5rem;">
+                  <option value="all">All categories</option>
+                  <% categoryData.forEach(element => { %>
+                    <option value="<%= element._id %>"><%= element.name %></option>
+                  <% }); %>
+                </select>
               </div>
               <a class="navbar-tool d-none d-lg-flex" href="/wishlist"><span class="navbar-tool-tooltip">Wishlist</span>
                 <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-heart"></i></div>
               </a>
               </a>
 
-              </a><a class="navbar-tool d-none d-lg-flex" href="/userProfile"><span
-                  class="navbar-tool-tooltip">Profile</span>
-                <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-user"></i></div>
               </a>
-
-
-              <% if (user.cart.items.length=== 0) {%>
-                <div class="navbar-tool dropdown ms-3"><a class="navbar-tool-icon-box bg-secondary dropdown-toggle"
-                    href="/cartmanage"><span class="navbar-tool-label" id="cartLength">
-
-                      0
-                    </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
-                    href="/cartmanage"><small>My
-                      Cart</small> <span id="totalPrice"> ₹0</span> </a>
-                  <!-- Cart dropdown-->
+              <% if (isUserLogged) {%>
+              <a class=" bg-faded-dark rounded-3 navbar-tool px-4 d-none d-lg-flex" href="/userProfile"><span
+                  class="navbar-tool-tooltip">Profile</span><span class=""><%= user.name %></span>
+                <div class="navbar-tool-icon-box">
+                  <i class="navbar-tool-icon ci-user "></i>
 
                 </div>
-                <% } else {%>
-                  <div class="navbar-tool dropdown ms-3"><a class="navbar-tool-icon-box bg-secondary dropdown-toggle"
-                      href="/cartmanage"><span class="navbar-tool-label" id="cartLength">
+              </a>
 
-                        <%= user.cart.items.length %>
+                <% if (user.cart.items.length=== 0) {%>
+                  <div class="navbar-tool  ms-3"><a class="navbar-tool-icon-box bg-secondary "
+                      href="/cartmanage"><span class="navbar-tool-label" id="cartLength">
+  
+                        0
                       </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
                       href="/cartmanage"><small>My
-                        Cart</small> <span id="totalPrice"> ₹<%= user.cart.totalPrice %></span> </a>
+                        Cart</small> <span id="totalPrice"> ₹0</span> </a>
                     <!-- Cart dropdown-->
-
+  
                   </div>
-                  <%} %>
+                  <% } else {%>
+                    <div class="navbar-tool  ms-3"><a class="navbar-tool-icon-box bg-secondary "
+                        href="/cartmanage"><span class="navbar-tool-label" id="cartLength">
+  
+                          <%= user.cart.items.length %>
+                        </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
+                        href="/cartmanage"><small>My
+                          Cart</small> <span id="totalPrice"> ₹<%= user.cart.totalPrice %></span> </a>
+                      <!-- Cart dropdown-->
+  
+                    </div>
+                    <%} %>
+                
+               <%} else {%>
+                <a class=" bg-faded-dark rounded-3 navbar-tool px-4 d-none d-lg-flex" href="/userProfile"><span
+                  class="navbar-tool-tooltip">Profile</span><span class="text-dark">Login</span>
+                <div class="navbar-tool-icon-box">
+                  <i class="navbar-tool-icon ci-user "></i>
+
+                </div>
+              </a>
+                <div class="navbar-tool  ms-3"><a class="navbar-tool-icon-box bg-secondary "
+                  href="/register"><span class="navbar-tool-label" id="cartLength">
+  
+                    ∞
+                  </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
+                  href="/register"> </a>
+                <!-- Cart dropdown-->
+  
+              </div>
+                 <% } %>
 
 
             </div>
@@ -182,10 +210,7 @@
           <div class="container">
             <div class="collapse navbar-collapse" id="navbarCollapse">
               <!-- Search-->
-              <div class="input-group d-lg-none my-3"><i
-                  class="ci-search position-absolute top-50 start-0 translate-middle-y text-muted fs-base ms-3"></i>
-                <input class="form-control rounded-start" type="text" placeholder="Search for products">
-              </div>
+               
               <!-- Departments menu-->
 
               <!-- Primary menu-->
@@ -614,6 +639,11 @@
           class="text-light" href="https://createx.studio/" target="_blank" rel="noopener">Createx Studio</a></div>
     </div>
   </div>
+
+
+
+
+
   </footer>
   <!-- Toolbar for handheld devices (Default)-->
   <div class="handheld-toolbar">
@@ -631,6 +661,12 @@
       class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span><i class="btn-scroll-top-icon ci-arrow-up">
     </i></a>
   <!-- Vendor scrits: js libraries and plugins-->
+  
+  
+  
+  
+  
+  
   <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="vendor/simplebar/dist/simplebar.min.js"></script>
   <script src="vendor/tiny-slider/dist/min/tiny-slider.js"></script>
@@ -641,6 +677,10 @@
   <!-- Main theme script-->
   <script src="js/theme.min.js"></script>
   <script>
+
+const categoryFilter =(value)=>{
+res.redirect('/productlist')
+}
     const toastMixin = Swal.mixin({
       toast: true,
       icon: 'success',

@@ -161,29 +161,42 @@
                
 
 
-                    <% if (user.cart.items.length=== 0) {%>
-                <div class="navbar-tool dropdown ms-3"><a class="navbar-tool-icon-box bg-secondary dropdown-toggle"
-                    href="/cartmanage"><span class="navbar-tool-label" id="cartLength">
-
-                      0
-                    </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
-                    href="/cartmanage"><small>My
-                      Cart</small> <span id="totalPrice"> ₹0</span> </a>
-                  <!-- Cart dropdown-->
-
-                </div>
-                <% } else {%>
-                  <div class="navbar-tool dropdown ms-3"><a class="navbar-tool-icon-box bg-secondary dropdown-toggle"
+                    <% if (isUserLogged) {%>
+                <% if (user.cart.items.length=== 0) {%>
+                  <div class="navbar-tool  ms-3"><a class="navbar-tool-icon-box bg-secondary "
                       href="/cartmanage"><span class="navbar-tool-label" id="cartLength">
-
-                        <%= user.cart.items.length %>
+  
+                        0
                       </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
                       href="/cartmanage"><small>My
-                        Cart</small> <span id="totalPrice"> ₹<%= user.cart.totalPrice %></span> </a>
+                        Cart</small> <span id="totalPrice"> ₹0</span> </a>
                     <!-- Cart dropdown-->
-
+  
                   </div>
-                  <%} %>
+                  <% } else {%>
+                    <div class="navbar-tool  ms-3"><a class="navbar-tool-icon-box bg-secondary "
+                        href="/cartmanage"><span class="navbar-tool-label" id="cartLength">
+  
+                          <%= user.cart.items.length %>
+                        </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
+                        href="/cartmanage"><small>My
+                          Cart</small> <span id="totalPrice"> ₹<%= user.cart.totalPrice %></span> </a>
+                      <!-- Cart dropdown-->
+  
+                    </div>
+                    <%} %>
+                
+               <%} else {%>
+                <div class="navbar-tool  ms-3"><a class="navbar-tool-icon-box bg-secondary "
+                  href="/register"><span class="navbar-tool-label" id="cartLength">
+  
+                    ∞
+                  </span><i class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
+                  href="/register"> </a>
+                <!-- Cart dropdown-->
+  
+              </div>
+                 <% } %>
 
             </div>
           </div>

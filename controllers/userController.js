@@ -12,6 +12,7 @@ const Coupon = require("../models/coupon");
 const { ObjectId } = require("mongodb");
 const Banner = require("../models/banner");
 const session = require("express-session");
+const Category = require("../models/categoryModel");
 
 const loadRegister = async (req, res, next) => {
   try {
@@ -122,18 +123,34 @@ const loginValidate = async (req, res, next) => {
 
 const loadHome = async (req, res, next) => {
   try {
-    const productData = await Product.find();
-    const userData = await User.findOne({ _id: req.session.user._id });
     const BannerData = await Banner.find({});
-    console.log(userData);
+    const productData = await Product.find();
+    const categoryData = await Category.find();
     if (req.session.isLoggedIn) {
-      res.render("home", {
-        product: productData,
-        user: userData,
-        BannerData,
-      });
+      
+      
+
+      const userData = await User.findOne({ _id: req.session.user._id });
+
+      console.log(userData);
+     
+        res.render("home", {
+          isUserLogged: true,
+          product: productData,
+          user: userData,
+          BannerData,
+          categoryData
+        });
+     
     } else {
-      res.redirect("/login");
+                      
+      res.render("home", {
+isUserLogged: false,
+        product: productData,
+        BannerData,
+        categoryData
+        // user: userData,
+      });
     }
   } catch (error) {
     console.log(error.message);
@@ -143,12 +160,45 @@ const loadHome = async (req, res, next) => {
 
 const loadProductList = async (req, res, next) => {
   try {
-    const user = await User.findById(req.session.user).populate(
-      "cart.items.product"
-    );
+    const page = parseInt( req.query.page) -1 || 0;
+    const limit = parseInt(req.query.limit) || 5;
+    const search = req.query.search || "" ;
+    let sort = req.query.sort || '1';
+    let cat = req.query.cat || 'all';
 
-    const product = await Product.find();
-    res.render("productlist", { product, user });
+
+const categoryData = await Category.find()
+
+
+let product;
+
+if (cat === 'all') {
+  
+  sort === '2'
+  ? product = await Product.find({name: {$regex: search, $options: 'i'}}).sort({"discount": -1}).skip(page * limit)
+  : product = await Product.find({name: {$regex: search, $options: 'i'}}).sort({"discount": 1}).skip(page * limit)
+      
+} else {
+  sort === '1'
+  ? product = await Product.find({name: {$regex: search, $options: 'i'}}).where('category').equals(req.query.cat._id).sort({"discount": 1}).skip(page * limit)
+  : product = await Product.find({name: {$regex: search, $options: 'i'}}).where('category').equals(req.query.cat._id).sort({"discount": -1}).skip(page * limit)
+   
+}
+
+
+
+    console.log("pppppppppppppppppppppppp",product);
+    if (req.session.isLoggedIn) {
+      
+      const user = await User.findById(req.session.user).populate(
+        "cart.items.product"
+      );
+  
+      res.render("productlist", { product, categoryData, user, isUserLogged: true });
+    } else {
+      res.render("productlist", { product, categoryData, isUserLogged: false});
+      
+    }
   } catch (error) {
     console.log(error.message);
     next(error);
@@ -446,12 +496,17 @@ const laoduserOrderManage = async (req, res, next) => {
 };
 const loadwishlist = async (req, res, next) => {
   try {
-    const useer = await User.findById(req.session.user._id);
-    const wlData = await Wishlist.findOne({
-      userId: req.session.user._id,
-    }).populate("products");
-
-    res.render("wishlist", { user: useer, wlData: wlData });
+    if (req.session.isLoggedIn) {
+      
+      const useer = await User.findById(req.session.user._id);
+      const wlData = await Wishlist.findOne({
+        userId: req.session.user._id,
+      }).populate("products");
+  
+      res.render("wishlist", { user: useer, wlData: wlData });
+    } else {
+      res.redirect('/register')
+    }
   } catch (error) {
     console.log(error.message);
     next(error);
@@ -667,10 +722,23 @@ const checkCoupon = async (req, res, next) => {
     console.log(error.message);
     next(error);
   }
+
 };
+const pagination = (req, res, next)=>{
+  try {
+    const page = parseInt(req.query.page) -1 || 0;
+
+
+
+
+  } catch (error) {
+    next(error)
+  }
+}
 
 
 module.exports = {
+  pagination,
   checkCoupon,
   loadOrderFailed,
   verifyPayement,

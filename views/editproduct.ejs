@@ -133,7 +133,7 @@
                   <label class="form-label" for="unp-product-name">Select Category</label>
                   <select name="category" class="form-select me-2" id="unp-category" required >
                     
-                 <option ><%= product.category %></option>
+                 <option ><%= product.category.name %></option>
                        <% category.forEach(element => {%> 
 
                         <option value="<%= element._id %>" > <%= element.name %>  </option>
